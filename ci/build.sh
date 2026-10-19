@@ -65,8 +65,8 @@ elif [[ ! -f .aera-source-lock ]] || [[ $(cat .aera-source-lock) != "$source_loc
         du -sh .repo prebuilts
         # repo's worktree initializer hides the underlying read-tree failure.
         # Repeat affected tool checkouts directly so the Git error is visible.
-        for diagnostic_project in prebuilts/rust prebuilts/sdk; do
-            if [[ "$diagnostic_project" == prebuilts/rust ]]; then
+        for diagnostic_project in prebuilts/clang/host/linux-x86 prebuilts/rust prebuilts/sdk; do
+            if [[ "$diagnostic_project" != prebuilts/sdk ]]; then
                 bash "$device_repo/ci/run-with-capacity.sh" timeout --kill-after=30s 30m python3 \
                     "$device_repo/tools/complete_snapshot.py" "$build_root" "$diagnostic_project" --require-full --revision "refs/tags/$aosp_revision"
             fi

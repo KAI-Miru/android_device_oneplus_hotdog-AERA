@@ -148,6 +148,7 @@ jobs:
           fi
       - name: Build and verify native AERA boot image
         working-directory: ${{ steps.inputs.outputs.path }}
+        shell: bash
         run: bash ci/build.sh 2>&1 | tee "$AERA_ARTIFACT_DIR/session.log"
       - name: Upload verified device-test image
         if: success()

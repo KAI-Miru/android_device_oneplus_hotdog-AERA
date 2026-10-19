@@ -93,6 +93,17 @@ class CheckoutTests(unittest.TestCase):
             self.assertTrue((tree / '36/public/android.jar').is_file())
             self.assertFalse((tree / '35').exists())
 
+    def test_clang_fetch_is_complete_while_checkout_remains_sparse(self):
+        with tempfile.TemporaryDirectory() as directory:
+            manifest = Path(directory) / 'manifest.xml'
+            manifest.write_text('<manifest>'
+                '<project name="platform/prebuilts/clang/host/linux-x86" path="prebuilts/clang/host/linux-x86"/>'
+                '<project name="platform/prebuilts/sdk" path="prebuilts/sdk"/>'
+                '</manifest>')
+            self.assertEqual(exclusions(manifest), 'platform/prebuilts/clang/host/linux-x86')
+            self.assertIn('clang-r547379', SPARSE_PREBUILTS['prebuilts/clang/host/linux-x86'])
+            self.assertIn('clang-r530567', SPARSE_PREBUILTS['prebuilts/clang/host/linux-x86'])
+
     def test_manifest_implicit_paths_do_not_break_filter_selection(self):
         with tempfile.TemporaryDirectory() as directory:
             manifest = Path(directory) / 'manifest.xml'

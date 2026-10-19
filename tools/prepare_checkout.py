@@ -27,10 +27,16 @@ SPARSE_PREBUILTS = {
 # files can supply plugins/defaults even when their test targets are not built.
 FULL_SOURCE_PROJECTS = ('cts', 'prebuilts/rust')
 
+# Fetch Clang as one complete pack. Lazy blob downloads during repo's
+# worktree initialization fail on this large toolchain; sparse checkout still
+# limits the versions installed on disk, and compaction drops unused objects.
+FULL_FETCH_PREBUILTS = {'prebuilts/clang/host/linux-x86'}
+
 
 def exclusions(manifest):
     return ','.join(p.attrib['name'] for p in ET.parse(manifest).getroot().findall('project')
-                    if p.attrib.get('path', p.attrib['name']) not in SPARSE_PREBUILTS)
+                    if p.attrib.get('path', p.attrib['name']) not in SPARSE_PREBUILTS
+                    or p.attrib.get('path', p.attrib['name']) in FULL_FETCH_PREBUILTS)
 
 
 def configure(source_root):
