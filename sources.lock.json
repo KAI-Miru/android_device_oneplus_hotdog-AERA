@@ -98,7 +98,7 @@
       "remote": "AERA",
       "url": "https://github.com/AERA-Recovery/android_external_libfuse.git",
       "branch": "aera-16.0",
-      "commit": "5705a51c5b2971ba56d8e1a145abf530b49de93d"
+      "commit": "7f7699ac1ff466c5580b1f31fc938688236972d0"
     },
     {
       "path": "external/libncurses",
