@@ -21,12 +21,22 @@ runs:
         IMAGE_URL: ${{ inputs.url }}
         IMAGE_SHA256: ${{ inputs.sha256 }}
         BUILD_INPUTS: ${{ inputs.build_inputs }}
+        GH_TOKEN: ${{ github.token }}
       run: |
         [[ "$IMAGE_URL" = https://* ]]
         [[ "$IMAGE_SHA256" =~ ^[0-9a-f]{64}$ ]]
         mkdir -p "$BUILD_INPUTS/external-inputs"
         image="$BUILD_INPUTS/external-inputs/Image"
-        curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' "$IMAGE_URL" -o "$image"
+        download="$BUILD_INPUTS/external-inputs/kernel-download"
+        if [[ "$IMAGE_URL" == https://api.github.com/repos/KAI-Miru/android_kernel_oneplus_sm8150/actions/artifacts/*/zip ]]; then
+          curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' \
+            -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "$IMAGE_URL" -o "$download"
+        else
+          curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' "$IMAGE_URL" -o "$download"
+        fi
+        python3 runner/ci/select_kernel_input.py "$download" "$image" --sha256 "$IMAGE_SHA256"
+        rm -f -- "$download"
         printf '%s  %s\n' "$IMAGE_SHA256" "$image" | sha256sum --check -
         python3 "$BUILD_INPUTS/tools/kernel_input.py" "$image" --sha256 "$IMAGE_SHA256" \
           --module-manifest "$BUILD_INPUTS/modules/manifest.json" \

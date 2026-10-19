@@ -50,6 +50,7 @@ on:
         default: '4'
 
 permissions:
+  actions: read
   contents: read
   packages: write
 
@@ -70,6 +71,7 @@ jobs:
     runs-on: ${{ vars.AERA_BUILD_RUNNER || 'ubuntu-22.04' }}
     timeout-minutes: 360
     permissions:
+      actions: read
       contents: read
       packages: read
     env:
@@ -173,6 +175,7 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 360
     permissions:
+      actions: read
       contents: read
       packages: write
     env:

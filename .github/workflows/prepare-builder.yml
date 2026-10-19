@@ -34,6 +34,7 @@ on:
         type: string
         default: ci-runner
 permissions:
+  actions: read
   contents: read
   packages: write
 

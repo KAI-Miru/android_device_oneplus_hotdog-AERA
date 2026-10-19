@@ -13,7 +13,7 @@ HOST_TOOLS = {'prepare_manifest.py', 'prepare_checkout.py', 'prepare_build.py',
 HOST_TESTS = {'test_build_cache.py', 'test_build_kernel_preflight.py', 'test_capacity.py', 'test_checkout.py',
               'test_compact.py', 'test_environment.py', 'test_manifest.py',
               'test_prepared_snapshot.py', 'test_repair.py', 'test_restore.py', 'test_snapshot.py',
-              'test_assembly.py', 'test_compiled_checkpoint.py', 'test_hotdog_target.py'}
+              'test_assembly.py', 'test_compiled_checkpoint.py', 'test_hotdog_target.py', 'test_kernel_archive.py'}
 
 def git(root, *args):
     return subprocess.check_output(['git', '-C', str(root), *args])
