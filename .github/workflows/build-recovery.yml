@@ -2,6 +2,10 @@ name: Hotdog native AERA recovery
 
 on:
   workflow_call:
+    secrets:
+      AERA_KERNEL_ARTIFACT_URL:
+        description: Private HTTPS download URL for the approved kernel input
+        required: false
     inputs:
       device_ref:
         type: string
@@ -75,6 +79,7 @@ jobs:
       contents: read
       packages: read
     env:
+      KERNEL_INPUT_URL: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
       BUILD_JOBS: ${{ inputs.build_jobs }}
       AERA_DEVICE_REVISION: ${{ needs.validate.outputs.device_revision }}
     steps:
@@ -89,7 +94,7 @@ jobs:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
         with:
-          url: ${{ inputs.kernel_url }}
+          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
           sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space
@@ -179,6 +184,7 @@ jobs:
       contents: read
       packages: write
     env:
+      KERNEL_INPUT_URL: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
       BUILD_JOBS: ${{ inputs.build_jobs }}
       PREPARED_BUILDER: ${{ vars.AERA_PREPARED_BUILDER }}
     steps:
@@ -192,9 +198,9 @@ jobs:
         with:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
-        if: inputs.kernel_url != ''
+        if: env.KERNEL_INPUT_URL != ''
         with:
-          url: ${{ inputs.kernel_url }}
+          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
           sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space

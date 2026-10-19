@@ -2,6 +2,10 @@ name: Prepare private AERA builder
 
 on:
   workflow_call:
+    secrets:
+      AERA_KERNEL_ARTIFACT_URL:
+        description: Private HTTPS download URL for the approved kernel input
+        required: false
     inputs:
       device_ref:
         type: string
@@ -65,7 +69,7 @@ jobs:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
         with:
-          url: ${{ inputs.kernel_url }}
+          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
           sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space
