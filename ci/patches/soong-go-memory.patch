@@ -1,0 +1,16 @@
+--- a/ui/build/soong.go
++++ b/ui/build/soong.go
+@@ -214,6 +214,13 @@
+ 
+ 	commonArgs = append(commonArgs, "-l", filepath.Join(pb.config.FileListDir(), "Android.bp.list"))
+ 	invocationEnv := make(map[string]string)
++	// Preserve Go memory controls through the hermetic builder launcher.
++	// These affect the build tool's heap, not generated Android artifacts.
++	for _, name := range []string{"GOGC", "GOMEMLIMIT"} {
++		if value, ok := config.Environment().Get(name); ok {
++			invocationEnv[name] = value
++		}
++	}
+ 	if pb.debugPort != "" {
+ 		//debug mode
+ 		commonArgs = append(commonArgs, "--delve_listen", pb.debugPort,

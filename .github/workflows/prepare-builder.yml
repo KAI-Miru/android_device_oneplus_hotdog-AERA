@@ -1,0 +1,178 @@
+name: Prepare private AERA builder
+
+on:
+  workflow_call:
+    inputs:
+      device_ref:
+        type: string
+        required: true
+      kernel_url:
+        type: string
+        required: true
+      kernel_sha256:
+        type: string
+        required: true
+      runner_ref:
+        type: string
+        default: ci-runner
+  workflow_dispatch:
+    inputs:
+      device_ref:
+        description: Device branch, tag or commit
+        type: string
+        default: main
+      kernel_url:
+        description: HTTPS URL of a compatible ARM64 Image
+        type: string
+        required: true
+      kernel_sha256:
+        description: SHA256 of the supplied Image
+        type: string
+        required: true
+      runner_ref:
+        description: Runner branch, tag or commit
+        type: string
+        default: ci-runner
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: aera-hotdog-prepare
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-device.yml
+    with:
+      device_ref: ${{ inputs.device_ref }}
+      runner_ref: ${{ inputs.runner_ref }}
+
+  prepare:
+    needs: validate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ needs.validate.outputs.runner_revision }}
+          path: runner
+          persist-credentials: false
+      - uses: ./runner/.github/actions/assemble
+        id: inputs
+        with:
+          device_ref: ${{ needs.validate.outputs.device_revision }}
+      - uses: ./runner/.github/actions/supply-image
+        with:
+          url: ${{ inputs.kernel_url }}
+          sha256: ${{ inputs.kernel_sha256 }}
+          build_inputs: ${{ steps.inputs.outputs.path }}
+      - name: Free hosted-runner disk space
+        uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: false
+      - name: Prepare build capacity
+        run: |
+          echo "DOCKER_CONFIG=$RUNNER_TEMP/docker-auth" >> "$GITHUB_ENV"
+          sudo rm -rf /usr/share/swift /usr/local/swift /usr/local/lib/node_modules /usr/local/share/powershell /usr/local/share/chromium /opt/az /opt/google /opt/microsoft /usr/lib/jvm
+          sudo rm -rf "$HOME/.rustup" "$HOME/.cargo" "$HOME/.cache"
+          sudo fallocate -l 8G "$RUNNER_TEMP/aera-swap"
+          sudo chmod 0600 "$RUNNER_TEMP/aera-swap"
+          sudo mkswap "$RUNNER_TEMP/aera-swap"
+          sudo swapon "$RUNNER_TEMP/aera-swap"
+          df -h "$RUNNER_TEMP"
+          mkdir -p "$RUNNER_TEMP/aera-artifacts" "$RUNNER_TEMP/docker-auth"
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069
+      - name: Require a private package destination
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          package_file="$RUNNER_TEMP/package-before.json"
+          status=$(curl --silent --show-error --output "$package_file" --write-out '%{http_code}' \
+            -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
+            "https://api.github.com/users/$OWNER/packages/container/hotdog-aera-builder")
+          if [[ "$status" = 200 ]]; then
+            python3 - "$package_file" <<'PY'
+          import json, os, sys
+          p = json.load(open(sys.argv[1]))
+          assert p['visibility'] == 'private', 'Existing package is not private'
+          assert p.get('repository', {}).get('full_name') == os.environ['REPOSITORY'], 'Package belongs to another repository'
+          PY
+          elif [[ "$status" != 404 ]]; then
+            echo "Cannot establish package visibility (HTTP $status)" >&2
+            exit 1
+          fi
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$OWNER" --password-stdin
+      - name: Build and verify the prepared environment
+        working-directory: ${{ steps.inputs.outputs.path }}
+        env:
+          DEVICE_REVISION: ${{ needs.validate.outputs.device_revision }}
+        run: |
+          set -euo pipefail
+          fingerprint=$(python3 tools/environment_fingerprint.py)
+          echo "ENVIRONMENT_FINGERPRINT=$fingerprint" >> "$GITHUB_ENV"
+          docker buildx build --progress=plain --platform=linux/amd64 --provenance=false \
+            --file ci/Builder.Dockerfile --target artifacts \
+            --build-arg "DEVICE_REVISION=$DEVICE_REVISION" \
+            --build-arg "ENVIRONMENT_FINGERPRINT=$fingerprint" \
+            --output "type=local,dest=$RUNNER_TEMP/aera-artifacts" . \
+            2>&1 | tee "$RUNNER_TEMP/aera-artifacts/preparation-build.log"
+      - name: Upload verified device-test image
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: hotdog-native-AERA-ALPHA-DEVICE-TEST
+          path: |
+            ${{ runner.temp }}/aera-artifacts/AERA-hotdog-ALPHA-recovery.img
+            ${{ runner.temp }}/aera-artifacts/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 14
+      - name: Publish the private prepared environment
+        working-directory: ${{ steps.inputs.outputs.path }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DEVICE_REVISION: ${{ needs.validate.outputs.device_revision }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          image="ghcr.io/${OWNER,,}/hotdog-aera-builder"
+          docker buildx build --progress=plain --platform=linux/amd64 --provenance=false \
+            --file ci/Builder.Dockerfile --target prepared \
+            --build-arg "DEVICE_REVISION=$DEVICE_REVISION" \
+            --build-arg "ENVIRONMENT_FINGERPRINT=$ENVIRONMENT_FINGERPRINT" \
+            --metadata-file "$RUNNER_TEMP/aera-artifacts/builder-metadata.json" \
+            --output "type=image,name=$image:env-$ENVIRONMENT_FINGERPRINT,push=true,compression=zstd,compression-level=5,oci-mediatypes=true" . \
+            2>&1 | tee "$RUNNER_TEMP/aera-artifacts/preparation-publish.log"
+          export PREPARED_IMAGE="$image"
+          python3 - "$RUNNER_TEMP/aera-artifacts" <<'PY'
+          import json, os, pathlib, sys
+          root = pathlib.Path(sys.argv[1])
+          digest = json.loads((root / 'builder-metadata.json').read_text())['containerimage.digest']
+          reference = os.environ['PREPARED_IMAGE'] + '@' + digest
+          (root / 'prepared-builder.json').write_text(json.dumps({
+              'image': reference, 'fingerprint': os.environ['ENVIRONMENT_FINGERPRINT'],
+              'device_revision': os.environ['DEVICE_REVISION'],
+          }, indent=2) + '\n')
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as report:
+              report.write('Private prepared builder: `' + reference + '`\n')
+          PY
+          gh api "users/$OWNER/packages/container/hotdog-aera-builder" --jq '.visibility' | grep -Fx private
+      - name: Upload preparation metadata and diagnostics
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: hotdog-prepared-builder-metadata
+          path: |
+            ${{ runner.temp }}/aera-artifacts/*.json
+            ${{ runner.temp }}/aera-artifacts/*.log
+            ${{ runner.temp }}/aera-artifacts/*.xml
+            ${{ runner.temp }}/aera-artifacts/*.txt
+          if-no-files-found: ignore
+          retention-days: 14

@@ -1,0 +1,23 @@
+name: Runner checks
+
+on:
+  push:
+    branches: [ci-runner]
+  pull_request:
+    branches: [ci-runner]
+  workflow_dispatch:
+    inputs:
+      device_ref:
+        description: Device branch, tag or commit to validate
+        type: string
+        default: main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate-device.yml
+    with:
+      device_ref: ${{ inputs.device_ref || 'main' }}
+      runner_ref: ${{ github.sha }}

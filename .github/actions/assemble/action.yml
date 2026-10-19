@@ -1,0 +1,38 @@
+name: Assemble build inputs
+description: Resolve the device ref and combine it with the checked-out runner tools
+
+inputs:
+  device_ref:
+    description: Device branch, tag or commit
+    required: true
+
+outputs:
+  path:
+    description: Build input directory
+    value: ${{ steps.assemble.outputs.path }}
+  device_revision:
+    description: Resolved device commit
+    value: ${{ steps.assemble.outputs.device_revision }}
+  runner_revision:
+    description: Resolved runner commit
+    value: ${{ steps.assemble.outputs.runner_revision }}
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        ref: ${{ inputs.device_ref }}
+        path: device
+        persist-credentials: false
+    - name: Assemble selected revisions
+      id: assemble
+      shell: bash
+      run: |
+        build_inputs="$RUNNER_TEMP/hotdog-build-inputs"
+        python3 runner/ci/assemble_inputs.py --device device --runner runner --output "$build_inputs"
+        mkdir -p "$RUNNER_TEMP/aera-artifacts"
+        cp "$build_inputs/assembly-metadata.json" "$RUNNER_TEMP/aera-artifacts/build-inputs.json"
+        echo "path=$build_inputs" >> "$GITHUB_OUTPUT"
+        echo "device_revision=$(git -C device rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        echo "runner_revision=$(git -C runner rev-parse HEAD)" >> "$GITHUB_OUTPUT"

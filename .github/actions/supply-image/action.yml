@@ -1,0 +1,34 @@
+name: Supply ARM64 Image
+description: Download and verify the caller-supplied build input
+
+inputs:
+  url:
+    description: HTTPS URL
+    required: true
+  sha256:
+    description: Expected SHA256
+    required: true
+  build_inputs:
+    description: Assembled build input directory
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Download and verify Image
+      shell: bash
+      env:
+        IMAGE_URL: ${{ inputs.url }}
+        IMAGE_SHA256: ${{ inputs.sha256 }}
+        BUILD_INPUTS: ${{ inputs.build_inputs }}
+      run: |
+        [[ "$IMAGE_URL" = https://* ]]
+        [[ "$IMAGE_SHA256" =~ ^[0-9a-f]{64}$ ]]
+        mkdir -p "$BUILD_INPUTS/external-inputs"
+        image="$BUILD_INPUTS/external-inputs/Image"
+        curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' "$IMAGE_URL" -o "$image"
+        printf '%s  %s\n' "$IMAGE_SHA256" "$image" | sha256sum --check -
+        python3 "$BUILD_INPUTS/tools/kernel_input.py" "$image" --sha256 "$IMAGE_SHA256" \
+          --module-manifest "$BUILD_INPUTS/modules/manifest.json" \
+          --report "$RUNNER_TEMP/aera-artifacts/kernel-input.json"
+        echo "AERA_PREBUILT_KERNEL=$image" >> "$GITHUB_ENV"

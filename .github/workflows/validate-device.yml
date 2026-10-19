@@ -1,0 +1,75 @@
+name: Validate device and runner inputs
+
+on:
+  workflow_call:
+    inputs:
+      device_ref:
+        type: string
+        required: true
+      runner_ref:
+        type: string
+        default: ci-runner
+    outputs:
+      device_revision:
+        value: ${{ jobs.validate.outputs.device_revision }}
+      runner_revision:
+        value: ${{ jobs.validate.outputs.runner_revision }}
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    outputs:
+      device_revision: ${{ steps.inputs.outputs.device_revision }}
+      runner_revision: ${{ steps.inputs.outputs.runner_revision }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: ${{ inputs.runner_ref }}
+          path: runner
+          persist-credentials: false
+      - uses: ./runner/.github/actions/assemble
+        id: inputs
+        with:
+          device_ref: ${{ inputs.device_ref }}
+      - name: Install inspection dependencies
+        working-directory: ${{ steps.inputs.outputs.path }}
+        run: python3 -m pip install -r tools/requirements.txt
+      - name: Check device and runner inputs
+        working-directory: ${{ steps.inputs.outputs.path }}
+        run: |
+          python3 tools/verify_tree.py
+          python3 -m unittest discover -s tests -v
+          for script in ci/*.sh recovery/root/system/bin/*.sh vendorsetup.sh; do bash -n "$script"; done
+          git -C "$GITHUB_WORKSPACE/device" diff --check
+          git -C "$GITHUB_WORKSPACE/runner" diff --check
+      - name: Check the pinned recovery fork regressions
+        working-directory: ${{ steps.inputs.outputs.path }}
+        run: |
+          source="$RUNNER_TEMP/recovery-source"
+          url=$(python3 -c 'import json; print(next(p["url"] for p in json.load(open("sources.lock.json"))["projects"] if p["path"] == "bootable/recovery"))')
+          revision=$(python3 -c 'import json; print(next(p["commit"] for p in json.load(open("sources.lock.json"))["projects"] if p["path"] == "bootable/recovery"))')
+          git init "$source"
+          git -C "$source" remote add origin "$url"
+          git -C "$source" fetch --depth=1 origin "$revision"
+          git -C "$source" checkout --detach FETCH_HEAD
+          for test in reboot_handoff fastbootd_capability recovery_staging; do
+            PYTHONDONTWRITEBYTECODE=1 python3 "$source/aeraui/tests/${test}_test.py"
+          done
+          g++ -std=c++17 -Wall -Wextra -Werror "$source/aeraui/tests/required_gpu_libraries_test.cpp" -o "$RUNNER_TEMP/gpu-runtime-test"
+          "$RUNNER_TEMP/gpu-runtime-test"
+      - name: Check workflow syntax
+        env:
+          ACTIONLINT_VERSION: 1.7.12
+        run: |
+          cd "$RUNNER_TEMP"
+          release="https://github.com/rhysd/actionlint/releases/download/v$ACTIONLINT_VERSION"
+          curl --fail --location --retry 3 "$release/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz" -o actionlint.tar.gz
+          curl --fail --location --retry 3 "$release/actionlint_${ACTIONLINT_VERSION}_checksums.txt" -o actionlint-checksums.txt
+          expected=$(awk '/linux_amd64.tar.gz$/ {print $1}' actionlint-checksums.txt)
+          printf '%s  actionlint.tar.gz\n' "$expected" | sha256sum --check -
+          tar -xzf actionlint.tar.gz actionlint
+          ./actionlint -shellcheck= "$GITHUB_WORKSPACE/device"/.github/workflows/*.yml "$GITHUB_WORKSPACE/runner"/.github/workflows/*.yml

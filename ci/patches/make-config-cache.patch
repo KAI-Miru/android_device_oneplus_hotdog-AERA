@@ -1,0 +1,15 @@
+--- a/core/soong_config.mk
++++ b/core/soong_config.mk
+@@ -605,7 +605,11 @@
+ 
+ $(file >$(SOONG_VARIABLES).tmp,$(json_contents))
+ 
+-$(shell mv $(SOONG_VARIABLES).tmp $(SOONG_VARIABLES);)
++$(shell if ! cmp -s $(SOONG_VARIABLES).tmp $(SOONG_VARIABLES); then \
++	  mv $(SOONG_VARIABLES).tmp $(SOONG_VARIABLES); \
++	else \
++	  rm $(SOONG_VARIABLES).tmp; \
++	fi)
+ 
+ include $(BUILD_SYSTEM)/soong_extra_config.mk
+ 
