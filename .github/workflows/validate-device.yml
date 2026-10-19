@@ -61,6 +61,8 @@ jobs:
           done
           g++ -std=c++17 -Wall -Wextra -Werror "$source/aeraui/tests/required_gpu_libraries_test.cpp" -o "$RUNNER_TEMP/gpu-runtime-test"
           "$RUNNER_TEMP/gpu-runtime-test"
+      - name: Check runner workflow failure handling
+        run: python3 runner/tests/test_workflow_pipeline.py
       - name: Check workflow syntax
         env:
           ACTIONLINT_VERSION: 1.7.12
