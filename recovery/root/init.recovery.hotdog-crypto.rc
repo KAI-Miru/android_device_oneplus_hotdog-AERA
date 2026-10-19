@@ -1,0 +1,28 @@
+# The official hotdog crypto blobs live beside AERA's native platform
+# providers. Keep them selected when graphics keeps the installed vendor
+# mounted. These are standard Qualcomm init services, without an adapter.
+service qseecomd /system/bin/qseecomd
+    override
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib:/sbin
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service keymaster-4-0-qti /system/bin/android.hardware.keymaster@4.0-service-qti
+    override
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib:/sbin
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service gatekeeper-1-0-qti /system/bin/android.hardware.gatekeeper@1.0-service-qti
+    override
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib:/sbin
+    disabled
+    seclabel u:r:recovery:s0

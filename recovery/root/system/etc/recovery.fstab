@@ -1,0 +1,30 @@
+# Android recovery fstab for Hotdog's dynamic A/B layout.
+#
+# The table is intentionally limited to verified useful partitions. The real
+# ColorOS my_* partitions not needed by recovery remain hidden, stock init owns
+# /mnt/vendor/persist, and the ext4/EROFS pairs support mixed ROM layouts.
+
+#<src>                   <mnt_point>       <type>  <mnt_flags>                <fs_mgr_flags>
+system                   /system           ext4    ro,barrier=1,discard       wait,slotselect,logical
+system_ext               /system_ext       ext4    ro,barrier=1,discard       wait,slotselect,logical
+system_ext               /system_ext       erofs   ro                         wait,slotselect,logical
+product                  /product          ext4    ro,barrier=1,discard       wait,slotselect,logical
+product                  /product          erofs   ro                         wait,slotselect,logical
+vendor                   /vendor           ext4    ro,barrier=1,discard       wait,slotselect,logical
+vendor                   /vendor           erofs   ro                         wait,slotselect,logical
+odm                      /odm              ext4    ro,barrier=1,discard       wait,slotselect,logical
+odm                      /odm              erofs   ro                         wait,slotselect,logical
+my_product               /my_product       ext4    ro,barrier=1,discard       wait,slotselect,logical
+my_product               /my_product       erofs   ro                         wait,slotselect,logical
+my_engineering           /my_engineering   ext4    ro,barrier=1,discard       wait,slotselect,logical
+my_engineering           /my_engineering   erofs   ro                         wait,slotselect,logical
+
+/dev/block/bootdevice/by-name/metadata  /metadata  ext4  noatime,nosuid,nodev,discard  wait,check,formattable
+# OnePlus formats the real op2 partition as ext4 and uses it for recovery cache.
+/dev/block/bootdevice/by-name/op2       /cache     ext4  noatime,nosuid,nodev,barrier=1,data=ordered  wait,check
+/dev/block/bootdevice/by-name/userdata  /data      ext4  noatime,nosuid,nodev,barrier=1,noauto_da_alloc,discard,inlinecrypt  wait,check,formattable,fileencryption=ice,keydirectory=/metadata/vold/metadata_encryption,quota
+
+# update_engine requires misc to discover the boot device.
+/dev/block/bootdevice/by-name/misc      /misc      emmc  defaults  defaults
+/dev/block/bootdevice/by-name/boot      /boot      emmc  defaults  slotselect
+/dev/block/bootdevice/by-name/recovery  /recovery  emmc  defaults  slotselect

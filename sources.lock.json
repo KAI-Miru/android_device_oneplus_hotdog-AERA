@@ -1,0 +1,360 @@
+{
+  "manifest_url": "https://github.com/AERA-Recovery/android_manifest.git",
+  "manifest_branch": "aera-16.0",
+  "manifest_commit": "4b0611ad62c1dbb6990ab129769591d137e6ad79",
+  "aosp_revision": "android-16.0.0_r1",
+  "projects": [
+    {
+      "path": "bionic",
+      "name": "android_bionic",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_bionic.git",
+      "branch": "aera-16.0",
+      "commit": "33fcbd9974be3b3b2899a484f8c0cb8dfa2d5e82"
+    },
+    {
+      "path": "bootable/recovery",
+      "name": "android_bootable_recovery",
+      "remote": "Miru",
+      "url": "https://github.com/KAI-Miru/android_bootable_recovery.git",
+      "branch": "miru",
+      "commit": "06aa34cccd95a376605fc55242f5c1c97f8665cf"
+    },
+    {
+      "path": "build/make",
+      "name": "android_build_make",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_build_make.git",
+      "branch": "aera-16.0",
+      "commit": "9ea39bac95207bb4e50ead258a64244977f31cf7"
+    },
+    {
+      "path": "build/soong",
+      "name": "android_build_soong",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_build_soong.git",
+      "branch": "aera-16.0",
+      "commit": "6dc77879464584ef3f178cae622134ed0bf19e1e"
+    },
+    {
+      "path": "cts",
+      "name": "android_cts",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_cts.git",
+      "branch": "aera-16.0",
+      "commit": "b0dca6045d7b3d794699cea10a49ef1fa0358cfb"
+    },
+    {
+      "path": "device/qcom/twrp-common",
+      "name": "android_device_qcom_twrp-common",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_device_qcom_twrp-common.git",
+      "branch": "aera-16.0",
+      "commit": "98506f7919102378c8d52ee7d6a94a867f1b4c55"
+    },
+    {
+      "path": "external/aeracli",
+      "name": "android_external_aeracli",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_aeracli.git",
+      "branch": "aera-16.0",
+      "commit": "7ad3df32d2ac3bf25853448c80bb3d8a241a68e1"
+    },
+    {
+      "path": "external/bash",
+      "name": "android_external_bash",
+      "remote": "LineageOS",
+      "url": "https://github.com/LineageOS/android_external_bash.git",
+      "branch": "lineage-22.2",
+      "commit": "1094f161361ad75af92c968da680f2f5b3cf752b"
+    },
+    {
+      "path": "external/icu",
+      "name": "android_external_icu",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_icu.git",
+      "branch": "aera-16.0",
+      "commit": "6fefff4e125c1b1a332fbce6d0d2da323b203865"
+    },
+    {
+      "path": "external/json-c",
+      "name": "android_external_json-c",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_json-c.git",
+      "branch": "aera-16.0",
+      "commit": "79a8ff67c9ec24770b0aacf22ed779a94b1937c9"
+    },
+    {
+      "path": "external/libchrome",
+      "name": "android_external_libchrome",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libchrome.git",
+      "branch": "aera-16.0",
+      "commit": "ea5e82b2c1b9e741903be0dcdaf66af60b23c951"
+    },
+    {
+      "path": "external/libfuse",
+      "name": "android_external_libfuse",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libfuse.git",
+      "branch": "aera-16.0",
+      "commit": "5705a51c5b2971ba56d8e1a145abf530b49de93d"
+    },
+    {
+      "path": "external/libncurses",
+      "name": "android_external_libncurses",
+      "remote": "LineageOS",
+      "url": "https://github.com/LineageOS/android_external_libncurses.git",
+      "branch": "lineage-22.2",
+      "commit": "cf8d1a3f3b0ab6f9385c3361e1aada7ecc635ad6"
+    },
+    {
+      "path": "external/libsmb2",
+      "name": "android_external_libsmb2",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libsmb2.git",
+      "branch": "aera-16.0",
+      "commit": "d2e53b65d3c19775f3651b30dd4cad582a4c6f2b"
+    },
+    {
+      "path": "external/libssh2",
+      "name": "android_external_libssh2",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libssh2.git",
+      "branch": "aera-16.0",
+      "commit": "c9a3659ff79e540ea767357a29d7574976e9c5a9"
+    },
+    {
+      "path": "external/libuv",
+      "name": "android_external_libuv",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libuv.git",
+      "branch": "aera-16.0",
+      "commit": "7c3aedb62ef4b369d41b91d8a6712ebb8fe427a2"
+    },
+    {
+      "path": "external/libvterm",
+      "name": "android_external_libvterm",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libvterm.git",
+      "branch": "aera-16.0",
+      "commit": "19d04214c6f276f5eae6f7bcdc1794b7dccf84bd"
+    },
+    {
+      "path": "external/libwebsockets",
+      "name": "android_external_libwebsockets",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libwebsockets.git",
+      "branch": "aera-16.0",
+      "commit": "54fcad4800229f4d75cc74a3254fdb62e2a4b4c8"
+    },
+    {
+      "path": "external/libxml2",
+      "name": "android_external_libxml2",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_libxml2.git",
+      "branch": "aera-16.0",
+      "commit": "4d33dd4f7f03568c09c7886a6a6d07512daa8374"
+    },
+    {
+      "path": "external/lptools",
+      "name": "phhusson/vendor_lptools",
+      "remote": "github",
+      "url": "https://github.com/phhusson/vendor_lptools.git",
+      "branch": "master",
+      "commit": "c8be7de57b80eab61a6f94ec86464a01fb9056f2"
+    },
+    {
+      "path": "external/lvgl",
+      "name": "android_external_lvgl",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_lvgl.git",
+      "branch": "aera-16.0",
+      "commit": "626794146201c14eb70e030ae188fcaa6c7d376f"
+    },
+    {
+      "path": "external/magisk-prebuilt",
+      "name": "external_magisk-prebuilt",
+      "remote": "TeamWin",
+      "url": "https://github.com/TeamWin/external_magisk-prebuilt.git",
+      "branch": "android-12.1",
+      "commit": "1e91763f0e216c2a674d018811967e0837b27e0e"
+    },
+    {
+      "path": "external/nano",
+      "name": "android_external_nano",
+      "remote": "LineageOS",
+      "url": "https://github.com/LineageOS/android_external_nano.git",
+      "branch": "lineage-22.2",
+      "commit": "690d0aee2b55c3648e4e6d0d70313e6d3bbb97af"
+    },
+    {
+      "path": "external/ntfs-3g",
+      "name": "android_external_ntfs-3g",
+      "remote": "LineageOS",
+      "url": "https://github.com/LineageOS/android_external_ntfs-3g.git",
+      "branch": "lineage-22.2",
+      "commit": "e2415df401538976fb89aa20370903e0c46e51ff"
+    },
+    {
+      "path": "external/rclone",
+      "name": "android_external_rclone",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_rclone.git",
+      "branch": "aera-16.0",
+      "commit": "de5ab07087a9132f3f027bedcf698856a1d37d29"
+    },
+    {
+      "path": "external/se_omapi",
+      "name": "android_external_se_omapi",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_se_omapi.git",
+      "branch": "aera-16.0",
+      "commit": "34ba4880a85c935cf311eaf03180a2069408856e"
+    },
+    {
+      "path": "external/sqlite",
+      "name": "android_external_sqlite",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_sqlite.git",
+      "branch": "aera-16.0",
+      "commit": "28e3f5878182658a5c34d3ce0859e950f2885aba"
+    },
+    {
+      "path": "external/ttyd",
+      "name": "android_external_ttyd",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_ttyd.git",
+      "branch": "aera-16.0",
+      "commit": "30aa1f9fc7d8500244d125ae0b3338aeb63eb498"
+    },
+    {
+      "path": "external/xz-embedded",
+      "name": "android_external_xz-embedded",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_xz-embedded.git",
+      "branch": "aera-16.0",
+      "commit": "53e09b39b4afde91edee232bba912609692f41e0"
+    },
+    {
+      "path": "external/zstd",
+      "name": "android_external_zstd",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_external_zstd.git",
+      "branch": "aera-16.0",
+      "commit": "a375e4fc85612babf34c8221f825a86036175ac0"
+    },
+    {
+      "path": "frameworks/hardware/interfaces",
+      "name": "android_frameworks_hardware_interfaces",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_frameworks_hardware_interfaces.git",
+      "branch": "aera-16.0",
+      "commit": "51d97a046f77b7dc3531cc6bb99407539d4e29b6"
+    },
+    {
+      "path": "hardware/interfaces",
+      "name": "android_hardware_interfaces",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_hardware_interfaces.git",
+      "branch": "aera-16.0",
+      "commit": "bdefb2a8bce20dc15882d4ab668fb628c427e26b"
+    },
+    {
+      "path": "packages/modules/Connectivity",
+      "name": "android_packages_modules_Connectivity",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_packages_modules_Connectivity.git",
+      "branch": "aera-16.0",
+      "commit": "3f1120bc84f0d88620cabed67a49f3d939b736d7"
+    },
+    {
+      "path": "packages/modules/adb",
+      "name": "android_packages_modules_adb",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_packages_modules_adb.git",
+      "branch": "aera-16.0",
+      "commit": "4a449e9803a41735728de2f04292e97120dc8c0b"
+    },
+    {
+      "path": "prebuilts/tools-lineage",
+      "name": "android_prebuilts_tools-lineage",
+      "remote": "LineageOS",
+      "url": "https://github.com/LineageOS/android_prebuilts_tools-lineage.git",
+      "branch": "lineage-22.2",
+      "commit": "6122a667053a09ca0663fcf2486276bf13814080"
+    },
+    {
+      "path": "system/core",
+      "name": "android_system_core",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_core.git",
+      "branch": "aera-16.0",
+      "commit": "081c119b3e2182831f0d5b03e8b003279c9a7f13"
+    },
+    {
+      "path": "system/extras",
+      "name": "android_system_extras",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_extras.git",
+      "branch": "aera-16.0",
+      "commit": "6698de71dc02d8b25c379ab51f074cf79aa50e92"
+    },
+    {
+      "path": "system/libhidl",
+      "name": "android_system_libhidl",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_libhidl.git",
+      "branch": "aera-16.0",
+      "commit": "9bb79519173ff86773dfd144172bcd789fc88e01"
+    },
+    {
+      "path": "system/security",
+      "name": "android_system_security",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_security.git",
+      "branch": "aera-16.0",
+      "commit": "d614e274b585a67e80d3d3fbc3a6e9f695998f78"
+    },
+    {
+      "path": "system/sepolicy",
+      "name": "android_system_sepolicy",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_sepolicy.git",
+      "branch": "aera-16.0",
+      "commit": "9641d92817ae79b2d4cd02dfe5c24de7de2014b4"
+    },
+    {
+      "path": "system/update_engine",
+      "name": "android_system_update_engine",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_update_engine.git",
+      "branch": "aera-16.0",
+      "commit": "6d903e2a5845cb50c067ea537b66ec6df6f75854"
+    },
+    {
+      "path": "system/vold",
+      "name": "android_system_vold",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_system_vold.git",
+      "branch": "aera-16.0",
+      "commit": "36bb8ce4fbbb4615f3d87638347c59eface0853b"
+    },
+    {
+      "path": "vendor/recovery",
+      "name": "android_vendor_recovery",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_vendor_recovery.git",
+      "branch": "aera-16.0",
+      "commit": "7b4e41362938ee3498fc0e8a4f3e0528bf320efd"
+    },
+    {
+      "path": "vendor/twrp",
+      "name": "android_vendor_twrp",
+      "remote": "AERA",
+      "url": "https://github.com/AERA-Recovery/android_vendor_twrp.git",
+      "branch": "aera-16.0",
+      "commit": "f2833af6d4bc986865979b2e7bd2da874bb9f0c1"
+    }
+  ]
+}

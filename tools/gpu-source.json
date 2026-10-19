@@ -1,0 +1,15 @@
+{
+  "source_dump": "7Pro_H40",
+  "description": "Matching OnePlus 7 Pro OxygenOS H.40 Adreno 640 EGL/GLES and gralloc runtime",
+  "seeds": {
+    "vendor/bin/hw/vendor.qti.hardware.display.allocator-service": "system/bin/aera-vendor-allocator",
+    "vendor/lib64/hw/gralloc.msmnile.so": "vendor/lib64/hw/gralloc.msmnile.so",
+    "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so": "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so",
+    "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so": "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so",
+    "vendor/lib64/egl/libEGL_adreno.so": "vendor/lib64/egl/libEGL_adreno.so",
+    "vendor/lib64/egl/libGLESv1_CM_adreno.so": "vendor/lib64/egl/libGLESv1_CM_adreno.so",
+    "vendor/lib64/egl/libGLESv2_adreno.so": "vendor/lib64/egl/libGLESv2_adreno.so",
+    "vendor/lib64/egl/eglSubDriverAndroid.so": "vendor/lib64/egl/eglSubDriverAndroid.so"
+  },
+  "required_libraries": ["system/lib64/libllvm-glnext.so"]
+}

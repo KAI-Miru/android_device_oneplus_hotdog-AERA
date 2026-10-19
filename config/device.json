@@ -1,0 +1,28 @@
+{
+  "device": "hotdog",
+  "product": "twrp_hotdog",
+  "partition": "recovery",
+  "partition_bytes": 100663296,
+  "dynamic_partitions": true,
+  "fastbootd": true,
+  "recovery_as_boot": false,
+  "derived_from": {
+    "repository": "https://github.com/KAI-Miru/android_device_oneplus_guacamole-AERA",
+    "commit": "efb8210e76adf37746b3bfa92a21992a6feb2c2c"
+  },
+  "reference_tree": {
+    "repository": "https://github.com/KAI-Miru/android_device_oneplus_hotdog",
+    "commit": "eb19fbf1379b8a2d01c8402c03c695591aafd283",
+    "branch": "android-12.1-latest-snapshot"
+  },
+  "kernel": {
+    "source": "External universal Miru CI59 Image, shared with guacamole",
+    "sha256": "b81679da7c59d5e66968f9006c2ed5ff5181c46acee053c306e17a954914aaea",
+    "release": "4.14.357-openela-ColorOS15-ci59+",
+    "tracked": false
+  },
+  "proprietary_manifest_sha256": "572e27163f10afb20da0111a5bf85f33d805452c32c501c5137f618559950333",
+  "wlan_manifest_sha256": "11ceddd74c25e44a7eaffd8f6e510c3abafc4be21e619e27714a74a23f7a1b54",
+  "reference_ramdisk_imported": false,
+  "hardware_tested": false
+}

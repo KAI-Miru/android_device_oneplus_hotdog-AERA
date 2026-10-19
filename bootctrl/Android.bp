@@ -1,0 +1,15 @@
+// Copyright (C) 2018 The Android Open Source Project
+// SPDX-License-Identifier: Apache-2.0
+// Official TeamWin Qualcomm bootctrl and OnePlus SM8150 GPT sources.
+// This HAL manages physical boot-slot attributes; native recovery manages logical partitions.
+cc_library_shared {
+    name: "bootctrl.msmnile",
+    vendor: true,
+    recovery_available: true,
+    relative_install_path: "hw",
+    srcs: ["boot_control.cpp", "gpt-utils.cpp"],
+    local_include_dirs: ["include"],
+    header_libs: ["libhardware_headers", "libsystem_headers"],
+    shared_libs: ["libcutils", "liblog", "libz"],
+    cflags: ["-Wall", "-Werror"],
+}

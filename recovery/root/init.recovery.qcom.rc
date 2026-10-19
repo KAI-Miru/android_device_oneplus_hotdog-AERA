@@ -1,0 +1,41 @@
+# SPDX-License-Identifier: Apache-2.0
+import /init.recovery.qcom_decrypt.rc
+import /init.recovery.hotdog-crypto.rc
+import /init.recovery.wifi.rc
+
+on init
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller ${ro.boot.usbcontroller}
+    setprop prepdecrypt.setpatch true
+    # Match working CI59: official Gatekeeper must use Qualcomm TEE, not SPU.
+    setprop vendor.gatekeeper.disable_spu true
+    setprop ro.hardware.bootctrl msmnile
+    # AERA creates /cache as a data symlink; hotdog has a physical op2 cache.
+    rm /cache
+    mkdir /cache 0770 system cache
+    write /sys/class/backlight/panel0-backlight/brightness 200
+
+on fs
+    wait /dev/block/platform/soc/${ro.boot.bootdevice} 5
+    symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
+    mkdir /firmware 0755 root root
+    mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
+    symlink /firmware /vendor/firmware_mnt
+    mkdir /mnt/vendor/persist 0755 root root
+    mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist ro
+
+on boot
+    # Installed SDK30 QTI provider implements 1.1 exactly. Native 1.0/1.2
+    # passthrough services reject it, leaving metadata checkpoint waits stuck.
+    start boot-hal-1-1
+
+# Official qcom_decrypt handles initial QSEE, Keymaster and Gatekeeper startup.
+# No stock service classes, stock init imports or mount_all commands are used.
+
+# FBE cleanup sets crypto.ready=0 and stops Gatekeeper once all users unlock.
+# This queued property action runs after that cleanup. Keep only QSEE and the
+# credential verifier available for AERA's verification-only screen lock.
+# The owner property prevents starting it for metadata-only or failed unlocks.
+on property:crypto.ready=0 && property:twrp.user.0.decrypt=1
+    start qseecomd
+    start gatekeeper-1-0-qti

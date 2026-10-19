@@ -1,0 +1,40 @@
+name: Hotdog native AERA recovery
+
+on:
+  workflow_dispatch:
+    inputs:
+      device_ref:
+        description: Device branch, tag or commit
+        type: string
+        default: main
+      kernel_url:
+        description: Image HTTPS URL, or blank to reuse the approved private input
+        type: string
+        default: ''
+      kernel_sha256:
+        description: SHA256 of the supplied Image
+        type: string
+        required: true
+      use_prepared:
+        description: Reuse the private prepared environment
+        type: boolean
+        default: false
+      build_jobs:
+        description: Parallel build jobs
+        type: choice
+        options: ['2', '4', '8']
+        default: '4'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    uses: KAI-Miru/android_device_oneplus_hotdog-AERA/.github/workflows/build-recovery.yml@ci-runner
+    with:
+      device_ref: ${{ inputs.device_ref }}
+      kernel_url: ${{ inputs.kernel_url }}
+      kernel_sha256: ${{ inputs.kernel_sha256 }}
+      use_prepared: ${{ inputs.use_prepared }}
+      build_jobs: ${{ inputs.build_jobs }}

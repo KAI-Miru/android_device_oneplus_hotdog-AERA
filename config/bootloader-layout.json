@@ -1,0 +1,14 @@
+{
+  "kernel_load_address": 2148007936,
+  "load_window_end": 2238709760,
+  "device_tree_reserve_bytes": 2097152,
+  "guard_pages": 2,
+  "evidence": {
+    "page_bytes": 4096,
+    "loader_source": "https://github.com/SHIFTPHONES/android_bootable_bootloader_edk2/blob/sos-3.x/QcomModulePkg/Library/BootLib/BootLinux.c",
+    "basis": "Conservative SM8150 guard inherited from guacamole; hotdog runtime addresses need confirmation",
+    "hotdog_reference_image_sha256": "bb3c25691ddab8c0ffc9f823d919efee469527ba42ada12933ce2b673a9acec6",
+    "hotdog_abl_sha256": "64dfbf806c2b6f832d7c598ece7aa21e23c6bcde6baf86eb5dcd35210094287b",
+    "hotdog_runtime_layout_verified": false
+  }
+}

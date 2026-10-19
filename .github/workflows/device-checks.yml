@@ -1,0 +1,14 @@
+name: Device checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    uses: KAI-Miru/android_device_oneplus_hotdog-AERA/.github/workflows/validate-device.yml@ci-runner
+    with:
+      device_ref: ${{ github.sha }}

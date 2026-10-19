@@ -1,0 +1,8 @@
+persist.sys.binary_xml=false
+ro.recovery.usb.vid=18D1
+ro.recovery.usb.adb.pid=4EE7
+ro.recovery.usb.fastboot.pid=4EE0
+ro.boot.dynamic_partitions=true
+ro.hardware.egl=adreno
+ro.hardware.gralloc=msmnile
+ro.aera.gpu.required_libraries=/system/lib64/libllvm-glnext.so

@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+  "commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9",
+  "seeds": {
+    "system/bin/qseecomd": "system/bin/qseecomd",
+    "system/bin/android.hardware.keymaster@4.0-service-qti": "system/bin/android.hardware.keymaster@4.0-service-qti",
+    "system/bin/android.hardware.gatekeeper@1.0-service-qti": "system/bin/android.hardware.gatekeeper@1.0-service-qti",
+    "vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so": "vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so",
+    "vendor/lib64/libspl.so": "system/lib64/libspl.so",
+    "vendor/lib64/libops.so": "system/lib64/libops.so",
+    "vendor/lib64/librpmb.so": "system/lib64/librpmb.so",
+    "vendor/lib64/libssd.so": "system/lib64/libssd.so",
+    "vendor/lib64/libdrmtime.so": "system/lib64/libdrmtime.so",
+    "vendor/lib64/libGPreqcancel.so": "system/lib64/libGPreqcancel.so",
+    "vendor/lib64/libqisl.so": "system/lib64/libqisl.so",
+    "vendor/lib64/libsecureui.so": "system/lib64/libsecureui.so",
+    "vendor/lib64/libsecureui_svcsock.so": "system/lib64/libsecureui_svcsock.so",
+    "vendor/lib64/libSecureUILib.so": "system/lib64/libSecureUILib.so",
+    "vendor/lib64/libStDrvInt.so": "system/lib64/libStDrvInt.so"
+  }
+}

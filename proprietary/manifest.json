@@ -1,0 +1,1612 @@
+{
+  "source_dump": "C15_PORT_GUAC_4G",
+  "source_vendor_sdk": 30,
+  "source_system_sdk": 35,
+  "official_crypto_source": {
+    "repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+    "commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+  },
+  "graphics_source": {
+    "source_dump": "7Pro_H40",
+    "description": "Matching OnePlus 7 Pro OxygenOS H.40 Adreno 640 EGL/GLES and gralloc runtime",
+    "seeds": {
+      "vendor/bin/hw/vendor.qti.hardware.display.allocator-service": "system/bin/aera-vendor-allocator",
+      "vendor/lib64/hw/gralloc.msmnile.so": "vendor/lib64/hw/gralloc.msmnile.so",
+      "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so": "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so",
+      "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so": "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so",
+      "vendor/lib64/egl/libEGL_adreno.so": "vendor/lib64/egl/libEGL_adreno.so",
+      "vendor/lib64/egl/libGLESv1_CM_adreno.so": "vendor/lib64/egl/libGLESv1_CM_adreno.so",
+      "vendor/lib64/egl/libGLESv2_adreno.so": "vendor/lib64/egl/libGLESv2_adreno.so",
+      "vendor/lib64/egl/eglSubDriverAndroid.so": "vendor/lib64/egl/eglSubDriverAndroid.so"
+    },
+    "required_libraries": [
+      "system/lib64/libllvm-glnext.so"
+    ]
+  },
+  "platform_libraries": [
+    "android.hardware.boot@1.0.so",
+    "android.hardware.boot@1.1.so",
+    "android.hardware.gatekeeper@1.0.so",
+    "android.hardware.graphics.allocator@3.0.so",
+    "android.hardware.graphics.allocator@4.0.so",
+    "android.hardware.graphics.common@1.0.so",
+    "android.hardware.graphics.common@1.1.so",
+    "android.hardware.graphics.common@1.2.so",
+    "android.hardware.graphics.mapper@2.0.so",
+    "android.hardware.graphics.mapper@2.1.so",
+    "android.hardware.graphics.mapper@3.0.so",
+    "android.hardware.graphics.mapper@4.0.so",
+    "android.hardware.keymaster@4.0.so",
+    "android.hardware.keymaster@4.1.so",
+    "libbase.so",
+    "libbinder.so",
+    "libc++.so",
+    "libc.so",
+    "libcrypto.so",
+    "libcutils.so",
+    "libdl.so",
+    "libgralloctypes.so",
+    "libhardware.so",
+    "libhidlbase.so",
+    "libhidltransport.so",
+    "libion.so",
+    "liblog.so",
+    "libm.so",
+    "libnl.so",
+    "libssl.so",
+    "libsync.so",
+    "libutils.so",
+    "libxml2.so",
+    "libz.so"
+  ],
+  "files": {
+    "system/bin/aera-vendor-allocator": {
+      "source": "vendor/bin/hw/vendor.qti.hardware.display.allocator-service",
+      "bytes": 34432,
+      "sha256": "a4cafdfa1ac7885c7262bc38423c6077c0772a5c7dc36caf1303af7a641b9625",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "libqdMetaData.so",
+        "libgrallocutils.so",
+        "libgralloccore.so",
+        "libgralloctypes.so",
+        "vendor.qti.hardware.display.allocator@4.0.so",
+        "vendor.qti.hardware.display.allocator@3.0.so",
+        "vendor.qti.hardware.display.mapper@4.0.so",
+        "vendor.qti.hardware.display.mapper@3.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "android.hardware.graphics.allocator@4.0.so",
+        "android.hardware.graphics.allocator@3.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.1.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/bin/android.hardware.gatekeeper@1.0-service-qti": {
+      "source": "system/bin/android.hardware.gatekeeper@1.0-service-qti",
+      "bytes": 11496,
+      "sha256": "9d7d2274c8849c46259f1a82eeb644149690b0137b9a9a5f04d349a7e35d832a",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.gatekeeper@1.0.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/bin/android.hardware.keymaster@4.0-service-qti": {
+      "source": "system/bin/android.hardware.keymaster@4.0-service-qti",
+      "bytes": 11832,
+      "sha256": "e50812dd4252b7907650e49b31699809c7194e7dd154342cf053c1a92d741b26",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libbase.so",
+        "libutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "android.hardware.keymaster@4.0.so",
+        "libqtikeymaster4.so",
+        "libcrypto.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/bin/guacamole-cnss-daemon": {
+      "source": "vendor/bin/cnss-daemon",
+      "bytes": 94992,
+      "sha256": "e07fdc38860341e9c07796a4dfcf32c60e965697a82e2b8e765dd3861abbef40",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libqmi_cci.so",
+        "libqmi_common_so.so",
+        "libnl.so",
+        "libcld80211.so",
+        "libperipheral_client.so",
+        "libmdmdetect.so",
+        "libqmiservices.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/bin/guacamole-pd-mapper": {
+      "source": "vendor/bin/pd-mapper",
+      "bytes": 33528,
+      "sha256": "07212216b955c60ae73bc1952d346e2a8ff49b8fe1f638f68babb39284017676",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libjson.so",
+        "libqmi_cci.so",
+        "libqmi_common_so.so",
+        "libqmi_encdec.so",
+        "libqmi_csi.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/bin/guacamole-qrtr-ns": {
+      "source": "vendor/bin/qrtr-ns",
+      "bytes": 25256,
+      "sha256": "1fe3498020693fa21449da99996d4335f179ea4265812395ff4f28805b4dd45a",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libqrtr.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/bin/qseecomd": {
+      "source": "system/bin/qseecomd",
+      "bytes": 20616,
+      "sha256": "5849792838759e17a70adecc352fd2639a18c9bd7b40650e4a6b215d7c63be8e",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libdrmfs.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/bin/rmt_storage": {
+      "source": "vendor/bin/rmt_storage",
+      "bytes": 1952296,
+      "sha256": "ec79898d700d8657727cfa3b928930edd88b0810e597535f886af2dbb7173574",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libqmi_csi.so",
+        "libqmi_common_so.so",
+        "libcutils.so",
+        "liblog.so",
+        "libmdmdetect.so",
+        "libcrypto.so",
+        "libssl.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/bin/tftp_server": {
+      "source": "vendor/bin/tftp_server",
+      "bytes": 110376,
+      "sha256": "6ee43ee36de75ffd55f4d3af0a5c82bcca055b5169f038ea93d89b32d0983292",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libqsocket.so",
+        "libqrtr.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/hw/android.hardware.boot@1.0-impl-1.1-qti.so": {
+      "source": "vendor/lib64/hw/android.hardware.boot@1.0-impl-1.1-qti.so",
+      "source_dump": "C15_PORT_GUAC_4G",
+      "bytes": 21264,
+      "sha256": "9cb8a4156c066f7336d3e3d46cb9064f92d53f1fc961a05836c681bbe2075197",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libhidlbase.so",
+        "libhardware.so",
+        "libutils.so",
+        "android.hardware.boot@1.0.so",
+        "android.hardware.boot@1.1.so",
+        "libboot_control_qti.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "system/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so": {
+      "source": "vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so",
+      "bytes": 37864,
+      "sha256": "73dab5bff45b97cf3e8fe87583adb7135fde715de05d1ea5d8c97e89dbbef087",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.gatekeeper@1.0.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "liblog.so",
+        "libcutils.so",
+        "libkeymasterdeviceutils.so",
+        "libqcbor.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libGPreqcancel.so": {
+      "source": "vendor/lib64/libGPreqcancel.so",
+      "bytes": 20024,
+      "sha256": "9602fc69424bf0b77d20796278fdadfc33103ccf09ca48992d3d630f340be3fe",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libdiag.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libGPreqcancel_svc.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libGPreqcancel_svc.so": {
+      "source": "vendor/lib64/libGPreqcancel_svc.so",
+      "bytes": 24136,
+      "sha256": "cc677faa9d93cbff254efa9381325e9f539692ecdc142e4bcd77e75e2fcff4a5",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libQSEEComAPI.so": {
+      "source": "vendor/lib64/libQSEEComAPI.so",
+      "bytes": 40816,
+      "sha256": "299eddd12acd41623706a613f2e440b20966121663a21ec17c5706c17a9cb4c0",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libion.so",
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libSecureUILib.so": {
+      "source": "vendor/lib64/libSecureUILib.so",
+      "bytes": 19976,
+      "sha256": "f9c86bfbc392ee7378c4bc90c5acd640cc2704b3fd9c6c1885ec10ae6fb301e4",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libStDrvInt.so",
+        "libQSEEComAPI.so",
+        "libsecureui_svcsock.so",
+        "libhidlbase.so",
+        "libbinder.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libStDrvInt.so": {
+      "source": "vendor/lib64/libStDrvInt.so",
+      "bytes": 28408,
+      "sha256": "e7aa592922fe4b518c913cbd6b92e6f84567e578e5b52ad9a626ed8b2f377b14",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libadreno_utils.so": {
+      "source": "vendor/lib64/libadreno_utils.so",
+      "bytes": 81376,
+      "sha256": "ef677d142efb114bc049d4058d40d17a0d155f62afebde3bcc661d210f4e5513",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libgsl.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libboot_control_qti.so": {
+      "source": "vendor/lib64/libboot_control_qti.so",
+      "source_dump": "C15_PORT_GUAC_4G",
+      "bytes": 117264,
+      "sha256": "c98a71f1dd782e0bb2880b257490fa88e17e3f4da5f41227dfa3373bb7466806",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.boot@1.1.so",
+        "librecovery_updater.so",
+        "libbase.so",
+        "libcutils.so",
+        "liblog.so",
+        "libz.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "system/lib64/libcld80211.so": {
+      "source": "vendor/lib64/libcld80211.so",
+      "bytes": 20184,
+      "sha256": "b48ec47beefc9a443eca8f73683ac5c42075799fea26e9df59ad41cee18101dc",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libnl.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libdiag.so": {
+      "source": "vendor/lib64/libdiag.so",
+      "bytes": 251624,
+      "sha256": "2e114921f73ac94524539fa6b32f16c86d1de618138d743b8d47ee785e898c07",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libc.so",
+        "libcutils.so",
+        "libc++.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libdisplayconfig.qti.so": {
+      "source": "vendor/lib64/libdisplayconfig.qti.so",
+      "bytes": 162760,
+      "sha256": "b3fb7aece58e7b4904f01856b67df8ec82e8fbb709137eeeedae15fbed2c8c2d",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "vendor.display.config@2.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libdrm.so": {
+      "source": "vendor/lib64/libdrm.so",
+      "bytes": 83032,
+      "sha256": "e8c718c29327ec9b213295be1ee0d2c56688ac489b09a600571dd1144bd12481",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libdrmfs.so": {
+      "source": "vendor/lib64/libdrmfs.so",
+      "bytes": 41072,
+      "sha256": "2dfb3c78a0730f219f6f2a29770ea605302868406f90fb98f882b8ff680583ca",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libdiag.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libxml2.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libdrmtime.so": {
+      "source": "vendor/lib64/libdrmtime.so",
+      "bytes": 15416,
+      "sha256": "0d8f4ee9b5e80ade746a3e7203916170f8347e176019a34fe6188f9b2f817df4",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libdiag.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libtime_genoff.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libgralloc.qti.so": {
+      "source": "vendor/lib64/libgralloc.qti.so",
+      "bytes": 28760,
+      "sha256": "bebe1bd5dbf889c6eb81e1c48fd0968b4987429657e1eaba4736ac23b395500d",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libutils.so",
+        "libgralloctypes.so",
+        "libhidlbase.so",
+        "libhardware.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libgralloccore.so": {
+      "source": "vendor/lib64/libgralloccore.so",
+      "bytes": 71064,
+      "sha256": "8ad706c64d5c47abc2df4db458ef9c7efc8f6d47a2decc5112a7b6c96ff821cc",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libqdMetaData.so",
+        "libgrallocutils.so",
+        "libion.so",
+        "libgralloctypes.so",
+        "libgralloc.qti.so",
+        "libhidlbase.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libgrallocutils.so": {
+      "source": "vendor/lib64/libgrallocutils.so",
+      "bytes": 40760,
+      "sha256": "41620f9fa8a5c47e86bb68c4b75eab9e173bcd6912c0af11350f664b5bec31d6",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libqdMetaData.so",
+        "android.hardware.graphics.common@1.2.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libgsl.so": {
+      "source": "vendor/lib64/libgsl.so",
+      "bytes": 2129952,
+      "sha256": "24acda32d84debd36b6164f3d2e70188a1d7ef5927054b5d6a6beb0057188919",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libz.so",
+        "libsync.so",
+        "libion.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libidl.so": {
+      "source": "vendor/lib64/libidl.so",
+      "bytes": 19688,
+      "sha256": "b524b1bf6a13bb3bb5815e33f26647853304f089bd261c01bd5432cabd285fad",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libjson.so": {
+      "source": "vendor/lib64/libjson.so",
+      "bytes": 45712,
+      "sha256": "fc0f581b4d811d67f42a8e27ace81e10550232f4c53066e6fac1556a3ff93a3a",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libkeymasterdeviceutils.so": {
+      "source": "vendor/lib64/libkeymasterdeviceutils.so",
+      "bytes": 19832,
+      "sha256": "a7c0ac2712fba9c963893e04b7b6fcd5adc1215fc103e0bb9d997a0dc9817439",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libion.so",
+        "libcutils.so",
+        "libQSEEComAPI.so",
+        "liblog.so",
+        "libcrypto.so",
+        "libspcom.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libkeymasterutils.so": {
+      "source": "vendor/lib64/libkeymasterutils.so",
+      "bytes": 51848,
+      "sha256": "b3e21fa062b14502fe4694ab88046326db6debbbbaafe42a5f1096b0872df80c",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libQSEEComAPI.so",
+        "liblog.so",
+        "libcrypto.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libllvm-glnext.so": {
+      "source": "vendor/lib64/libllvm-glnext.so",
+      "bytes": 13889168,
+      "sha256": "03f59deb54329b69df085d94cdf35247f71b6e38cac3cf57898ea496f82d564f",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libgsl.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libmdmdetect.so": {
+      "source": "vendor/lib64/libmdmdetect.so",
+      "bytes": 24296,
+      "sha256": "40a198aed44a4b09d24c526e735d3db24fbb1e0b1b566b58f5524924a3c68145",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "liboemnvbk_img_helper.so",
+        "libcrypto.so",
+        "libssl.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/liboemnvbk_img_helper.so": {
+      "source": "vendor/lib64/liboemnvbk_img_helper.so",
+      "bytes": 94104,
+      "sha256": "27263162a8290e8bb0d7b4ee7e91eb47dd78d556a6f325bfc832e1ad0885e090",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libcrypto.so",
+        "libssl.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libops.so": {
+      "source": "vendor/lib64/libops.so",
+      "bytes": 24448,
+      "sha256": "9f59345ecb4e8957b30dc6eaeb50e25e494fdfd8fc6e0c780651fda9f6588dc5",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libQSEEComAPI.so",
+        "liblog.so",
+        "libdrm.so",
+        "libhidlbase.so",
+        "libdisplayconfig.qti.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libperipheral_client.so": {
+      "source": "vendor/lib64/libperipheral_client.so",
+      "bytes": 81320,
+      "sha256": "8c48c81b0e05f2f7f7e3546dccb10e001e053a48679faaceeac79e8ceaf73487",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "liblog.so",
+        "libbinder.so",
+        "libmdmdetect.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqcbor.so": {
+      "source": "vendor/lib64/libqcbor.so",
+      "bytes": 19504,
+      "sha256": "d41f6e3b8e367913e97b133c5231c5e40bbb1ec788a06195de2b0d876f1d1588",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libqdMetaData.so": {
+      "source": "vendor/lib64/libqdMetaData.so",
+      "bytes": 24224,
+      "sha256": "89c7dcd4a140bc0d3f49c9318b8a96bd023d0833d73cffe130cc3d7ee10cbc96",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libcutils.so",
+        "libutils.so",
+        "libhidlbase.so",
+        "libgralloc.qti.so",
+        "libgralloctypes.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/libqisl.so": {
+      "source": "vendor/lib64/libqisl.so",
+      "bytes": 20112,
+      "sha256": "f25dd475c18d085a24f80a181823009e58d96079c95d8c05bc3642ae9cdd1e9b",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libqmi_cci.so": {
+      "source": "vendor/lib64/libqmi_cci.so",
+      "bytes": 55104,
+      "sha256": "5afd1554764aee07d17319ad396e4201231112511486f613ab2c72e04ba17ede",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "libqmi_encdec.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqmi_common_so.so": {
+      "source": "vendor/lib64/libqmi_common_so.so",
+      "bytes": 15448,
+      "sha256": "1f739462ff5e4f0b21a5ca9f3835c017dcc1a99bdfe9d8e14d5ce228dc996e6d",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqmi_csi.so": {
+      "source": "vendor/lib64/libqmi_csi.so",
+      "bytes": 42344,
+      "sha256": "24f888154b96bb0283edc494869c55be3fabf03c3e1be68078b0a7300f6970f4",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "libqmi_encdec.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqmi_encdec.so": {
+      "source": "vendor/lib64/libqmi_encdec.so",
+      "bytes": 23880,
+      "sha256": "8d6edf8623bf75c3e111ccce4f96d0e4567275d258a893fcfa2ab2fb8754caf1",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqmiservices.so": {
+      "source": "vendor/lib64/libqmiservices.so",
+      "bytes": 158432,
+      "sha256": "dafefcff5aa3f3413cc68b18e5d221690f42fd1ce1730ba3982446f26ee56ef1",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libidl.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqrtr.so": {
+      "source": "vendor/lib64/libqrtr.so",
+      "bytes": 15760,
+      "sha256": "982aae7f3a67b8beffb807920d2226a546b7153c3144ff5feefce022f2570456",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqsocket.so": {
+      "source": "vendor/lib64/libqsocket.so",
+      "bytes": 15032,
+      "sha256": "a2f24829896c0505bfd1faa50268e9e6c529e0d0ce6cc323c57a1e27777b5604",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/libqtikeymaster4.so": {
+      "source": "vendor/lib64/libqtikeymaster4.so",
+      "bytes": 151080,
+      "sha256": "9bf48a55e68bff2e937977a4e0cd1956bfaebacb6e48f6b90432afdc1a7152f9",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libcrypto.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "libcutils.so",
+        "libkeymasterdeviceutils.so",
+        "libkeymasterutils.so",
+        "libbase.so",
+        "libqcbor.so",
+        "android.hardware.keymaster@4.0.so",
+        "android.hardware.keymaster@4.1.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/librecovery_updater.so": {
+      "source": "vendor/lib64/librecovery_updater.so",
+      "source_dump": "C15_PORT_GUAC_4G",
+      "bytes": 83736,
+      "sha256": "207ce233fa50eac5e7f7e42a2f0bd80664131d98eba39c4a34551a86beddfac7",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "libion.so",
+        "liblog.so",
+        "libz.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ]
+    },
+    "system/lib64/librpmb.so": {
+      "source": "vendor/lib64/librpmb.so",
+      "bytes": 42328,
+      "sha256": "a276d9fbfd2fd24b863ba2f39dbb2ff90468549f5bf84447fa516a7c4195cc1b",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libQSEEComAPI.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libsecureui.so": {
+      "source": "vendor/lib64/libsecureui.so",
+      "bytes": 46112,
+      "sha256": "252659d0ddb364fd5948d26003696d757391635d4388523e1e439d5233eecb68",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libStDrvInt.so",
+        "libhidlbase.so",
+        "libbinder.so",
+        "libdisplayconfig.qti.so",
+        "libion.so",
+        "libsecureui_svcsock.so",
+        "vendor.display.config@1.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libsecureui_svcsock.so": {
+      "source": "vendor/lib64/libsecureui_svcsock.so",
+      "bytes": 48224,
+      "sha256": "761fe83858954e64fee0ee725b08d0b0fd79a1347dac60fff9bf7608bd09a530",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "liblog.so",
+        "libhidlbase.so",
+        "vendor.qti.hardware.tui_comm@1.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libspcom.so": {
+      "source": "vendor/lib64/libspcom.so",
+      "bytes": 53360,
+      "sha256": "a306b5c092847748f9095dc9323615a60668801eaa197d26392dd42a78296bd3",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libion.so",
+        "libutils.so",
+        "libcutils.so",
+        "liblog.so",
+        "libcrypto.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libspl.so": {
+      "source": "vendor/lib64/libspl.so",
+      "bytes": 11232,
+      "sha256": "6be8b4a2944d427398f0cc5ca2f6e11a70327f32c0d78ac209720b074f297d89",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libcutils.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libssd.so": {
+      "source": "vendor/lib64/libssd.so",
+      "bytes": 11272,
+      "sha256": "c48165e0607488b22a7d92152d7efc73f5383c15793fa4d065c2526fcc65f646",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libutils.so",
+        "libcutils.so",
+        "libdiag.so",
+        "liblog.so",
+        "libQSEEComAPI.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/libtime_genoff.so": {
+      "source": "vendor/lib64/libtime_genoff.so",
+      "bytes": 15544,
+      "sha256": "e63b8d3b7107391ff62945a9c4e9df0deaaa546ae0dbdd6399319f0443bb278b",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libc.so",
+        "libcutils.so",
+        "liblog.so",
+        "libc++.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/vendor.display.config@1.0.so": {
+      "source": "vendor/lib64/vendor.display.config@1.0.so",
+      "bytes": 173384,
+      "sha256": "49bc428bd1d4c3a520d2bc3f1faa62a36a11e9d08416569c0201c248259cc091",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "system/lib64/vendor.display.config@2.0.so": {
+      "source": "vendor/lib64/vendor.display.config@2.0.so",
+      "bytes": 171664,
+      "sha256": "58783c6634ed08f87554227afb505b9a6d4ed1c70d839cd4f2ba0eb5c230462c",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "C15_PORT_GUAC_4G"
+    },
+    "system/lib64/vendor.qti.hardware.display.allocator@3.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.allocator@3.0.so",
+      "bytes": 81208,
+      "sha256": "b37169ee7ac51a87b2d3f834afff0d054abe64eed856969a8a699660a6ec1a2b",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.graphics.allocator@3.0.so",
+        "android.hardware.graphics.common@1.0.so",
+        "android.hardware.graphics.common@1.1.so",
+        "android.hardware.graphics.common@1.2.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.allocator@4.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.allocator@4.0.so",
+      "bytes": 81000,
+      "sha256": "c6eab4cb1c5818982cae9e0228ee3de4d3aaa91cfdf6127ec462e3431c9a6f37",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.graphics.allocator@4.0.so",
+        "android.hardware.graphics.common@1.0.so",
+        "android.hardware.graphics.common@1.1.so",
+        "android.hardware.graphics.common@1.2.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.mapper@2.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.mapper@2.0.so",
+      "bytes": 104848,
+      "sha256": "b1130d860a440c153ab8bd4235eda012ff20cef85325f6b260227616d7d3db23",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.graphics.common@1.0.so",
+        "android.hardware.graphics.common@1.1.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.mapper@3.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.mapper@3.0.so",
+      "bytes": 100248,
+      "sha256": "caa92fcb2077d3783adb262a98983a90d1d2f05fb6d7082180fc9a7ea49f065f",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.graphics.common@1.0.so",
+        "android.hardware.graphics.common@1.1.so",
+        "android.hardware.graphics.common@1.2.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.mapper@4.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.mapper@4.0.so",
+      "bytes": 113920,
+      "sha256": "5aeb2ad31e48b41ca43620abde18e3220e6fc690f93a47ca9d55eb1c6b1fa39e",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.graphics.common@1.0.so",
+        "android.hardware.graphics.common@1.1.so",
+        "android.hardware.graphics.common@1.2.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so",
+      "bytes": 134976,
+      "sha256": "94d18c2d8a4f5a3843de8063e33bb1866431f1582905ddd5e9c5bcf606331ea9",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so",
+      "bytes": 122512,
+      "sha256": "875d8845600781c7a940025eed96bed7db9efac2151982d59310d3046f4574fe",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "system/lib64/vendor.qti.hardware.tui_comm@1.0.so": {
+      "source": "vendor/lib64/vendor.qti.hardware.tui_comm@1.0.so",
+      "bytes": 190832,
+      "sha256": "74e2247c31c0e7cb16de53641d621fe30a121478479394f7645e911ee5dbbf49",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libhidlbase.so",
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "vendor/firmware/a630_gmu.bin": {
+      "source": "vendor/firmware/a630_gmu.bin",
+      "bytes": 32768,
+      "sha256": "b07f90299ff2ae33948fcfd6ed67f53fbd287b5bf85ff2d43db11d4d32c1621f"
+    },
+    "vendor/firmware/a630_sqe.fw": {
+      "source": "vendor/firmware/a630_sqe.fw",
+      "bytes": 38028,
+      "sha256": "8c66bdcad3a6b71aa622f3528f2b45a3125a2c200b09109f76e6aadd522ea741"
+    },
+    "vendor/firmware/a640_gmu.bin": {
+      "source": "vendor/firmware/a640_gmu.bin",
+      "bytes": 37680,
+      "sha256": "3ff0c02708bbe78641db887fa62f3a7f9337934d0c2ce0b961ef7c43172591d2"
+    },
+    "vendor/firmware/a640_zap.b00": {
+      "source": "vendor/firmware/a640_zap.b00",
+      "bytes": 148,
+      "sha256": "c9e39868fb6edcc30fc3574657f10dd1dfe22c9cd79e53de213a69703582091f"
+    },
+    "vendor/firmware/a640_zap.b01": {
+      "source": "vendor/firmware/a640_zap.b01",
+      "bytes": 6712,
+      "sha256": "cd98e327c7680ffd7ceda9c291e63c8ae6d672ad573bd5fff0963806034d4988"
+    },
+    "vendor/firmware/a640_zap.b02": {
+      "source": "vendor/firmware/a640_zap.b02",
+      "bytes": 1968,
+      "sha256": "e24a4f483b71ea19715910f01e1abf94280756df731cad05df48fd7714e34198"
+    },
+    "vendor/firmware/a640_zap.elf": {
+      "source": "vendor/firmware/a640_zap.elf",
+      "bytes": 14256,
+      "sha256": "dbcfba6888a8c2e1c226a71785d3de4b8cb70418ebab47ebd528b4aff7a029c0"
+    },
+    "vendor/firmware/a640_zap.mdt": {
+      "source": "vendor/firmware/a640_zap.mdt",
+      "bytes": 6860,
+      "sha256": "b3c095cc95ae67a25fd2b290c9f084bd74a17fdf4a341b620e6d002c86def11a"
+    },
+    "vendor/lib64/egl/eglSubDriverAndroid.so": {
+      "source": "vendor/lib64/egl/eglSubDriverAndroid.so",
+      "bytes": 71744,
+      "sha256": "c712e186c8eeb99ce889386fe6e6654f34b5e45817a4604040d63ff22118c119",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libEGL_adreno.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libgsl.so",
+        "vendor.qti.hardware.display.mapper@2.0.so",
+        "vendor.qti.hardware.display.mapper@3.0.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.1.so",
+        "vendor.qti.hardware.display.mapper@4.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "libdl.so",
+        "libz.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/egl/libEGL_adreno.so": {
+      "source": "vendor/lib64/egl/libEGL_adreno.so",
+      "bytes": 39864,
+      "sha256": "4526aca478194f770c4a85e769127d7c5b8be71a96acd77fed954dd6f90c46e1",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libadreno_utils.so",
+        "libgsl.so",
+        "libcutils.so",
+        "libdl.so",
+        "libz.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/egl/libGLESv1_CM_adreno.so": {
+      "source": "vendor/lib64/egl/libGLESv1_CM_adreno.so",
+      "bytes": 233824,
+      "sha256": "cdb6b819455201a2dbc9f13b28d1d2665417447cdd0268cfd31230629203d6ff",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libgsl.so",
+        "libcutils.so",
+        "libdl.so",
+        "libz.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/egl/libGLESv2_adreno.so": {
+      "source": "vendor/lib64/egl/libGLESv2_adreno.so",
+      "bytes": 4128544,
+      "sha256": "5d0a617c14680ea996214a03ff4e8eb576aed2d9d4151ebdda9df6228c0de69e",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "libadreno_utils.so",
+        "libgsl.so",
+        "libllvm-glnext.so",
+        "libcutils.so",
+        "libdl.so",
+        "libz.so",
+        "liblog.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so": {
+      "source": "vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so",
+      "bytes": 37864,
+      "sha256": "73dab5bff45b97cf3e8fe87583adb7135fde715de05d1ea5d8c97e89dbbef087",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "android.hardware.gatekeeper@1.0.so",
+        "libhidlbase.so",
+        "libutils.so",
+        "liblog.so",
+        "libcutils.so",
+        "libkeymasterdeviceutils.so",
+        "libqcbor.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_repository": "https://github.com/TeamWin/android_device_oneplus_guacamole",
+      "source_commit": "abef9b8a105c9feee847a6b4ed0903bda8ffb5f9"
+    },
+    "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so": {
+      "source": "vendor/lib64/hw/android.hardware.graphics.mapper@3.0-impl-qti-display.so",
+      "bytes": 48272,
+      "sha256": "b5d6c5175941a7ccea2f307ad9c850bd0c2e82f6ebea2a3d0e3804779d10b204",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "libqdMetaData.so",
+        "libgrallocutils.so",
+        "libgralloccore.so",
+        "libsync.so",
+        "vendor.qti.hardware.display.mapper@3.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "vendor.qti.hardware.display.mapperextensions@1.1.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so": {
+      "source": "vendor/lib64/hw/android.hardware.graphics.mapper@4.0-impl-qti-display.so",
+      "bytes": 86528,
+      "sha256": "b2fa6385d70c961c7c52e644b2bc4dbc271daaa212d7c9e601ff60677fee3c79",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libhidlbase.so",
+        "libhidltransport.so",
+        "libqdMetaData.so",
+        "libgrallocutils.so",
+        "libgralloccore.so",
+        "libsync.so",
+        "libgralloctypes.so",
+        "vendor.qti.hardware.display.mapper@4.0.so",
+        "vendor.qti.hardware.display.mapperextensions@1.0.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "vendor.qti.hardware.display.mapperextensions@1.1.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    },
+    "vendor/lib64/hw/gralloc.msmnile.so": {
+      "source": "vendor/lib64/hw/gralloc.msmnile.so",
+      "bytes": 42424,
+      "sha256": "a07984b01000888bd25fc81941caebc6ef50d1f86bb2bbb4f7eebfeebf9f4a4b",
+      "elf_class": 64,
+      "machine": "EM_AARCH64",
+      "needed": [
+        "liblog.so",
+        "libutils.so",
+        "libcutils.so",
+        "libhardware.so",
+        "libqdMetaData.so",
+        "libsync.so",
+        "libgrallocutils.so",
+        "libgralloccore.so",
+        "android.hardware.graphics.mapper@2.0.so",
+        "android.hardware.graphics.mapper@2.1.so",
+        "android.hardware.graphics.mapper@3.0.so",
+        "android.hardware.graphics.mapper@4.0.so",
+        "libc++.so",
+        "libc.so",
+        "libm.so",
+        "libdl.so"
+      ],
+      "source_dump": "7Pro_H40",
+      "runtime": "graphics"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+* text=auto eol=lf
+*.img -text
+*.bin -text
+*.so -text
+proprietary/** -text
+proprietary/manifest.json text eol=lf
+*.patch text eol=lf -whitespace

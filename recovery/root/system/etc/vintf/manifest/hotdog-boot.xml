@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Recovery-local declaration for the installed SDK30 boot-control provider. -->
+<manifest version="1.0" type="framework">
+    <hal format="hidl">
+        <name>android.hardware.boot</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.1::IBootControl/default</fqname>
+    </hal>
+</manifest>
