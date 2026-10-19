@@ -17,6 +17,7 @@ on:
         required: true
 
 permissions:
+  actions: read
   contents: read
   packages: write
 
