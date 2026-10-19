@@ -37,6 +37,18 @@ class KernelArchiveTests(unittest.TestCase):
                                 ('../outside',b'never extracted')])
         self.assertEqual(select_image(archive,digest),image)
 
+    def test_github_artifact_wrapper_selects_the_named_flash_archive(self):
+        image, digest = self.fixture()
+        flash = self.archive([('arch/arm64/boot/Image.gz-dtb',gzip.compress(image)+b'DTB')])
+        wrapper = self.archive([('ColorOS15-ci59-flash-files.zip',flash),
+                                ('ColorOS15-ci59-flash-files.sha256',b'checksum')])
+        self.assertEqual(select_image(wrapper,digest),image)
+        for payload in (self.archive([('other.zip',flash)]),
+                        self.archive([('../ColorOS15-ci59-flash-files.zip',flash)]),
+                        self.archive([('ColorOS15-ci59-flash-files.zip',wrapper)])):
+            with self.subTest(prefix=payload[:6]), self.assertRaises(ValueError):
+                select_image(payload,digest)
+
     def test_missing_or_ambiguous_kernel_and_corrupt_gzip_are_rejected(self):
         image, digest = self.fixture()
         for payload in (self.archive([('../Image',image)]),

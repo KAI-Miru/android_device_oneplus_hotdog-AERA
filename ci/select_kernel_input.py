@@ -8,13 +8,18 @@ import zipfile
 import zlib
 
 MAX_IMAGE_BYTES = 128 * 1024 * 1024
+FLASH_ARCHIVE = 'ColorOS15-ci59-flash-files.zip'
 KERNEL_MEMBERS = {'Image', 'arch/arm64/boot/Image', 'arch/arm64/boot/Image.gz-dtb'}
 
 
-def select_image(payload, expected_sha256):
+def select_image(payload, expected_sha256, *, artifact_wrapper=True):
     if zipfile.is_zipfile(io.BytesIO(payload)):
         with zipfile.ZipFile(io.BytesIO(payload)) as archive:
             candidates = [entry for entry in archive.infolist() if entry.filename in KERNEL_MEMBERS]
+            if not candidates and artifact_wrapper:
+                wrappers = [entry for entry in archive.infolist() if entry.filename == FLASH_ARCHIVE]
+                if len(wrappers) == 1 and wrappers[0].file_size <= MAX_IMAGE_BYTES:
+                    return select_image(archive.read(wrappers[0]), expected_sha256, artifact_wrapper=False)
             if len(candidates) != 1 or candidates[0].file_size > MAX_IMAGE_BYTES:
                 raise ValueError('Expected one bounded kernel Image in the archive')
             payload = archive.read(candidates[0])
