@@ -14,6 +14,43 @@ HEALTH_INIT = 'system/etc/init/android.hardware.health@2.1-service.rc'
 HEALTH_BINARY = 'system/bin/android.hardware.health@2.1-service'
 HEALTH_PROVIDER = 'system/lib64/hw/android.hardware.health@2.0-impl-2.1.so'
 HEALTH_MANIFEST = 'vendor/etc/vintf/manifest/android.hardware.health@2.1.xml'
+FASTBOOT_HAL_MANIFEST = 'vendor/etc/vintf/manifest.xml'
+FASTBOOT_HAL_PROVIDER = 'system/lib64/hw/android.hardware.fastboot@1.1-impl-mock.so'
+
+
+def verify_fastboot_hal_manifest(text):
+    """Match HIDL getService discovery to the bundled in-process provider."""
+    manifest = ET.fromstring(text)
+    hals = [hal for hal in manifest.findall('hal')
+            if hal.findtext('name') == 'android.hardware.fastboot']
+    if manifest.tag != 'manifest' or manifest.get('type') != 'device' or len(hals) != 1:
+        raise ValueError('Fastboot HAL requires one device VINTF declaration')
+    hal = hals[0]
+    transports = hal.findall('transport')
+    if (hal.get('format') != 'hidl' or len(transports) != 1 or
+            transports[0].text != 'passthrough' or transports[0].get('arch') != '64' or
+            [node.text for node in hal.findall('fqname')] != ['@1.1::IFastboot/default']):
+        raise ValueError('Fastboot HAL must declare the ARM64 HIDL 1.1 default passthrough provider')
+    return {'manifest': FASTBOOT_HAL_MANIFEST, 'interface': '@1.1::IFastboot/default',
+            'transport': 'passthrough', 'arch': '64'}
+
+
+def verify_fastboot_hal_runtime(entries):
+    for name in (FASTBOOT_HAL_MANIFEST, FASTBOOT_HAL_PROVIDER):
+        if name not in entries or not stat.S_ISREG(entries[name][0]):
+            raise ValueError(f'Missing regular Fastboot HAL input: {name}')
+    result = verify_fastboot_hal_manifest(entries[FASTBOOT_HAL_MANIFEST][1])
+    elf = ELFFile(io.BytesIO(entries[FASTBOOT_HAL_PROVIDER][1]))
+    if elf.elfclass != 64 or elf.header['e_machine'] != 'EM_AARCH64' or elf.header['e_type'] != 'ET_DYN':
+        raise ValueError('Fastboot HAL provider must be an ARM64 shared library')
+    symbols = elf.get_section_by_name('.dynsym')
+    if symbols is None or not any(
+            symbol.name == 'HIDL_FETCH_IFastboot' and symbol['st_shndx'] != 'SHN_UNDEF' and
+            symbol['st_info']['bind'] in ('STB_GLOBAL', 'STB_WEAK') and
+            symbol['st_other']['visibility'] in ('STV_DEFAULT', 'STV_PROTECTED')
+            for symbol in symbols.iter_symbols()):
+        raise ValueError('Fastboot HAL provider must export HIDL_FETCH_IFastboot')
+    return dict(result, provider=FASTBOOT_HAL_PROVIDER)
 
 
 def verify_health_startup(text):
@@ -94,6 +131,7 @@ def verify_fstab(text):
 def verify_device_configuration(root):
     root = Path(root)
     verify_health_startup((root/'recovery/root/init.recovery.qcom.rc').read_text())
+    verify_fastboot_hal_manifest((root/'manifest.xml').read_bytes())
     board = (root/'BoardConfig.mk').read_text()
     product = (root/'device.mk').read_text()
     profile = json.loads((root/'config/device.json').read_text())
@@ -111,6 +149,11 @@ def verify_device_configuration(root):
         raise ValueError('Enable native logical-partition support without building super')
     if 'android.hardware.fastboot@1.1-impl-mock' not in product:
         raise ValueError('Native fastboot HAL is absent')
+    copy_rules = [line.split('#', 1)[0].strip().rstrip('\\').strip()
+                  for line in product.splitlines()]
+    if ('$(LOCAL_PATH)/manifest.xml:$(TARGET_COPY_OUT_RECOVERY)/root/' + FASTBOOT_HAL_MANIFEST
+            not in copy_rules):
+        raise ValueError('Fastboot HAL device manifest must be copied into the recovery ramdisk')
     for name, key in (('proprietary','proprietary_manifest_sha256'),('modules','wlan_manifest_sha256')):
         if hashlib.sha256((root/name/'manifest.json').read_bytes()).hexdigest() != profile[key]:
             raise ValueError(f'Shared guacamole {name} provenance changed')
@@ -152,5 +195,6 @@ def verify_fastboot_runtime(entries):
     fstab = entries.get('system/etc/recovery.fstab',(0,b''))[1].decode()
     layout = verify_fstab(fstab)
     health = verify_health_runtime(entries)
-    return {'executable':name,'layout':layout,'health_hal':health,
+    fastboot_hal = verify_fastboot_hal_runtime(entries)
+    return {'executable':name,'layout':layout,'health_hal':health,'fastboot_hal':fastboot_hal,
             'device_fastbootd_tested':False}
