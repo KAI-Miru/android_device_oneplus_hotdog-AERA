@@ -290,7 +290,7 @@ def verify(image, report, kernel=None):
         if int.from_bytes(compressed[1:5], 'little') != DICTIONARY_BYTES:
             raise ValueError('Ramdisk LZMA dictionary differs from the device compressor')
     entries = unpack_newc(data)
-    from verify_hotdog import verify_fastboot_runtime
+    from verify_hotdog import verify_fastboot_runtime, HEALTH_BINARY, HEALTH_PROVIDER
     fastboot_runtime = verify_fastboot_runtime(entries)
     if b'terminal action handed off with graphics thread alive' not in entries.get('system/bin/recovery', (0, b''))[1]:
         raise ValueError('Native UI power handoff repair is missing from recovery')
@@ -332,7 +332,7 @@ def verify(image, report, kernel=None):
                 if s.entry.st_shndx != 'SHN_UNDEF': defined.add(s.name)
                 elif s.entry.st_info.bind == 'STB_GLOBAL': undefined.add(s.name)
         return deps, defined, undefined
-    audited = {n for n, record in inputs['files'].items() if 'needed' in record} | set(WLAN_EXECUTABLES) | {'system/bin/fastbootd'}
+    audited = {n for n, record in inputs['files'].items() if 'needed' in record} | set(WLAN_EXECUTABLES) | {'system/bin/fastbootd', HEALTH_BINARY, HEALTH_PROVIDER}
     for n in sorted(audited):
         deps, defined, undefined = dynamic(entries[n][1]); seen = set(); todo = list(deps)
         while todo:

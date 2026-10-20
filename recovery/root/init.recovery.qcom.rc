@@ -2,6 +2,8 @@
 import /init.recovery.qcom_decrypt.rc
 import /init.recovery.hotdog-crypto.rc
 import /init.recovery.wifi.rc
+# Native recovery does not automatically import the system service directory.
+import /system/etc/init/android.hardware.health@2.1-service.rc
 
 on init
     setprop sys.usb.configfs 1
@@ -25,6 +27,8 @@ on fs
     mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist ro
 
 on boot
+    # Fastbootd waits for Health before publishing its USB descriptors.
+    start health-hal-2-1
     # Installed SDK30 QTI provider implements 1.1 exactly. Native 1.0/1.2
     # passthrough services reject it, leaving metadata checkpoint waits stuck.
     start boot-hal-1-1
