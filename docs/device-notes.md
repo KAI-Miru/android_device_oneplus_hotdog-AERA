@@ -39,3 +39,13 @@ claiming the supplied recovery image proves every runtime address.
 
 Nothing has been flashed or tested on Hotdog. Existing guacamole reports do not
 establish Hotdog behavior. Formatting tests use fake partitions only.
+
+The recovery pin includes a scoped metadata-mount checkpoint query. An
+unmarked boot slot alone must not put recovery userdata writes into rollback
+mode: recovery has no Android boot-success commit sequence. When mounted
+metadata has no pending checkpoint record, the mount keeps normal durable
+writes. Active or unverifiable Android transactions retain Vold's original
+decision. The device and installed-ROM checkpoint flags are retained; the fix
+does not mark a slot successful, commit an OTA or edit its records. Source
+validation checks the reviewed Vold and fs_mgr identities. Host tests cover
+the policy and linkage; a rebuilt image still needs a retention test.
