@@ -1,10 +1,10 @@
 #!/system/bin/sh
-# Stock TFTP writes RFS state through RAM mirrors; installed persist stays read-only.
+# Keep TFTP RFS writes in RAM, including when crypto needs writable persist.
 set -e
 umask 077
 base=/tmp/hotdog-wlan-rfs
 targets='/mnt/vendor/persist/rfs /mnt/vendor/persist/hlos_rfs /data/vendor/tombstones/rfs /data/vendor/olog'
-grep ' /mnt/vendor/persist ' /proc/mounts | grep -q ' ro,'
+grep ' /mnt/vendor/persist ' /proc/mounts | grep -Eq ' (ro|rw),'
 
 mirror_name() {
     case "$1" in

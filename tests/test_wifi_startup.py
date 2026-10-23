@@ -167,12 +167,34 @@ class WifiStartupTests(unittest.TestCase):
         self.assertNotEqual(self.run_script('hotdog-wpa-supplicant.sh').returncode, 0)
         self.assertFalse(any(event[0] == 'wpa_supplicant' for event in self.events()))
 
-    def test_writable_persist_prevents_backend_and_radio_start(self):
+    def test_writable_persist_keeps_rfs_writes_in_ram(self):
         mounts = self.root / 'proc/mounts'
         mounts.write_text(mounts.read_text().replace('ext4 ro,seclabel', 'ext4 rw,seclabel'))
+        original = self.root / 'mnt/vendor/persist/rfs/fixture'
+        original.write_text('calibration seed')
+        self.assertEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
+        self.assertIn(['setprop', 'ctl.start', 'hotdog-rmt-storage'], self.events())
+        self.assertIn(['setprop', 'ctl.start', 'hotdog-tftp-server'], self.events())
+        mirror = self.root / 'tmp/hotdog-wlan-rfs/rfs/fixture'
+        self.assertEqual(mirror.read_text(), 'calibration seed')
+        mirror.write_text('RAM state')
+        self.assertEqual(original.read_text(), 'calibration seed')
+        targets = {str(self.root / name) for name in (
+            'mnt/vendor/persist/rfs', 'mnt/vendor/persist/hlos_rfs',
+            'data/vendor/tombstones/rfs', 'data/vendor/olog')}
+        binds = [event for event in self.events()
+                 if event[0] == 'mount' and event[-1] in targets]
+        self.assertEqual({event[-1] for event in binds}, targets)
+        self.assertEqual(len(binds), 4)
+        for event in binds:
+            self.assertEqual(event[1:3], ['-o', 'bind'])
+            self.assertTrue(event[-2].startswith(str(self.root / 'tmp/hotdog-wlan-rfs') + '/'))
+
+    def test_absent_persist_still_prevents_backend_start(self):
+        (self.root / 'proc/mounts').write_text('')
         self.assertNotEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
         self.assertNotIn(['setprop', 'ctl.start', 'hotdog-rmt-storage'], self.events())
-        self.assertNotIn(['setprop', 'ctl.start', 'hotdog-wlan-firmware'], self.events())
+        self.assertNotIn(['setprop', 'ctl.start', 'hotdog-tftp-server'], self.events())
 
     def test_foreign_rfs_mount_is_not_hidden(self):
         target = self.root / 'mnt/vendor/persist/rfs'

@@ -55,8 +55,8 @@ def verify_startup_configuration(entries):
         if prepare.index('start_service ' + service) > prepare.index('start_service hotdog-wlan-firmware'):
             raise ValueError('Modem storage and TFTP must start before firmware power')
     storage = entries['system/bin/hotdog-wlan-storage.sh'][1].decode()
-    if 'base=/tmp/hotdog-wlan-rfs' not in storage or "grep -q ' ro,'" not in storage or 'current_root' not in storage:
-        raise ValueError('Stock TFTP writes require guarded RAM mirrors and read-only persist')
+    if 'base=/tmp/hotdog-wlan-rfs' not in storage or "grep -Eq ' (ro|rw),'" not in storage or 'current_root' not in storage:
+        raise ValueError('Stock TFTP writes require guarded RAM mirrors and mounted persist')
     if prepare.index('/system/bin/sh /system/bin/hotdog-wlan-storage.sh') > prepare.index('start_service hotdog-tftp-server'):
         raise ValueError('TFTP RAM storage must be prepared before its service starts')
     config = entries['system/etc/hotdog-wpa_supplicant.conf'][1].decode()
