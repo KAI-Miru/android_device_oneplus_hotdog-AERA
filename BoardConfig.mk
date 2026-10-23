@@ -81,6 +81,8 @@ AERA_INCLUDE_CRYPTO := true
 AERA_INCLUDE_CRYPTO_FBE := true
 AERA_INCLUDE_FBE_METADATA_DECRYPT := true
 AERA_USE_FSCRYPT_POLICY := 1
+# Require confirmed, non-forced userdata mapping removal before Format Data.
+AERA_USE_DMCTL := 1
 # prepdecrypt loads the installed system version before Keymaster starts.
 PLATFORM_VERSION := 99.87.36
 PLATFORM_VERSION_LAST_STABLE := $(PLATFORM_VERSION)

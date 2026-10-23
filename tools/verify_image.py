@@ -115,14 +115,25 @@ def verify_screen_lock_configuration(recovery):
             'device_blank_wake_and_credential_tested': False}
 
 
-def verify_filesystem_format_configuration(recovery):
+def verify_filesystem_format_configuration(recovery, entries):
     required = (b'Change filesystem', b'Format partition now',
                 b'Type yes to enable formatting', b'/proc/filesystems',
-                b'Unable to release userdata mapping; refusing to format.')
+                b'dmctl delete userdata',
+                b'userdata mapping removal failed or was not confirmed; refusing to format.')
     if any(value not in recovery for value in required):
         raise ValueError('Native filesystem selection, format confirmation or mapping cleanup is missing')
+    if b'dmsetup remove -f userdata' in recovery:
+        raise ValueError('Device userdata cleanup must use non-forced dmctl removal')
+    tool = entries.get('system/bin/dmctl')
+    if not tool or not stat.S_ISREG(tool[0]) or not tool[0] & 0o111:
+        raise ValueError('Executable native dmctl mapping-cleanup tool is missing')
+    elf = ELFFile(io.BytesIO(tool[1]))
+    if elf.elfclass != 64 or elf.header['e_machine'] != 'EM_AARCH64':
+        raise ValueError('Mapping-cleanup dmctl must be ARM64')
     return {'native_filesystem_selection_present': True,
             'checked_userdata_mapping_cleanup_present': True,
+            'mapping_cleanup_command': 'dmctl delete userdata',
+            'native_mapping_tool_present': True,
             'device_format_tested': False}
 
 
@@ -357,7 +368,7 @@ def verify(image, report, kernel=None):
               'fastbootd_enabled':True, 'fastbootd_runtime':fastboot_runtime,
               'fastbootd_capability_guard':True,
               'screen_lock':verify_screen_lock_configuration(entries['system/bin/recovery'][1]),
-              'filesystem_format':verify_filesystem_format_configuration(entries['system/bin/recovery'][1]),
+              'filesystem_format':verify_filesystem_format_configuration(entries['system/bin/recovery'][1], entries),
               'usb_configuration':usb_configuration,
               'gpu_native_buffer_library':gpu_runtime,
               'gpu_startup':verify_gpu_startup_configuration(entries['system/bin/recovery'][1], image_properties(entries), entries),

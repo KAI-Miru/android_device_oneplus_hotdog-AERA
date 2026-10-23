@@ -57,8 +57,8 @@ def verify():
     assert re.search(r'^TARGET_ARCH\s*:=\s*arm64\s*$', board, re.M)
     assert not re.search(r'^TARGET_2ND_\w+[ \t]*:=[ \t]*\S', board, re.M)
     assert re.search(r'^TARGET_SUPPORTS_32_BIT_APPS\s*:=\s*false\s*$', board, re.M)
-    for pattern in [r'TARGET_NO_RECOVERY\s*:=\s*false', r'BOARD_RECOVERYIMAGE_PARTITION_SIZE\s*:=\s*100663296', r'BOARD_BOOTIMAGE_PARTITION_SIZE\s*:=\s*100663296', r'BOARD_BOOT_HEADER_VERSION\s*:=\s*2', r'BOARD_RAMDISK_USE_LZMA\s*:=\s*true', r'AERA_INCLUDE_CRYPTO\s*:=\s*true', r'AERA_USE_FSCRYPT_POLICY\s*:=\s*1']:
-        assert re.search(pattern, board), f'Wrong board setting: {pattern}'
+    for pattern in [r'TARGET_NO_RECOVERY\s*:=\s*false', r'BOARD_RECOVERYIMAGE_PARTITION_SIZE\s*:=\s*100663296', r'BOARD_BOOTIMAGE_PARTITION_SIZE\s*:=\s*100663296', r'BOARD_BOOT_HEADER_VERSION\s*:=\s*2', r'BOARD_RAMDISK_USE_LZMA\s*:=\s*true', r'AERA_INCLUDE_CRYPTO\s*:=\s*true', r'AERA_USE_FSCRYPT_POLICY\s*:=\s*1', r'^AERA_USE_DMCTL[ \t]*:=[ \t]*1[ \t]*$']:
+        assert re.search(pattern, board, re.M), f'Wrong board setting: {pattern}'
     assert 'OPLUS_H40' not in board and 'TARGET_RECOVERY_INITRC' not in board
     assert re.search(r'AERA_INCLUDE_FASTBOOTD\s*:=\s*true', board)
     assert re.search(r'^\s*fastbootd(?:\s|$)', (ROOT/'device.mk').read_text(), re.M)
