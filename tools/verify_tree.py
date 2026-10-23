@@ -50,6 +50,10 @@ def verify():
         assert info['needed'] == record['needed'], f'Changed ELF dependencies: {n}'
         assert set(info['needed']) <= provided, f'Unresolved dependencies: {n}'
     board = (ROOT/'BoardConfig.mk').read_text()
+    cmdline = re.search(r'^BOARD_KERNEL_CMDLINE[ \t]*:=[ \t]*(.*)$', board, re.M)
+    sleep_flags = [arg for arg in cmdline.group(1).split()
+                   if arg.startswith('lpm_levels.sleep_disabled=')] if cmdline else []
+    assert sleep_flags == ['lpm_levels.sleep_disabled=0'], 'Recovery must enable CPU low-power idle exactly once in BOARD_KERNEL_CMDLINE'
     assert re.search(r'^TARGET_ARCH\s*:=\s*arm64\s*$', board, re.M)
     assert not re.search(r'^TARGET_2ND_\w+[ \t]*:=[ \t]*\S', board, re.M)
     assert re.search(r'^TARGET_SUPPORTS_32_BIT_APPS\s*:=\s*false\s*$', board, re.M)
