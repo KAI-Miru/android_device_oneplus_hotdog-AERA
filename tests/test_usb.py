@@ -15,6 +15,62 @@ class UsbTests(unittest.TestCase):
     def test_native_mtp_adb_identity_and_functions(self):
         self.assertEqual(verify_usb_configuration(self.script)['mtp_adb_pid'], '4ee2')
 
+    def test_sideload_keeps_normal_adbd_stopped(self):
+        gadget = UsbActions(self.script)
+        # Recovery stops normal adbd through native "none" cleanup, forks
+        # minadbd, then selects sideload. Only minadbd may own its endpoints.
+        gadget.set('sys.usb.config', 'none')
+        gadget.commands.clear()
+        gadget.set('sys.usb.config', 'sideload')
+        gadget.set('sys.usb.ffs.ready', '1')
+        self.assertNotIn(['start', 'adbd'], gadget.commands)
+        self.assertNotIn(['restart', 'adbd'], gadget.commands)
+        self.assertEqual(gadget.commands, [])  # Native init owns the binding.
+
+    def test_previous_sideload_rule_reproduces_normal_adbd_restart(self):
+        old = self.script + (
+            b'\non property:sys.usb.config=sideload && property:sys.usb.configfs=1\n'
+            b'    start adbd\n')
+        gadget = UsbActions(old)
+        gadget.set('sys.usb.config', 'sideload')
+        self.assertIn(['start', 'adbd'], gadget.commands)
+        with self.assertRaisesRegex(ValueError, 'sideload belongs to minadbd'):
+            verify_usb_configuration(old)
+
+    def test_rejects_normal_adbd_start_without_an_explicit_adb_profile(self):
+        for trigger in ('property:sys.usb.config=sideload && property:sys.usb.configfs=1',
+                        'property:sys.usb.configfs=1 && property:sys.usb.config=sideload',
+                        'property:sys.usb.ffs.ready=1', 'fs'):
+            for command in ('start adbd', 'restart adbd', 'exec_start adbd',
+                            'setprop ctl.start adbd', 'setprop ctl.restart adbd'):
+                with self.subTest(trigger=trigger, command=command):
+                    bad = self.script + f'\non {trigger}\n    {command}\n'.encode()
+                    with self.assertRaisesRegex(ValueError, 'sideload belongs to minadbd'):
+                        verify_usb_configuration(bad)
+
+    def test_duplicate_init_actions_cannot_hide_an_adbd_start(self):
+        bad = self.script + (
+            b'\non property:sys.usb.ffs.ready=1\n    start adbd\n'
+            b'\non property:sys.usb.ffs.ready=1\n    setprop test.ready 1\n')
+        with self.assertRaisesRegex(ValueError, 'sideload belongs to minadbd'):
+            verify_usb_configuration(bad)
+
+    def test_return_from_sideload_preserves_mtp_adb_startup(self):
+        gadget = UsbActions(self.script)
+        gadget.set('sys.usb.config', 'sideload')
+        gadget.set('sys.usb.ffs.ready', '1')  # minadbd descriptors are ready.
+        self.assertNotIn(['start', 'adbd'], gadget.commands)
+        gadget.set('sys.usb.config', 'none')
+        gadget.set('sys.usb.ffs.ready', '0')  # Native cleanup after minadbd exits.
+        gadget.set('sys.usb.config', 'mtp,adb')
+        self.assertEqual(gadget.commands.count(['start', 'adbd']), 1)
+        self.assertFalse(gadget.bound)
+        gadget.set('sys.usb.ffs.ready', '1')
+        self.assertFalse(gadget.bound)
+        gadget.set('sys.usb.ffs.mtp.ready', '1')
+        self.assertTrue(gadget.bound)
+        self.assertEqual(gadget.properties['sys.usb.state'], 'mtp,adb')
+
     def test_rejects_mismatched_identity_and_missing_adb_function(self):
         changes = ((b'0x4ee2', b'0x9012'), (b'0x18d1', b'0x05c6'),
                    (b'functions/ffs.adb', b'functions/ffs.mtp'),

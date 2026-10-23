@@ -1,4 +1,4 @@
-"""Check the configfs MTP+ADB identity and FunctionFS handoff."""
+"""Check MTP+ADB FunctionFS handoff and exclusive minadbd sideload ownership."""
 import shlex
 
 
@@ -11,12 +11,23 @@ def verify_usb_configuration(script):
             continue
         if line.startswith('on '):
             trigger = line[3:]
-            rules[trigger] = []
+            # Init executes every matching action, including repeated triggers.
+            rules.setdefault(trigger, [])
         elif trigger:
             rules[trigger].append(shlex.split(line))
     ready = ('property:sys.usb.config=mtp,adb && property:sys.usb.ffs.ready=1 && '
              'property:sys.usb.ffs.mtp.ready=1 && property:sys.usb.configfs=1')
     for condition, values in rules.items():
+        for args in values:
+            starts_adbd = (args[:2] in (['start', 'adbd'], ['restart', 'adbd'],
+                                        ['exec_start', 'adbd']) or
+                           args in (['setprop', 'ctl.start', 'adbd'],
+                                    ['setprop', 'ctl.restart', 'adbd']))
+            profiles = {'property:sys.usb.config=adb',
+                        'property:sys.usb.config=mtp,adb'}
+            if starts_adbd and not profiles.intersection(condition.split(' && ')):
+                raise ValueError('Normal adbd requires an explicit adb or mtp,adb '
+                                 'profile; sideload belongs to minadbd')
         if any(args[:2] == ['write', '/config/usb_gadget/g1/UDC'] and
                args[2] != 'none' for args in values) and 'sys.usb.config=mtp' in condition:
             required = {'property:sys.usb.ffs.mtp.ready=1'}

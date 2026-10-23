@@ -17,9 +17,7 @@ on property:sys.usb.config=none && property:sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f3
     setprop sys.usb.ffs.mtp.ready 0
 
-on property:sys.usb.config=sideload && property:sys.usb.configfs=1
-    start adbd
-
+# Recovery forks minadbd for sideload; normal adbd must not claim its endpoints.
 on property:sys.usb.config=mtp,adb && property:sys.usb.configfs=1
     start adbd
 
