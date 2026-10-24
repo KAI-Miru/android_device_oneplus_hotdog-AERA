@@ -108,3 +108,17 @@ and requires `fs_config_files_system` for recovery. Native mkbootfs reads that
 generated table before writing the CPIO; without the rule an unlisted `/sbin`
 file would fall back to mode `0644`. The pre-pack guard checks the generated
 record and the final image audit checks actual executable mode.
+
+## Haptic duration coverage and System probing
+
+The stock-device dump passed as `--rmt-storage-dump` also supplies haptic firmware.
+`tools/haptic-source.json` pins all 75 AW8697 duration waveforms (20–500 ms in
+20 ms steps, at 166/170/174 Hz), stock RAM calibration variants and the generic RTP
+waveform. Guacamole uses H40 and Hotdog uses F22. Import, tree and final-image
+checks require the complete range and exact hashes; a different slider position
+must not silently request an unpackaged waveform. UI durations remain unchanged.
+
+System keeps one canonical fstab row with filesystem-neutral `ro` options.
+Recovery probes ext4 versus EROFS; ext4-only barrier/discard options must not be
+passed to an EROFS mount. Read-only ext4 retains its normal default behavior.
+The other per-filesystem profiles and userdata encryption flags stay unchanged.

@@ -27,6 +27,9 @@ def verify():
     blobs = json.loads((ROOT/'proprietary/manifest.json').read_text())
     from verify_rmt_storage import verify_tree as verify_rmt_storage_tree
     verify_rmt_storage_tree(ROOT)
+    from verify_haptics import verify_haptic_runtime
+    verify_haptic_runtime({name: (0o100644, (ROOT/'proprietary'/name).read_bytes())
+                           for name in blobs['files'] if blobs['files'][name].get('runtime') == 'haptics'})
     graphics = json.loads((ROOT/'tools/gpu-source.json').read_text())
     assert blobs['graphics_source'] == graphics
     for dest in set(graphics['seeds'].values()) | set(graphics['required_libraries']):
@@ -71,6 +74,8 @@ def verify():
     assert 'ro.recovery.usb.fastboot.pid=4EE0' in (ROOT/'system.prop').read_text()
     fstab = (ROOT/'recovery/root/system/etc/recovery.fstab').read_text()
     rows = [s.split() for s in fstab.splitlines() if s.strip() and not s.lstrip().startswith('#')]
+    from verify_mount_options import verify_system_mount_options
+    verify_system_mount_options(fstab)
     vendor_rows = [r for r in rows if r[1] == '/vendor']
     assert vendor_rows and all('ro' in r[3].split(',') for r in vendor_rows), 'Installed vendor access must remain read-only'
     data_rows = [r for r in rows if r[1] == '/data']

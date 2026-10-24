@@ -4,8 +4,10 @@
 # ColorOS my_* partitions not needed by recovery remain hidden, stock init owns
 # /mnt/vendor/persist, and the ext4/EROFS pairs support mixed ROM layouts.
 
+# System probing can select EROFS without a second System row. Keep its options
+# filesystem-neutral; ext4 barrier/discard options are invalid for EROFS.
 #<src>                   <mnt_point>       <type>  <mnt_flags>                <fs_mgr_flags>
-system                   /system           ext4    ro,barrier=1,discard       wait,slotselect,logical
+system                   /system           ext4    ro                         wait,slotselect,logical
 system_ext               /system_ext       ext4    ro,barrier=1,discard       wait,slotselect,logical
 system_ext               /system_ext       erofs   ro                         wait,slotselect,logical
 product                  /product          ext4    ro,barrier=1,discard       wait,slotselect,logical

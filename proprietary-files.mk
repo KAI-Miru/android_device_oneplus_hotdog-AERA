@@ -66,6 +66,81 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/system/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/vendor.qti.hardware.display.mapperextensions@1.0.so \
     $(LOCAL_PATH)/proprietary/system/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/vendor.qti.hardware.display.mapperextensions@1.1.so \
     $(LOCAL_PATH)/proprietary/system/lib64/vendor.qti.hardware.tui_comm@1.0.so:$(TARGET_COPY_OUT_RECOVERY)/root/system/lib64/vendor.qti.hardware.tui_comm@1.0.so \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/100ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/100ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/100ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/100ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/100ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/100ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/120ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/120ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/120ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/120ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/120ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/120ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/140ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/140ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/140ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/140ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/140ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/140ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/160ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/160ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/160ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/160ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/160ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/160ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/180ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/180ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/180ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/180ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/180ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/180ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/200ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/200ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/200ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/200ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/200ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/200ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/20ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/20ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/20ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/20ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/20ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/20ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/220ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/220ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/220ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/220ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/220ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/220ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/240ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/240ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/240ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/240ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/240ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/240ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/260ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/260ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/260ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/260ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/260ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/260ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/280ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/280ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/280ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/280ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/280ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/280ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/300ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/300ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/300ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/300ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/300ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/300ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/320ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/320ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/320ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/320ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/320ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/320ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/340ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/340ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/340ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/340ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/340ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/340ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/360ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/360ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/360ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/360ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/360ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/360ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/380ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/380ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/380ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/380ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/380ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/380ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/400ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/400ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/400ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/400ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/400ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/400ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/40ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/40ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/40ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/40ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/40ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/40ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/420ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/420ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/420ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/420ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/420ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/420ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/440ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/440ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/440ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/440ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/440ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/440ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/460ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/460ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/460ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/460ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/460ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/460ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/480ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/480ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/480ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/480ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/480ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/480ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/500ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/500ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/500ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/500ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/500ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/500ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/60ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/60ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/60ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/60ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/60ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/60ms_RTP_174Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/80ms_RTP_166Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/80ms_RTP_166Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/80ms_RTP_170Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/80ms_RTP_170Hz.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/80ms_RTP_174Hz.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/80ms_RTP_174Hz.bin \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a630_gmu.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a630_gmu.bin \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a630_sqe.fw:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a630_sqe.fw \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a640_gmu.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a640_gmu.bin \
@@ -74,6 +149,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a640_zap.b02:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a640_zap.b02 \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a640_zap.elf:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a640_zap.elf \
     $(LOCAL_PATH)/proprietary/vendor/firmware/a640_zap.mdt:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/a640_zap.mdt \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_166.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_166.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_168.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_168.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_170.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_170.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_172.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_172.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_174.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_174.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_haptic_235.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_haptic_235.bin \
+    $(LOCAL_PATH)/proprietary/vendor/firmware/aw8697_rtp.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/aw8697_rtp.bin \
     $(LOCAL_PATH)/proprietary/vendor/lib64/egl/eglSubDriverAndroid.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/egl/eglSubDriverAndroid.so \
     $(LOCAL_PATH)/proprietary/vendor/lib64/egl/libEGL_adreno.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/egl/libEGL_adreno.so \
     $(LOCAL_PATH)/proprietary/vendor/lib64/egl/libGLESv1_CM_adreno.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/egl/libGLESv1_CM_adreno.so \

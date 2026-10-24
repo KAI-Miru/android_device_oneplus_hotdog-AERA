@@ -302,6 +302,10 @@ def verify(image, report, kernel=None):
         if int.from_bytes(compressed[1:5], 'little') != DICTIONARY_BYTES:
             raise ValueError('Ramdisk LZMA dictionary differs from the device compressor')
     entries = unpack_newc(data)
+    from verify_mount_options import verify_system_mount_options
+    system_mount_options = verify_system_mount_options(entries['system/etc/recovery.fstab'][1].decode())
+    from verify_haptics import verify_haptic_runtime
+    haptic_runtime = verify_haptic_runtime(entries)
     from verify_busybox import verify_runtime as verify_busybox_runtime
     busybox_runtime = verify_busybox_runtime(entries)
     from verify_hotdog import verify_fastboot_runtime, HEALTH_BINARY, HEALTH_PROVIDER, FASTBOOT_HAL_PROVIDER
@@ -376,7 +380,7 @@ def verify(image, report, kernel=None):
               'gpu_native_buffer_library':gpu_runtime,
               'gpu_startup':verify_gpu_startup_configuration(entries['system/bin/recovery'][1], image_properties(entries), entries),
               'wifi_runtime':wifi_runtime, 'busybox_runtime':busybox_runtime,
-              'vendor_inputs':len(inputs['files']),'abi_errors':abi_errors}
+              'haptic_runtime':haptic_runtime, 'system_mount_options':system_mount_options, 'vendor_inputs':len(inputs['files']),'abi_errors':abi_errors}
     target = Path(report); target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(json.dumps(result,indent=2)+'\n')
     if abi_errors: raise ValueError('Vendor/AERA ABI audit failed; see verification report')

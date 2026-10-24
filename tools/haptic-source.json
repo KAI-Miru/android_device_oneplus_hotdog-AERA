@@ -1,0 +1,348 @@
+{
+  "source_dump": "7TPro_F22",
+  "description": "Original 7TPro_F22 AW8697 duration and RAM firmware for recovery haptic sliders",
+  "duration_range_ms": [
+    20,
+    500
+  ],
+  "duration_step_ms": 20,
+  "rtp_frequencies_hz": [
+    166,
+    170,
+    174
+  ],
+  "files": {
+    "vendor/firmware/100ms_RTP_166Hz.bin": {
+      "bytes": 2393,
+      "sha256": "22a8636f39428098cb325183a17276b5866d98fa524b0d7e3d94024b16667e7b"
+    },
+    "vendor/firmware/100ms_RTP_170Hz.bin": {
+      "bytes": 2393,
+      "sha256": "94b2d17ea2f5aa38f576cb68c3ada226fbd302f9fb4067a784af2b20080c582d"
+    },
+    "vendor/firmware/100ms_RTP_174Hz.bin": {
+      "bytes": 2393,
+      "sha256": "69469c82848feb3bde6a4818728143943f1fd50c0d033f1807891eada9ef54a8"
+    },
+    "vendor/firmware/120ms_RTP_166Hz.bin": {
+      "bytes": 2962,
+      "sha256": "692d8aaa20b8b80d069a5b33c7eb5f94d2051b327a54429eaf6c39dcf23a0f10"
+    },
+    "vendor/firmware/120ms_RTP_170Hz.bin": {
+      "bytes": 2962,
+      "sha256": "1990e4833afeffe888294180e865ed64c719f083358265905fa5bc2619e0807a"
+    },
+    "vendor/firmware/120ms_RTP_174Hz.bin": {
+      "bytes": 2962,
+      "sha256": "0483e92fb26dcea68e2bb38f5132438e2cbdd6ccb7e107f0bdcfe14744a877ca"
+    },
+    "vendor/firmware/140ms_RTP_166Hz.bin": {
+      "bytes": 3382,
+      "sha256": "1c4a9551ac124866091e6269e55cb748c15ba89b28c5eccd2ad278bcd0c30ca2"
+    },
+    "vendor/firmware/140ms_RTP_170Hz.bin": {
+      "bytes": 3382,
+      "sha256": "a2b108f2e6a22ea556cd5d4feaa28dfae6ad00547db07a973e32ac6584100cfc"
+    },
+    "vendor/firmware/140ms_RTP_174Hz.bin": {
+      "bytes": 3382,
+      "sha256": "6bcd7d6163250adeb880e79c94807b728f97bd0f487a9aa22ae99ee74f0c9d68"
+    },
+    "vendor/firmware/160ms_RTP_166Hz.bin": {
+      "bytes": 3946,
+      "sha256": "32bd130e5a44dca6c1a07c493497d133ed3281e57076ee5d83efd8b220e61923"
+    },
+    "vendor/firmware/160ms_RTP_170Hz.bin": {
+      "bytes": 3946,
+      "sha256": "86f49f22dded5059718e7fa040cc13bb729161e2c5312e19ce66df2396a35957"
+    },
+    "vendor/firmware/160ms_RTP_174Hz.bin": {
+      "bytes": 3946,
+      "sha256": "70cc1a5afe9ac18d1f24f81fa4b75424b4d3363bb39e5af97d6ac19e5eb59543"
+    },
+    "vendor/firmware/180ms_RTP_166Hz.bin": {
+      "bytes": 4372,
+      "sha256": "b1909bbaef5559cc4db53da29af4489fa654cf9a07e56ecc14e36ac493653302"
+    },
+    "vendor/firmware/180ms_RTP_170Hz.bin": {
+      "bytes": 4372,
+      "sha256": "4dd9e97110f42cebd46502a3f6eadf4c8ae66021c0efeddbdf4e49bd68b1d9c1"
+    },
+    "vendor/firmware/180ms_RTP_174Hz.bin": {
+      "bytes": 4372,
+      "sha256": "7b3cb77ee28aab67ee15f5a09a259770127fc1d029ba32544c88a5b523b079c0"
+    },
+    "vendor/firmware/200ms_RTP_166Hz.bin": {
+      "bytes": 4795,
+      "sha256": "7bca413ef33597ff9b902fb6dda17ba740e87e866dab877e8cab6d4972cea8d4"
+    },
+    "vendor/firmware/200ms_RTP_170Hz.bin": {
+      "bytes": 4795,
+      "sha256": "c661000f0f37c8c3bbc334ac80e5e6d614aa789d3262ec227c17aabb354c3a56"
+    },
+    "vendor/firmware/200ms_RTP_174Hz.bin": {
+      "bytes": 4795,
+      "sha256": "a5671146f88b306ddbb7ec65cd2e3e026a6b2c9ff8fc91f3020b9992a1975ca1"
+    },
+    "vendor/firmware/20ms_RTP_166Hz.bin": {
+      "bytes": 359,
+      "sha256": "439f3cae133a0c4b8c1a1384068462b044c2d4489f3cec45492e33f96563b368"
+    },
+    "vendor/firmware/20ms_RTP_170Hz.bin": {
+      "bytes": 359,
+      "sha256": "f9b68b4dadff1804c14c010d42654814b468d51b26bea73edc235a7ef60905ab"
+    },
+    "vendor/firmware/20ms_RTP_174Hz.bin": {
+      "bytes": 359,
+      "sha256": "88150b9646c6d0eb5f1145d314a2ee7dc035a3dbc1b2d2c021f453d6af4b891a"
+    },
+    "vendor/firmware/220ms_RTP_166Hz.bin": {
+      "bytes": 5360,
+      "sha256": "8b5d25aa5c59cd3ba003aa66272e352fdc29a5b83485ad5f0f7fc38752267652"
+    },
+    "vendor/firmware/220ms_RTP_170Hz.bin": {
+      "bytes": 5360,
+      "sha256": "2bacb1ed56f61f0de86a255a5de45226ecdfa4ad40220d6f9ff01289a9275555"
+    },
+    "vendor/firmware/220ms_RTP_174Hz.bin": {
+      "bytes": 5360,
+      "sha256": "e13882bfe7debfa4296a5f7fde183549c8a97b8da789ce284744f3e2f0da376c"
+    },
+    "vendor/firmware/240ms_RTP_166Hz.bin": {
+      "bytes": 5786,
+      "sha256": "4315bd57f3c7f65f248771894426a84d2a239c38ef40d9c36d330a37a1ed40d6"
+    },
+    "vendor/firmware/240ms_RTP_170Hz.bin": {
+      "bytes": 5786,
+      "sha256": "38538f3564c593fbba5f2c8fb5b1fe8896508b49c9b0a972191baea02e22f426"
+    },
+    "vendor/firmware/240ms_RTP_174Hz.bin": {
+      "bytes": 5786,
+      "sha256": "d002845a144f9d5b8506b8c929f3bf4ba29c886d112fce4498063b891e888ddc"
+    },
+    "vendor/firmware/260ms_RTP_166Hz.bin": {
+      "bytes": 6350,
+      "sha256": "a6627d0032472532369c5c8396b832383b9e70be3d2a97f3f864fb04ba4cc38a"
+    },
+    "vendor/firmware/260ms_RTP_170Hz.bin": {
+      "bytes": 6350,
+      "sha256": "1217496d183873eb2767a61025efa7d4a1015c63a747d07d974a2a9e49c19aac"
+    },
+    "vendor/firmware/260ms_RTP_174Hz.bin": {
+      "bytes": 6350,
+      "sha256": "7c5f0ae6d95b72586f64097959241beb904a138f402a11391d52108124eac8f9"
+    },
+    "vendor/firmware/280ms_RTP_166Hz.bin": {
+      "bytes": 6772,
+      "sha256": "b42cdfd722e7d0525747532fe2d9bad457cb8b5d30704a0ce333a6774e98a009"
+    },
+    "vendor/firmware/280ms_RTP_170Hz.bin": {
+      "bytes": 6772,
+      "sha256": "503b33790210756daa09c322816702645dadbc361ccf1e42b1f74fbbe978f7cc"
+    },
+    "vendor/firmware/280ms_RTP_174Hz.bin": {
+      "bytes": 6772,
+      "sha256": "b6abf5bb29eb1fd6304f4c26496633e04434a65d07ab20aa506b53b76d13a671"
+    },
+    "vendor/firmware/300ms_RTP_166Hz.bin": {
+      "bytes": 7198,
+      "sha256": "6aecbe0bf19fbd7e8422d6ea845bcbddc8a43c0f0abe6150b9c9fdc34e56f447"
+    },
+    "vendor/firmware/300ms_RTP_170Hz.bin": {
+      "bytes": 7198,
+      "sha256": "db896db80299c49fea11934cda8ec3bd1b62fcdb41e9a51de4c7034b93942bf2"
+    },
+    "vendor/firmware/300ms_RTP_174Hz.bin": {
+      "bytes": 7198,
+      "sha256": "c31185d48ab2278fdfbbc88d1ae998aa9080caa4e6efe404ef08cf1dc93460dc"
+    },
+    "vendor/firmware/320ms_RTP_166Hz.bin": {
+      "bytes": 7763,
+      "sha256": "e6a1358298c08f2471b2227dac4e3daad8e85bb57647a1dc15c39b75be034179"
+    },
+    "vendor/firmware/320ms_RTP_170Hz.bin": {
+      "bytes": 7763,
+      "sha256": "3c1bc07d8a6fafedd6591c1ec77fe0e8d3079a307719fae66b087d979f4224d2"
+    },
+    "vendor/firmware/320ms_RTP_174Hz.bin": {
+      "bytes": 7763,
+      "sha256": "25b310e3256b3221e5902f41a99f13227810bd2d841daeba16760754f0e0e367"
+    },
+    "vendor/firmware/340ms_RTP_166Hz.bin": {
+      "bytes": 8184,
+      "sha256": "0dedf6076f4a69796f2de7ece255880825371a191a72e1689e0627175332764e"
+    },
+    "vendor/firmware/340ms_RTP_170Hz.bin": {
+      "bytes": 8184,
+      "sha256": "35a9e853df29b828d2167c284d89e2761095ff0147de28e7db8be861401eaabf"
+    },
+    "vendor/firmware/340ms_RTP_174Hz.bin": {
+      "bytes": 8184,
+      "sha256": "916f6ce24dd45f9593e36e15667ef8ea33d0a31dc731dbac3a7a4385fbf17e3a"
+    },
+    "vendor/firmware/360ms_RTP_166Hz.bin": {
+      "bytes": 8751,
+      "sha256": "32e107832b20c142bf64ec21c9d873434076ef8d82b06d327fd87e7986144562"
+    },
+    "vendor/firmware/360ms_RTP_170Hz.bin": {
+      "bytes": 8751,
+      "sha256": "fd5eb7c2652b07cbab263750c5604aead2eda6cb4757c8e6fa9b4e70a256e039"
+    },
+    "vendor/firmware/360ms_RTP_174Hz.bin": {
+      "bytes": 8751,
+      "sha256": "c5c957f878677fc947e4d77160c5973c08998f55b33f840d53e3eee82e179e35"
+    },
+    "vendor/firmware/380ms_RTP_166Hz.bin": {
+      "bytes": 9177,
+      "sha256": "d6b1b1a4cceffe18d19b39eef2286742010fcbcfb336abb8cbb26d7f0dd6fcd5"
+    },
+    "vendor/firmware/380ms_RTP_170Hz.bin": {
+      "bytes": 9177,
+      "sha256": "12e6534e83f103c508233a038cc0f2e4abfaea8e50f56e515314e91c4eaf9522"
+    },
+    "vendor/firmware/380ms_RTP_174Hz.bin": {
+      "bytes": 9177,
+      "sha256": "810152ba1d5b0d9fcbea5c7cbf72cfd541c0884cb5f682ad8e278ba31c68dad4"
+    },
+    "vendor/firmware/400ms_RTP_166Hz.bin": {
+      "bytes": 9599,
+      "sha256": "4be3d22c76f55cb62da64dd3247b77880a1104fa45f69d570ae1d269ece82870"
+    },
+    "vendor/firmware/400ms_RTP_170Hz.bin": {
+      "bytes": 9599,
+      "sha256": "a1a0e951a337a25c3c32322de70495092f3e16ac878f54d4860e43fa0591e9b2"
+    },
+    "vendor/firmware/400ms_RTP_174Hz.bin": {
+      "bytes": 9599,
+      "sha256": "1a9ff667852c4004bb4c378c7802c321d7b8d0aa0b922af42ebbc98030dc1564"
+    },
+    "vendor/firmware/40ms_RTP_166Hz.bin": {
+      "bytes": 985,
+      "sha256": "f68ccdb5b2bcd0ff3eb6119c04a82f13974a8cabdfe8566cf5220dd1d8d92204"
+    },
+    "vendor/firmware/40ms_RTP_170Hz.bin": {
+      "bytes": 985,
+      "sha256": "f1de14505c59a0d91db1f1b2cf7e58a276f949f61946273cefb001d59f780527"
+    },
+    "vendor/firmware/40ms_RTP_174Hz.bin": {
+      "bytes": 985,
+      "sha256": "a56953eef4401a22f36ed6da94e79015d950d762c827237375c8680279a9e5ce"
+    },
+    "vendor/firmware/420ms_RTP_166Hz.bin": {
+      "bytes": 10170,
+      "sha256": "9b0618d2a6a2d62869ca4574e617a1dc710f2dc6a5461d1e479caa49d6acd956"
+    },
+    "vendor/firmware/420ms_RTP_170Hz.bin": {
+      "bytes": 10170,
+      "sha256": "0bf97b9f8435b9fd74b65fb2a9570a7b647bf143a0738c7876b2b7ce0bec07a9"
+    },
+    "vendor/firmware/420ms_RTP_174Hz.bin": {
+      "bytes": 10170,
+      "sha256": "6228f0f163850426bcb01641cad78ee9656794c14606e8547a36fe3caccb48c4"
+    },
+    "vendor/firmware/440ms_RTP_166Hz.bin": {
+      "bytes": 10589,
+      "sha256": "a2fb84b8c28bb01c24aa721a090a42f27ce8c487c5e52a506439bc1c161b310f"
+    },
+    "vendor/firmware/440ms_RTP_170Hz.bin": {
+      "bytes": 10589,
+      "sha256": "a317d767befc5f4aae41e7eead08cee996d4ba8f6492e4d4ae285d223cab3ae7"
+    },
+    "vendor/firmware/440ms_RTP_174Hz.bin": {
+      "bytes": 10589,
+      "sha256": "741b4b5e0372c4f02fc85c2685d4e7a1784df39198d27e9a7367bc9d2148d83b"
+    },
+    "vendor/firmware/460ms_RTP_166Hz.bin": {
+      "bytes": 11154,
+      "sha256": "491056faaaefd6918e473f6ff814a41ec6088feb8328875e1ac5b01233f96595"
+    },
+    "vendor/firmware/460ms_RTP_170Hz.bin": {
+      "bytes": 11154,
+      "sha256": "beffc1d6fa21c964a82ef3382f82961f5d4f74f555e5f763658d2c55c40bc6fa"
+    },
+    "vendor/firmware/460ms_RTP_174Hz.bin": {
+      "bytes": 11154,
+      "sha256": "067470fdecf7231986292f69baa19c42f4707570ee3c4bc7a93df236b16d80f8"
+    },
+    "vendor/firmware/480ms_RTP_166Hz.bin": {
+      "bytes": 11577,
+      "sha256": "14543ff2cd601f03e10a2a706a044aee4509070029bafa4c736e8c65682c0d4c"
+    },
+    "vendor/firmware/480ms_RTP_170Hz.bin": {
+      "bytes": 11577,
+      "sha256": "d4956a4fcdaa087cfa6c0b4304c6900e7a8517cd23201d4f0f66f950e08ee47a"
+    },
+    "vendor/firmware/480ms_RTP_174Hz.bin": {
+      "bytes": 11577,
+      "sha256": "1d2a2a1110d249c6e18fffc8224711a5725838c36881eb35c90e357bf167f47b"
+    },
+    "vendor/firmware/500ms_RTP_166Hz.bin": {
+      "bytes": 12001,
+      "sha256": "6ebbe67e406402aaaa7f01f87473c8d7f8a3ab00e2ea10bc517adae208265d36"
+    },
+    "vendor/firmware/500ms_RTP_170Hz.bin": {
+      "bytes": 12001,
+      "sha256": "dae60ab27f21158c3e4bf7826c1101cc2826e6e9dcf917461448b5ba4f8093b6"
+    },
+    "vendor/firmware/500ms_RTP_174Hz.bin": {
+      "bytes": 12001,
+      "sha256": "211083eeb32960fae6718c25a45c77f411c40c35f5290ac75f0241af3d694277"
+    },
+    "vendor/firmware/60ms_RTP_166Hz.bin": {
+      "bytes": 1548,
+      "sha256": "607058d8c1616def05248d32bfd90992107073d34036c85390710cbaaf37c9c7"
+    },
+    "vendor/firmware/60ms_RTP_170Hz.bin": {
+      "bytes": 1548,
+      "sha256": "f734b8340e255d879c536e52b1f5647ed77933375bad904331a4f31908a6b505"
+    },
+    "vendor/firmware/60ms_RTP_174Hz.bin": {
+      "bytes": 1548,
+      "sha256": "22e8926b4037e70ed645739f2ce48759aacf38f67a3906b638083ead320aed48"
+    },
+    "vendor/firmware/80ms_RTP_166Hz.bin": {
+      "bytes": 1979,
+      "sha256": "1c81f4d5c2c5def6bd421e504df9a0cadd91cbc05110fbaf11fe86f9507c609c"
+    },
+    "vendor/firmware/80ms_RTP_170Hz.bin": {
+      "bytes": 1979,
+      "sha256": "98fb90d52ddf8ce2e5825d057c67be0237d78e6c6df439c2d8fbceff136ab4ff"
+    },
+    "vendor/firmware/80ms_RTP_174Hz.bin": {
+      "bytes": 1979,
+      "sha256": "c19adb7ee691c3f90cc267460228c84b458b7d052cf24b6e863c956a77966bc8"
+    },
+    "vendor/firmware/aw8697_haptic.bin": {
+      "bytes": 5804,
+      "sha256": "9bde39eb8d2ca1688efb046d735f86c2a2c8315a7feee28befb3667d0c9209b7"
+    },
+    "vendor/firmware/aw8697_haptic_166.bin": {
+      "bytes": 6006,
+      "sha256": "832a5bdbe467b31571047c87caeb725230b4a188350ae02ac997237d9a84cdbe"
+    },
+    "vendor/firmware/aw8697_haptic_168.bin": {
+      "bytes": 5961,
+      "sha256": "bc6e953ad587e1a30d254119fc36c143dc8f906a7fbd9e19d8a280b5b713776d"
+    },
+    "vendor/firmware/aw8697_haptic_170.bin": {
+      "bytes": 5852,
+      "sha256": "c77f9450350bd0036674c67cea62fd12784fe00aba5bc9e01f3411782fac57db"
+    },
+    "vendor/firmware/aw8697_haptic_172.bin": {
+      "bytes": 5977,
+      "sha256": "e24da6706ac1ac1b53791106909ee13c3c9eaa4a84e191b1887909c1a2505b0d"
+    },
+    "vendor/firmware/aw8697_haptic_174.bin": {
+      "bytes": 5940,
+      "sha256": "40f5f82cdad98bfedcba87724c3605383d51fdbaa6d652ec248f73f8dea20c05"
+    },
+    "vendor/firmware/aw8697_haptic_235.bin": {
+      "bytes": 6115,
+      "sha256": "148c5bce8f66dec2d12b7410672b83a9868515628497f9e4451bf9f42b9a1482"
+    },
+    "vendor/firmware/aw8697_rtp.bin": {
+      "bytes": 72000,
+      "sha256": "36438cefa7206dac9ef150b613418d5912c3eb69ed4e0084798602985b43470d"
+    }
+  }
+}

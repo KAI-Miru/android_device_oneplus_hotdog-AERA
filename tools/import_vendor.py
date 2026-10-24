@@ -9,6 +9,7 @@ import subprocess
 from pathlib import Path
 from elftools.elf.elffile import ELFFile
 from verify_rmt_storage import stock_input
+from verify_haptics import haptic_inputs
 
 ROOT = Path(__file__).resolve().parents[1]
 # Compiled from AERA/platform source, never copied from Android 15 userspace.
@@ -170,6 +171,14 @@ def import_vendor(dump, official_checkout, gpu_dump, rmt_storage_dump):
         target.parent.mkdir(parents=True, exist_ok=True); data = p.read_bytes(); target.write_bytes(data)
         records[dest] = {'source': p.relative_to(dump).as_posix(), 'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}
 
+    haptic = json.loads((ROOT / 'tools/haptic-source.json').read_text())
+    for dest, data in haptic_inputs(rmt_storage_dump, haptic).items():
+        target = ROOT / 'proprietary' / dest
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+        records[dest] = {'source': dest, 'source_dump': haptic['source_dump'],
+                         **haptic['files'][dest], 'runtime': 'haptics'}
+
     # Remove only previously manifested binary inputs made obsolete by this
     # explicit source change. Do not delete other files or whole directories.
     output_root = (ROOT / 'proprietary').resolve()
@@ -181,6 +190,7 @@ def import_vendor(dump, official_checkout, gpu_dump, rmt_storage_dump):
     metadata = {'source_dump': dump.name, 'source_vendor_sdk': 30, 'source_system_sdk': 35,
                 'official_crypto_source': {k: crypto[k] for k in ('repository', 'commit')},
                 'graphics_source': gpu,
+                'haptic_source': haptic,
                 'rmt_storage_source': rmt,
                 'platform_libraries': sorted(built), 'files': dict(sorted(records.items()))}
     (ROOT / 'proprietary/manifest.json').write_text(json.dumps(metadata, indent=2) + '\n', encoding='utf-8', newline='\n')
