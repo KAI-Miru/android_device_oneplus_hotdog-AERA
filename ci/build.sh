@@ -4,9 +4,8 @@ device_repo=$(cd -- "$(dirname -- "$0")/.." && pwd)
 build_root=${AERA_SOURCE_DIR:?Set AERA_SOURCE_DIR to a dedicated source directory}
 artifact_root=${AERA_ARTIFACT_DIR:?Set AERA_ARTIFACT_DIR}
 jobs=${BUILD_JOBS:-2}
-export AERA_PREBUILT_KERNEL=${AERA_PREBUILT_KERNEL:-$device_repo/external-inputs/Image}
-python3 "$device_repo/tools/kernel_input.py" "$AERA_PREBUILT_KERNEL" \
-    --module-manifest "$device_repo/modules/manifest.json"
+# Input identities come exclusively from the checked-in F.22 blob manifests.
+python3 "$device_repo/tools/kernel_input.py" --report "$artifact_root/kernel-input.json"
 mkdir -p "$build_root" "$artifact_root"
 trap 'df -h "$build_root" | tee "$artifact_root/source-capacity.txt"' EXIT
 if [[ -n ${AERA_DEVICE_REVISION:-} ]]; then

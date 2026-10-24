@@ -2,18 +2,8 @@ name: Prepare private AERA builder
 
 on:
   workflow_call:
-    secrets:
-      AERA_KERNEL_ARTIFACT_URL:
-        description: Private HTTPS download URL for the approved kernel input
-        required: false
     inputs:
       device_ref:
-        type: string
-        required: true
-      kernel_url:
-        type: string
-        required: true
-      kernel_sha256:
         type: string
         required: true
       runner_ref:
@@ -25,14 +15,6 @@ on:
         description: Device branch, tag or commit
         type: string
         default: main
-      kernel_url:
-        description: HTTPS URL of a compatible ARM64 Image
-        type: string
-        required: true
-      kernel_sha256:
-        description: SHA256 of the supplied Image
-        type: string
-        required: true
       runner_ref:
         description: Runner branch, tag or commit
         type: string
@@ -69,8 +51,6 @@ jobs:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
         with:
-          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
-          sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be

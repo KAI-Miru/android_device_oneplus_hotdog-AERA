@@ -6,7 +6,7 @@ import json
 import os
 from pathlib import Path
 
-INPUTS = ('sources.lock.json', 'tools/prepare_manifest.py',
+INPUTS = ('prebuilt/manifest.json', 'modules/manifest.json', 'sources.lock.json', 'tools/prepare_manifest.py',
           'tools/prepare_checkout.py', 'tools/complete_snapshot.py', 'ci/patches/soong-go-memory.patch',
           'ci/patches/make-config-cache.patch',
           'ci/Builder.Dockerfile', 'tools/requirements.txt',

@@ -55,7 +55,11 @@ def verify(device, source, artifacts, legacy=LEGACY):
     checkpoint = compiled_checkpoint(source)
     if recorded != expected:
         retained = source / 'device/oneplus/hotdog'
-        if (recorded not in legacy and checkpoint is None) or fingerprint(retained) != recorded:
+        try:
+            retained_fingerprint = fingerprint(retained)
+        except FileNotFoundError as error:
+            raise ValueError('Prepared environment predates bundled boot inputs; prepare again') from error
+        if (recorded not in legacy and checkpoint is None) or retained_fingerprint != recorded:
             raise ValueError('Unknown or altered prepared environment; prepare again')
         changed = [name for name in INPUTS
                    if (device / name).read_bytes() != (retained / name).read_bytes()]

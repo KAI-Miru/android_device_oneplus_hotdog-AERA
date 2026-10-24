@@ -6,9 +6,10 @@ Both checkouts are resolved to exact commits before assembly and recorded in
 the build diagnostics.
 
 The product is `twrp_hotdog-bp2a-eng`, the build target is `recoveryimage`, and
-the output is `AERA-hotdog-ALPHA-recovery.img`. A kernel Image is supplied by
-HTTPS URL and SHA256 or as a local external input. The intended input is the
-universal Miru CI59 Image and matching WLAN module used by guacamole.
+the output is `AERA-hotdog-ALPHA-recovery.img`. Builds verify the original F22
+kernel, header, reference ramdisk and device trees bundled in the selected
+device revision, with its matching F22 WLAN module. No external kernel URL,
+caller checksum or kernel secret is needed. AERA generates its native ramdisk.
 
 The first Hotdog build uses fresh preparation. This repository does not select
 an existing guacamole checkpoint or grant compatibility to its legacy caches.
@@ -26,13 +27,13 @@ Pushes to `ci-runner` validate both runner and device inputs. Image builds and
 checkpoint publication require a manual workflow dispatch. A passing build
 still needs Hotdog hardware testing.
 
-## Kernel containers and WLAN compatibility
+## Bundled input policy
 
-Kernel intake identifies ARM64 Image, gzip Image or boot-v2 payloads by content,
-not archive or member names. A ZIP may contain one candidate payload or one
-inner ZIP containing it. Multiple candidates, extra ZIP nesting, unsafe paths,
-symlinks and oversized inputs are rejected. The exact caller-supplied kernel
-SHA256 remains mandatory; ramdisks and device trees in containers are ignored.
+Cold builds, preparation and prepared builds run the same bundled verifier.
+Boot and WLAN module manifests are part of the prepared fingerprint. Old CI59
+environments remain stored but are rejected for F22 builds; fresh preparation
+is the default. There is no retained-image fallback. The archive selector remains
+a standalone tested tool outside the production build path.
 
 WLAN startup reads `modinfo -F vermagic` from the actual bundled module and
 compares its release with the running kernel before starting radio helpers.

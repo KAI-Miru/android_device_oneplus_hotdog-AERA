@@ -14,7 +14,6 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 from environment_fingerprint import INPUTS, fingerprint
 from verify_prepared_environment import verify
-from retained_image import select
 from prepared_snapshot import pack, restore
 from select_recovery_source import select as select_source
 
@@ -131,18 +130,19 @@ class CompiledCheckpointTests(unittest.TestCase):
                                 input=archive(['root/.docker/config.json']), capture_output=True)
         self.assertNotEqual(denied.returncode, 0)
 
-    def test_retained_image_requires_exact_hash_before_copying(self):
-        original = self.source / 'device/oneplus/hotdog/prebuilt/kernel'
-        original.parent.mkdir(parents=True)
-        original.write_bytes(b'caller-approved image fixture')
-        with self.assertRaisesRegex(ValueError, 'absent'):
-            select(self.source, '0' * 64)
-        self.assertFalse((self.source / '.external-inputs/Image').exists())
-        expected = hashlib.sha256(original.read_bytes()).hexdigest()
-        selected = select(self.source, expected)
-        self.assertEqual(selected.read_bytes(), original.read_bytes())
-        original.unlink()
-        self.assertEqual(select(self.source, expected), selected)
+    def test_changed_boot_or_module_manifest_rejects_retained_environment(self):
+        for name in ('prebuilt/manifest.json', 'modules/manifest.json'):
+            path = self.current / name
+            old = path.read_bytes()
+            path.write_text('different kernel/module pair')
+            with self.subTest(name=name), self.assertRaisesRegex(ValueError, 'inputs changed'):
+                self.check()
+            path.write_bytes(old)
+
+    def test_environment_missing_boot_identity_requires_fresh_preparation(self):
+        (self.retained / 'prebuilt/manifest.json').unlink()
+        with self.assertRaisesRegex(ValueError, 'predates bundled boot inputs'):
+            self.check()
 
     @unittest.skipUnless(sys.platform.startswith('linux') and shutil.which('ninja') and
                          shutil.which('g++'), 'Requires native Ninja and a C++ compiler')

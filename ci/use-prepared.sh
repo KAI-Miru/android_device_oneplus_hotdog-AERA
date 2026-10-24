@@ -7,13 +7,8 @@ fi
 python3 "$device_repo/tools/verify_prepared_environment.py" "$device_repo" /aera "${AERA_ARTIFACT_DIR:?}"
 export GIT_CONFIG_GLOBAL=/aera/.aera-ci.gitconfig
 git config --file "$GIT_CONFIG_GLOBAL" --add safe.directory /device-tree
-if [[ ! -s ${AERA_PREBUILT_KERNEL:-/device-tree/external-inputs/Image} ]]; then
-    export AERA_PREBUILT_KERNEL
-    AERA_PREBUILT_KERNEL=$(python3 "$device_repo/tools/retained_image.py" /aera "${AERA_KERNEL_SHA256:?}")
-fi
-python3 "$device_repo/tools/kernel_input.py" "$AERA_PREBUILT_KERNEL" \
-    --sha256 "${AERA_KERNEL_SHA256:?}" --module-manifest "$device_repo/modules/manifest.json" \
-    --report "$AERA_ARTIFACT_DIR/kernel-input.json"
+python3 "$device_repo/tools/kernel_input.py" --report "$AERA_ARTIFACT_DIR/kernel-input.json"
+
 echo 'Using verified prepared sources, host tools and build graph.'
 export AERA_PREPARED_SOURCE=1
 bash "$device_repo/ci/build.sh"

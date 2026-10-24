@@ -2,18 +2,8 @@ name: Hotdog native AERA recovery
 
 on:
   workflow_call:
-    secrets:
-      AERA_KERNEL_ARTIFACT_URL:
-        description: Private HTTPS download URL for the approved kernel input
-        required: false
     inputs:
       device_ref:
-        type: string
-        required: true
-      kernel_url:
-        type: string
-        default: ''
-      kernel_sha256:
         type: string
         required: true
       runner_ref:
@@ -31,14 +21,6 @@ on:
         description: Device branch, tag or commit
         type: string
         default: main
-      kernel_url:
-        description: Image HTTPS URL, or blank to reuse the approved private input
-        type: string
-        default: ''
-      kernel_sha256:
-        description: SHA256 of the supplied Image
-        type: string
-        required: true
       runner_ref:
         description: Runner branch, tag or commit
         type: string
@@ -79,7 +61,6 @@ jobs:
       contents: read
       packages: read
     env:
-      KERNEL_INPUT_URL: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
       BUILD_JOBS: ${{ inputs.build_jobs }}
       AERA_DEVICE_REVISION: ${{ needs.validate.outputs.device_revision }}
     steps:
@@ -94,8 +75,6 @@ jobs:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
         with:
-          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
-          sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space
         if: runner.environment == 'github-hosted'
@@ -156,7 +135,7 @@ jobs:
         with:
           name: hotdog-native-AERA-ALPHA-DEVICE-TEST
           path: |
-            ${{ runner.temp }}/aera-artifacts/AERA-hotdog-ALPHA-recovery.img
+            ${{ runner.temp }}/aera-artifacts/AERA-hotdog-ALPHA-boot.img
             ${{ runner.temp }}/aera-artifacts/SHA256SUMS
           if-no-files-found: error
           retention-days: 14
@@ -185,7 +164,6 @@ jobs:
       contents: read
       packages: write
     env:
-      KERNEL_INPUT_URL: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
       BUILD_JOBS: ${{ inputs.build_jobs }}
       PREPARED_BUILDER: ${{ vars.AERA_PREPARED_BUILDER }}
     steps:
@@ -199,10 +177,7 @@ jobs:
         with:
           device_ref: ${{ needs.validate.outputs.device_revision }}
       - uses: ./runner/.github/actions/supply-image
-        if: env.KERNEL_INPUT_URL != ''
         with:
-          url: ${{ inputs.kernel_url || secrets.AERA_KERNEL_ARTIFACT_URL }}
-          sha256: ${{ inputs.kernel_sha256 }}
           build_inputs: ${{ steps.inputs.outputs.path }}
       - name: Free hosted-runner disk space
         uses: jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be
@@ -259,8 +234,6 @@ jobs:
             --mount "type=bind,source=$RUNNER_TEMP/aera-artifacts,target=/artifacts" \
             --mount "type=bind,source=$RUNNER_TEMP/aera-checkpoint,target=/checkpoint" \
             --env "AERA_DEVICE_REVISION=$DEVICE_REVISION" --env "BUILD_JOBS=$BUILD_JOBS" \
-            --env AERA_PREBUILT_KERNEL=/device-tree/external-inputs/Image \
-            --env "AERA_KERNEL_SHA256=${{ inputs.kernel_sha256 }}" \
             --env AERA_CHECKPOINT_DIR=/checkpoint \
             "$PREPARED_BUILDER" 2>&1 | tee "$RUNNER_TEMP/aera-artifacts/session.log"
       - name: Upload verified device-test image
@@ -268,7 +241,7 @@ jobs:
         with:
           name: hotdog-native-AERA-ALPHA-DEVICE-TEST
           path: |
-            ${{ runner.temp }}/aera-artifacts/AERA-hotdog-ALPHA-recovery.img
+            ${{ runner.temp }}/aera-artifacts/AERA-hotdog-ALPHA-boot.img
             ${{ runner.temp }}/aera-artifacts/SHA256SUMS
           if-no-files-found: error
           retention-days: 14

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 @unittest.skipUnless(sys.platform.startswith('linux') and shutil.which('bash'),
                      'Requires native Linux shell execution')
 class BuildKernelPreflightTests(unittest.TestCase):
-    def test_build_passes_the_supplied_image_and_module_manifest_before_checkout(self):
+    def test_build_verifies_bundled_f22_before_checkout(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             binary = root / 'bin'
@@ -28,8 +28,7 @@ class BuildKernelPreflightTests(unittest.TestCase):
             result = subprocess.run(['bash', str(ROOT / 'ci/build.sh')], env=env)
             self.assertEqual(result.returncode, 73)
             self.assertEqual(arguments.read_text().splitlines(), [
-                str(ROOT / 'tools/kernel_input.py'), str(image), '--module-manifest',
-                str(ROOT / 'modules/manifest.json')])
+                str(ROOT / 'tools/kernel_input.py'), '--report', str(root / 'artifacts/kernel-input.json')])
             self.assertFalse((root / 'source').exists())
 
 

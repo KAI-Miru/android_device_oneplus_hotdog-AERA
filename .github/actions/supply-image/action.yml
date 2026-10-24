@@ -1,44 +1,15 @@
-name: Supply ARM64 Image
-description: Download and verify the caller-supplied build input
-
+name: Verify bundled F22 boot inputs
+description: Verify original boot blobs and their matching WLAN module from the selected device revision
 inputs:
-  url:
-    description: HTTPS URL
-    required: true
-  sha256:
-    description: Expected SHA256
-    required: true
   build_inputs:
     description: Assembled build input directory
     required: true
-
 runs:
   using: composite
   steps:
-    - name: Download and verify Image
+    - name: Verify versioned original F22 inputs
       shell: bash
       env:
-        IMAGE_URL: ${{ inputs.url }}
-        IMAGE_SHA256: ${{ inputs.sha256 }}
         BUILD_INPUTS: ${{ inputs.build_inputs }}
-        GH_TOKEN: ${{ github.token }}
       run: |
-        [[ "$IMAGE_URL" = https://* ]]
-        [[ "$IMAGE_SHA256" =~ ^[0-9a-f]{64}$ ]]
-        mkdir -p "$BUILD_INPUTS/external-inputs" "$RUNNER_TEMP/aera-artifacts"
-        image="$BUILD_INPUTS/external-inputs/Image"
-        download="$BUILD_INPUTS/external-inputs/kernel-download"
-        if [[ "$IMAGE_URL" == https://api.github.com/repos/KAI-Miru/android_kernel_oneplus_sm8150/actions/artifacts/*/zip ]]; then
-          curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' \
-            -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
-            "$IMAGE_URL" -o "$download"
-        else
-          curl --fail --location --retry 3 --proto '=https' --proto-redir '=https' "$IMAGE_URL" -o "$download"
-        fi
-        python3 runner/ci/select_kernel_input.py "$download" "$image" --sha256 "$IMAGE_SHA256"
-        rm -f -- "$download"
-        printf '%s  %s\n' "$IMAGE_SHA256" "$image" | sha256sum --check -
-        python3 "$BUILD_INPUTS/tools/kernel_input.py" "$image" --sha256 "$IMAGE_SHA256" \
-          --module-manifest "$BUILD_INPUTS/modules/manifest.json" \
-          --report "$RUNNER_TEMP/aera-artifacts/kernel-input.json"
-        echo "AERA_PREBUILT_KERNEL=$image" >> "$GITHUB_ENV"
+        python3 "$BUILD_INPUTS/tools/kernel_input.py" --report "$RUNNER_TEMP/aera-artifacts/kernel-input.json"
