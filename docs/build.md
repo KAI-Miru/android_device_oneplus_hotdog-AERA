@@ -87,3 +87,24 @@ account `2903:2903` with mode `0700`. Existing persist files are never chowned
 or modified by this preparation, and RAM state survives Wi-Fi toggles. Incorrect
 links, foreign mounts, or ownership failures stop startup before the backends
 and radio. This configuration still requires hardware Wi-Fi validation.
+
+### Upstream BusyBox
+
+`AERA_USE_BUSYBOX_BINARY=1` enables the pinned AERA vendor hook, which installs
+its original static ARM64 prebuilt as `/sbin/busybox` with mode `0755`. Native
+Toybox and its command links remain selected. The device forwards the resolved
+flag after the hook imports cached settings and checks the staged binary before
+native ramdisk compression. The final image audit requires the exact upstream
+hash and the applet table, including `ip`, `nc`, `nslookup`, `ping`, `sh`,
+`timeout`, `udhcpc` and `wget`. Source identities are recorded in
+`tools/busybox-source.json`; there is no duplicate BusyBox blob in this tree.
+
+Packaging supplies the tool used by AERA's connection test. It does not make
+one hardcoded internet endpoint universally reachable or repair WPA3/driver
+issues. No global ping socket permissions are changed.
+
+The device also supplies an exact `sbin/busybox` filesystem permission rule
+and requires `fs_config_files_system` for recovery. Native mkbootfs reads that
+generated table before writing the CPIO; without the rule an unlisted `/sbin`
+file would fall back to mode `0644`. The pre-pack guard checks the generated
+record and the final image audit checks actual executable mode.

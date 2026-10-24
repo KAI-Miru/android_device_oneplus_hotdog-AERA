@@ -5,6 +5,7 @@ ifeq ($(TARGET_DEVICE),hotdog)
 # core/Makefile uses this executable as both the compressor and a dependency.
 LZMA := $(LOCAL_PATH)/tools/lzma_ramdisk.py
 include $(call all-makefiles-under,$(LOCAL_PATH))
+include $(LOCAL_PATH)/busybox.mk
 
 # This standalone prebuilt-kernel tree has no kernel makefile to install DTB.
 # Preserve the complete original F.22 payload, including its original padding.

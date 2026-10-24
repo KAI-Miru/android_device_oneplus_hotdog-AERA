@@ -109,6 +109,9 @@ AERA_INCLUDE_LOGCAT := true
 AERA_INCLUDE_RESETPROP := true
 AERA_INCLUDE_LIBRESETPROP := true
 AERA_ENABLE_WLAN := 1
+# Use the upstream vendor hook's standalone /sbin/busybox (keep native Toybox).
+AERA_USE_BUSYBOX_BINARY := 1
+TARGET_FS_CONFIG_GEN += $(DEVICE_PATH)/config/busybox-fs-config.fs
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 AERA_EXTRA_LANGUAGES := true

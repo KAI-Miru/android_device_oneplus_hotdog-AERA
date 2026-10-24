@@ -7,6 +7,8 @@ from import_vendor import elf_info
 ROOT = Path(__file__).resolve().parents[1]
 
 def verify():
+    from verify_busybox import verify_tree as verify_busybox_tree
+    verify_busybox_tree(ROOT)
     from kernel_input import verify_bundled_boot
     verify_bundled_boot(ROOT)
     prebuilt = json.loads((ROOT/'prebuilt/manifest.json').read_text())

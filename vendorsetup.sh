@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: Apache-2.0
 if [ "${AERA_BUILD_DEVICE:-}" = hotdog ]; then
     export AERA_AB_DEVICE=1
+    export AERA_USE_BUSYBOX_BINARY=1
     export AERA_VANILLA_BUILD=1
     export AERA_VANILLA_BUILD=1
     export AERA_BUILD_STATUS=Unofficial

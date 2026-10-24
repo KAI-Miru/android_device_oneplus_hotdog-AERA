@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/AERA-Recovery/android_vendor_recovery.git",
+  "commit": "7b4e41362938ee3498fc0e8a4f3e0528bf320efd",
+  "source": "prebuilt/arm64/busybox",
+  "destination": "sbin/busybox",
+  "bytes": 1498688,
+  "sha256": "c629fce4b0dd3ba9775f851d0941e74582115f423258d3a79800f2bd11d30f5c",
+  "applet_count": 353,
+  "required_applets": ["ip", "nc", "nslookup", "ping", "sh", "timeout", "udhcpc", "wget"]
+}

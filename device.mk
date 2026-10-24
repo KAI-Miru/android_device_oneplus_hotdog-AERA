@@ -13,6 +13,8 @@ PRODUCT_VIRTUAL_AB_OTA := false
 PRODUCT_BUILD_SUPER_PARTITION := false
 PRODUCT_BUILD_RECOVERY_IMAGE := true
 PRODUCT_SOONG_NAMESPACES += $(LOCAL_PATH)
+# mkbootfs reads this generated permission table from TARGET_OUT before packing.
+TARGET_RECOVERY_DEVICE_MODULES += fs_config_files_system
 
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl:64 \

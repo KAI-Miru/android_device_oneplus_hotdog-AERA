@@ -302,6 +302,8 @@ def verify(image, report, kernel=None):
         if int.from_bytes(compressed[1:5], 'little') != DICTIONARY_BYTES:
             raise ValueError('Ramdisk LZMA dictionary differs from the device compressor')
     entries = unpack_newc(data)
+    from verify_busybox import verify_runtime as verify_busybox_runtime
+    busybox_runtime = verify_busybox_runtime(entries)
     from verify_hotdog import verify_fastboot_runtime, HEALTH_BINARY, HEALTH_PROVIDER, FASTBOOT_HAL_PROVIDER
     fastboot_runtime = verify_fastboot_runtime(entries)
     if b'terminal action handed off with graphics thread alive' not in entries.get('system/bin/recovery', (0, b''))[1]:
@@ -373,7 +375,7 @@ def verify(image, report, kernel=None):
               'usb_configuration':usb_configuration,
               'gpu_native_buffer_library':gpu_runtime,
               'gpu_startup':verify_gpu_startup_configuration(entries['system/bin/recovery'][1], image_properties(entries), entries),
-              'wifi_runtime':wifi_runtime,
+              'wifi_runtime':wifi_runtime, 'busybox_runtime':busybox_runtime,
               'vendor_inputs':len(inputs['files']),'abi_errors':abi_errors}
     target = Path(report); target.parent.mkdir(parents=True,exist_ok=True)
     target.write_text(json.dumps(result,indent=2)+'\n')
