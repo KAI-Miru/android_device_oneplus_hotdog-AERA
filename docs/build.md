@@ -16,16 +16,16 @@ fastbootd, the matched WLAN module and the strict boot-image parser.
 
 ## Building
 
-The kernel is an external input. Use the same universal Miru CI59 Image as
-guacamole, SHA256
-`b81679da7c59d5e66968f9006c2ed5ff5181c46acee053c306e17a954914aaea`.
-No kernel binary or stock F22 ramdisk is committed.
+The original F22 kernel, boot-v2 header, compressed stock reference ramdisk,
+DTB and recovery DTBO are versioned under `prebuilt/`. The matching original
+F22 WLAN module is under `modules/`. Manifests pin every byte and reconstruct
+the original stock recovery payload. AERA builds its own native ramdisk and header.
 
-The **Hotdog native AERA recovery** workflow calls the `ci-runner` branch.
-Supply the kernel's HTTPS URL and hash, and use fresh preparation for the first
-Hotdog build (`use_prepared=false`). No Guacamole checkpoint is selected by
-this repository. A compatible private Hotdog checkpoint can be retained after
-a successful build.
+The **Hotdog native AERA recovery** workflow calls `ci-runner` and takes no
+external Image URL, kernel checksum or kernel secret. Fresh preparation is the
+default. Old CI59 checkpoints are rejected because the environment fingerprint
+includes both boot and module manifests. Preserve old caches for their original
+inputs; prepare a new compatible environment for F22.
 
 For local Linux builds with Android build prerequisites and Google's repo tool:
 
@@ -35,7 +35,6 @@ git clone --branch ci-runner --single-branch \
 python3 ../hotdog-runner/ci/assemble_inputs.py \
   --device "$PWD" --runner ../hotdog-runner --output /tmp/hotdog-build-inputs
 export AERA_DEVICE_REVISION=$(git rev-parse HEAD)
-export AERA_PREBUILT_KERNEL=/absolute/path/to/CI59/Image
 export AERA_SOURCE_DIR=/path/to/dedicated/aera-source
 export AERA_ARTIFACT_DIR=/path/to/artifacts
 export BUILD_JOBS=4
@@ -48,18 +47,17 @@ miru source and its native NAS dependencies. The first build needs a fresh
 source/toolchain plan; recovery source is never rewritten by build-time Python.
 
 The final verifier checks the physical partition and strict loader window,
-exact DTB/DTBO and supplied Image, complete GPU/crypto/WLAN inputs, native
+exact bundled F22 kernel and DTB/DTBO, complete GPU/crypto/WLAN inputs, native
 fastbootd and full strong-symbol dependency closure. The runner also verifies
 AVB. No feature may be removed and no bound relaxed merely to fit an image.
 Construction checks do not replace device testing.
 
-## Kernel containers and WLAN compatibility
+## Bundled inputs and WLAN compatibility
 
-Kernel intake identifies ARM64 Image, gzip Image or boot-v2 payloads by content,
-not archive or member names. A ZIP may contain one candidate payload or one
-inner ZIP containing it. Multiple candidates, extra ZIP nesting, unsafe paths,
-symlinks and oversized inputs are rejected. The exact caller-supplied kernel
-SHA256 remains mandatory; ramdisks and device trees in containers are ignored.
+`python3 tools/kernel_input.py` verifies bundled input hashes, stock payload
+reconstruction, native LZMA support, and the kernel/module release match.
+The archive selector remains a standalone tested tool outside the build path.
+The stock ramdisk is not installed or executed by AERA.
 
 WLAN startup reads `modinfo -F vermagic` from the actual bundled module and
 compares its release with the running kernel before starting radio helpers.

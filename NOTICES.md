@@ -12,8 +12,13 @@
 - UFS userspace ioctl headers: LineageOS SM8150 UAPI definitions,
   commit `32f26bf34ddf17df8e224ae0703656b9fe0c1a8d`, retained under
   `bootctrl/include` with their original notices.
-- DTB and recovery DTBO: user-supplied boot image. Sources and identities are
-  recorded in `prebuilt/manifest.json`.
+- Original F22 kernel, header, compressed reference ramdisk, DTB and recovery
+  DTBO: supplied `7TPro_F22/firmware-images/recovery.img`. Exact component and
+  reconstructed payload identities are recorded in `prebuilt/manifest.json`.
+- Matching F22 WLAN module: `7TPro_F22/vendor/lib/modules/qca_cld3_wlan.ko`,
+  with source identity and vermagic in `modules/manifest.json`. These original
+  components retain their upstream licenses and proprietary terms; the kernel
+  retains its GPLv2 terms. This tree does not relicense these blobs.
 - Proprietary inputs: user-supplied `C15_PORT_GUAC_4G`, the matching graphics
   runtime from `7Pro_H40`, and the official TeamWin guacamole tree.
   Per-file origins and hashes are in `proprietary/manifest.json`.
@@ -27,5 +32,5 @@ firmware and proprietary components retain their original licenses and terms.
   `efb8210e76adf37746b3bfa92a21992a6feb2c2c`; proprietary manifests are unchanged.
 - Hotdog partition reference: KAI-Miru/android_device_oneplus_hotdog,
   `eb19fbf1379b8a2d01c8402c03c695591aafd283`.
-- Hotdog DTB/DTBO: supplied OnePlus 7T Pro F22 recovery image, with exact hashes
-  in `prebuilt/manifest.json`. Its stock ramdisk and kernel are not redistributed.
+- The F22 stock ramdisk is redistributed as a reference blob only. AERA builds
+  its native ramdisk from pinned sources; no stock runtime overlay is imported.

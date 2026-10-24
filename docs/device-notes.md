@@ -6,13 +6,13 @@ The reference TWRP tree is pinned in `config/device.json`. It describes dynamic
 A/B partitions, physical slotted recovery partitions and a 96 MiB recovery
 partition. The supplied F22 image independently confirms header v2 and 4096-byte
 pages. Its DTB/DTBO, addresses and command line are recorded in
-`prebuilt/manifest.json`. Its original ramdisk, init, SELinux policy and kernel
-are not part of this tree.
-
-This port uses the external universal CI59 Miru Image and the exact same WLAN
-module as guacamole, as requested. No CI58 or stock-F22 module substitution is
-allowed. Kernel identity and module release are checked before building and
-against the final image.
+`prebuilt/manifest.json`. The original kernel, header and compressed stock
+ramdisk are also versioned as verified blobs. Builds use the original kernel
+and device trees with the matching F22 WLAN module, without external inputs.
+The stock ramdisk is a reference only; its init and policy are not imported.
+Kernel identity and module release are checked before building and against
+the final image. Prepared fingerprints include both component manifests,
+so old CI59 checkpoints cannot be reused for F22 builds.
 
 ## Native recovery runtime
 
@@ -37,8 +37,9 @@ page check remains enabled. The loader addresses came from the guacamole port;
 `config/bootloader-layout.json` marks them unverified on Hotdog rather than
 claiming the supplied recovery image proves every runtime address.
 
-Nothing has been flashed or tested on Hotdog. Existing guacamole reports do not
-establish Hotdog behavior. Formatting tests use fake partitions only.
+The bundled F22 migration has not been built or tested on hardware. Existing
+images and Guacamole reports do not establish behavior of this input set.
+Formatting tests use fake partitions only.
 
 The recovery pin includes a scoped metadata-mount checkpoint query. An
 unmarked boot slot alone must not put recovery userdata writes into rollback

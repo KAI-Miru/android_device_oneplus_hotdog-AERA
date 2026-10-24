@@ -16,13 +16,13 @@
     "branch": "android-12.1-latest-snapshot"
   },
   "kernel": {
-    "source": "External universal Miru CI59 Image, shared with guacamole",
-    "sha256": "b81679da7c59d5e66968f9006c2ed5ff5181c46acee053c306e17a954914aaea",
-    "release": "4.14.357-openela-ColorOS15-ci59+",
-    "tracked": false
+    "source": "Original F22 recovery.img kernel, bundled at prebuilt/kernel",
+    "sha256": "df645d4cfa3173530ce59aa59170a416a2fb408c42de06784ec3f42a60e32347",
+    "release": "4.14.180-perf+",
+    "tracked": true
   },
   "proprietary_manifest_sha256": "572e27163f10afb20da0111a5bf85f33d805452c32c501c5137f618559950333",
-  "wlan_manifest_sha256": "11ceddd74c25e44a7eaffd8f6e510c3abafc4be21e619e27714a74a23f7a1b54",
+  "wlan_manifest_sha256": "92f529f2be72541927e1e87497057036aae849c44c7ca2c3ffab6acbf4797135",
   "reference_ramdisk_imported": false,
   "hardware_tested": false
 }

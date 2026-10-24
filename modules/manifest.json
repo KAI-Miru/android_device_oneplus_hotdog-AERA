@@ -1,15 +1,13 @@
 {
-  "kernel_release": "4.14.357-openela-ColorOS15-ci59+",
-  "source_repository": "https://github.com/KAI-Miru/android_kernel_oneplus_sm8150",
-  "kernel_commit": "739fda7b8ccde95e3e6dca42fd03989756ec5229",
-  "source_run": 38135329800,
-  "source_artifact": 11701342749,
-  "flash_zip_sha256": "b8ad181fdfb192a2ddb54a8f6b7fc26a1c426d941ff9738cbdb21ebd0ef6c57e",
+  "kernel_release": "4.14.180-perf+",
+  "source_dump": "7TPro_F22",
+  "source_path": "vendor/lib/modules/qca_cld3_wlan.ko",
+  "matching_boot_sha256": "bb3c25691ddab8c0ffc9f823d919efee469527ba42ada12933ce2b673a9acec6",
   "files": {
     "qca_cld3_wlan.ko": {
-      "bytes": 15348232,
-      "sha256": "33f3dbcb0d81049a51baa52aeeba8024ab46f75aa505ce9b80b223a77cda0a4b",
-      "vermagic": "4.14.357-openela-ColorOS15-ci59+ SMP preempt mod_unload modversions aarch64"
+      "bytes": 15158126,
+      "sha256": "2aefb1ac02742fc4a50dbacf4a4099d7d16434cd234a9cbe5ab8ac708881031e",
+      "vermagic": "4.14.180-perf+ SMP preempt mod_unload modversions aarch64"
     }
   }
 }

@@ -1,4 +1,4 @@
-# Recovery extensions for the CI59 ICNSS/QMI WLAN stack. These services do
+# Recovery extensions for the bundled ICNSS/QMI WLAN stack. These services do
 # not import stock init classes or start the Android telephony framework.
 on boot
     setprop sys.hotdog.wlan.domains preparing

@@ -7,15 +7,6 @@ on:
         description: Device branch, tag or commit
         type: string
         default: main
-      kernel_url:
-        description: HTTPS URL of your compatible ARM64 Image
-        type: string
-        required: true
-      kernel_sha256:
-        description: SHA256 of the supplied Image
-        type: string
-        required: true
-
 permissions:
   actions: read
   contents: read
@@ -24,9 +15,5 @@ permissions:
 jobs:
   prepare:
     uses: KAI-Miru/android_device_oneplus_hotdog-AERA/.github/workflows/prepare-builder.yml@ci-runner
-    secrets:
-      AERA_KERNEL_ARTIFACT_URL: ${{ secrets.AERA_KERNEL_ARTIFACT_URL }}
     with:
       device_ref: ${{ inputs.device_ref }}
-      kernel_url: ${{ inputs.kernel_url }}
-      kernel_sha256: ${{ inputs.kernel_sha256 }}

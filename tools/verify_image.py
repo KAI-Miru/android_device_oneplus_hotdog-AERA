@@ -271,11 +271,11 @@ def verify_crypto_service_configuration(entries):
 def verify(image, report, kernel=None):
     root = Path(__file__).resolve().parents[1]
     expected = json.loads((root/'prebuilt/manifest.json').read_text())
-    import os
-    from kernel_input import verify_image_kernel
-    supplied = kernel or os.environ.get('AERA_PREBUILT_KERNEL')
-    if not supplied:
-        raise ValueError('Set AERA_PREBUILT_KERNEL to the supplied Image before verifying an image')
+    from kernel_input import verify_image_kernel, verify_bundled_boot
+    verify_bundled_boot(root)
+    supplied = root / 'prebuilt/kernel'
+    if kernel is not None and Path(kernel).resolve() != supplied.resolve():
+        raise ValueError('Hotdog uses only the bundled original F22 kernel')
     raw = Path(image).read_bytes(); header, pieces = parse_boot(raw)
     module = None
     if (root / 'modules/manifest.json').exists():
@@ -285,7 +285,8 @@ def verify(image, report, kernel=None):
         raise ValueError('Final AVB-padded image must equal the actual 96 MiB partition')
     for key in ('kernel_address','ramdisk_address','second_address','tags_address','dtb_address'):
         if header[key] != expected['header'][key]: raise ValueError(f'Changed boot address: {key}')
-    for n, record in expected['files'].items():
+    for n in ('kernel', 'dtb.img', 'recovery-dtbo.img'):
+        record = expected['files'][n]
         if hashlib.sha256(pieces[n]).hexdigest() != record['sha256']:
             raise ValueError(f'Changed device boot component: {n}')
     compressed = pieces['ramdisk']

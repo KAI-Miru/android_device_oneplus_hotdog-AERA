@@ -9,7 +9,7 @@ on init
     setprop sys.usb.configfs 1
     setprop sys.usb.controller ${ro.boot.usbcontroller}
     setprop prepdecrypt.setpatch true
-    # Match working CI59: official Gatekeeper must use Qualcomm TEE, not SPU.
+    # Official Gatekeeper uses Qualcomm TEE, not SPU.
     setprop vendor.gatekeeper.disable_spu true
     setprop ro.hardware.bootctrl msmnile
     # AERA creates /cache as a data symlink; hotdog has a physical op2 cache.

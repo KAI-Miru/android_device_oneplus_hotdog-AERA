@@ -27,10 +27,8 @@ TARGET_USES_UEFI := true
 BOARD_VENDOR := oneplus
 
 TARGET_NO_KERNEL := false
-ifeq ($(strip $(AERA_PREBUILT_KERNEL)),)
-$(error Set AERA_PREBUILT_KERNEL to a compatible ARM64 Image)
-endif
-TARGET_PREBUILT_KERNEL := $(AERA_PREBUILT_KERNEL)
+# Original F22 kernel and device trees are versioned with this device tree.
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
 BOARD_KERNEL_IMAGE_NAME := Image
 TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
@@ -40,7 +38,7 @@ BOARD_PREBUILT_RECOVERY_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/recovery-dtbo.img
 BOARD_BOOT_HEADER_VERSION := 2
 BOARD_KERNEL_PAGESIZE := 4096
 # The bootloader's kernel/DTB/ramdisk load window is smaller than boot's
-# physical partition. The supplied Image must support legacy LZMA ramdisks.
+# physical partition. The bundled Image supports legacy LZMA ramdisks.
 # Compress the full native ramdisk without dropping any runtime components.
 BOARD_RAMDISK_USE_LZMA := true
 BOARD_KERNEL_BASE := 0x00000000
@@ -103,7 +101,7 @@ AERA_INPUT_BLACKLIST := "hbtp_vm"
 AERA_NO_SCREEN_BLANK := true
 AERA_EXCLUDE_DEFAULT_USB_INIT := true
 # Native AERA imports only /data and /metadata from the installed vendor fstab,
-# as the working CI59 recovery does. Encryption options belong to that ROM.
+# using the installed ROM encryption options.
 AERA_SKIP_ADDITIONAL_FSTAB := false
 AERA_INCLUDE_REPACKTOOLS := true
 AERA_INCLUDE_FASTBOOTD := true

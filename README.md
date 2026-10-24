@@ -2,7 +2,7 @@
 
 Native AERA device tree for **hotdog** (HD191x), derived from our
 [guacamole AERA tree](https://github.com/KAI-Miru/android_device_oneplus_guacamole-AERA).
-This is an initial port; no Hotdog AERA image has been built or tested yet.
+The bundled F22 kernel migration requires a new image build and hardware testing.
 
 ## Device layout
 
@@ -11,25 +11,25 @@ This is an initial port; no Hotdog AERA image has been built or tested yet.
 - Boot header v2, 4096-byte pages, and a 96 MiB recovery image.
 - Native fastbootd enabled, with its userspace HAL and logical-partition support.
 - No super image is generated from guessed partition geometry.
-- DTB and recovery DTBO extracted from the supplied OnePlus 7T Pro F22 image.
+- Original F22 kernel, header, reference ramdisk, DTB and recovery DTBO are versioned as blobs.
 
 The ramdisk, init, policy and recovery executable are built by AERA. The stock
-F22 ramdisk and the old TWRP stock-first overlays are not used. Device init,
+F22 ramdisk is retained as a verified reference, and is not installed as AERA runtime. Device init,
 fstab, firmware helpers and the complete H.40 graphics stack live in this tree;
 rendering does not depend on keeping installed vendor mounted.
 
 ## Shared inputs
 
 All 82 proprietary files, their source manifests, the official TeamWin Qualcomm
-crypto providers, and the matched CI59 WLAN module are copied unchanged from
-guacamole. Recovery source is pinned directly to our
+crypto providers are shared with guacamole. The WLAN module comes from the
+original F22 vendor dump and matches the bundled F22 kernel. Recovery source is pinned directly to our
 [`miru` branch](https://github.com/KAI-Miru/android_bootable_recovery/tree/miru).
 No runtime recovery-source patches are applied.
 
-Use the same external universal Miru CI59 ARM64 Image as guacamole:
-`b81679da7c59d5e66968f9006c2ed5ff5181c46acee053c306e17a954914aaea`.
-Its release must match the included WLAN module. Kernel binaries stay outside Git.
-The F22 reference kernel is not selected for this build.
+Builds select `prebuilt/kernel` and check all original components against
+`prebuilt/manifest.json`, including exact reconstruction of the stock payload.
+No external Image, download URL, caller checksum or kernel secret is required.
+AERA generates its own ramdisk and boot header; the stock ramdisk remains a reference.
 
 ## Validation and building
 

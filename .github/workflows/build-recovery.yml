@@ -7,14 +7,6 @@ on:
         description: Device branch, tag or commit
         type: string
         default: main
-      kernel_url:
-        description: Image HTTPS URL, or blank to reuse the approved private input
-        type: string
-        default: ''
-      kernel_sha256:
-        description: SHA256 of the supplied Image
-        type: string
-        required: true
       use_prepared:
         description: Reuse the private prepared environment
         type: boolean
@@ -33,11 +25,7 @@ permissions:
 jobs:
   build:
     uses: KAI-Miru/android_device_oneplus_hotdog-AERA/.github/workflows/build-recovery.yml@ci-runner
-    secrets:
-      AERA_KERNEL_ARTIFACT_URL: ${{ secrets.AERA_KERNEL_ARTIFACT_URL }}
     with:
       device_ref: ${{ inputs.device_ref }}
-      kernel_url: ${{ inputs.kernel_url }}
-      kernel_sha256: ${{ inputs.kernel_sha256 }}
       use_prepared: ${{ inputs.use_prepared }}
       build_jobs: ${{ inputs.build_jobs }}

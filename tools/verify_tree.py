@@ -7,6 +7,8 @@ from import_vendor import elf_info
 ROOT = Path(__file__).resolve().parents[1]
 
 def verify():
+    from kernel_input import verify_bundled_boot
+    verify_bundled_boot(ROOT)
     prebuilt = json.loads((ROOT/'prebuilt/manifest.json').read_text())
     assert prebuilt['source'] == 'recovery.img'
     assert prebuilt['source_sha256'] == 'bb3c25691ddab8c0ffc9f823d919efee469527ba42ada12933ce2b673a9acec6'
@@ -19,7 +21,7 @@ def verify():
             assert hashlib.sha256(data).hexdigest() == record['sha256'], f'Hash mismatch: {name}'
         actual = {p.relative_to(base).as_posix() for p in base.rglob('*') if p.is_file()}
         assert actual == set(manifest['files']) | {'manifest.json'}, f'Untracked binary inputs: {actual - set(manifest["files"])}'
-    assert set(prebuilt['files']) == {'dtb.img','recovery-dtbo.img'}
+    assert set(prebuilt['files']) == {'boot-header-v2.bin', 'kernel', 'ramdisk-stock.cpio.gz', 'dtb.img', 'recovery-dtbo.img'}
     blobs = json.loads((ROOT/'proprietary/manifest.json').read_text())
     graphics = json.loads((ROOT/'tools/gpu-source.json').read_text())
     assert blobs['graphics_source'] == graphics

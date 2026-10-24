@@ -13,16 +13,31 @@
     "cmdline": "console=ttyMSM0,115200n8 earlycon=msm_geni_serial,0xa90000 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=2048 loop.max_part=7 androidboot.usbcontroller=a600000.dwc3 buildvariant=user"
   },
   "files": {
-    "dtb.img": {
-      "bytes": 12168729,
-      "sha256": "3ec9e9b64f2eb47cec2ec4ba1ceb9aa2603c318de5d5979d62b21bfb22798c2f"
+    "boot-header-v2.bin": {
+      "bytes": 4096,
+      "sha256": "87e94b5f36521a7c7d1388b31ffae716ba3bfc20df0913402ada7b91f87851b4"
+    },
+    "kernel": {
+      "bytes": 40142864,
+      "sha256": "df645d4cfa3173530ce59aa59170a416a2fb408c42de06784ec3f42a60e32347"
+    },
+    "ramdisk-stock.cpio.gz": {
+      "bytes": 20489522,
+      "sha256": "ebe0605a8975c0fe9563c25e5eab805a594cec432ffe5daadfd47b0c6c201639"
     },
     "recovery-dtbo.img": {
       "bytes": 5165936,
       "sha256": "7187d1e64e79b1a9416b1fb332ef8d670cc59ad6dcacc6864db2ed2eec0fd5b7"
+    },
+    "dtb.img": {
+      "bytes": 12168729,
+      "sha256": "3ec9e9b64f2eb47cec2ec4ba1ceb9aa2603c318de5d5979d62b21bfb22798c2f"
     }
   },
   "source_ramdisk_imported": false,
-  "source_description": "OnePlus 7T Pro F22 reference recovery supplied by the user",
-  "partition": "recovery"
+  "source_description": "Original OnePlus 7T Pro F22 recovery from 7TPro_F22/firmware-images/recovery.img",
+  "partition": "recovery",
+  "stock_boot_payload_bytes": 77979648,
+  "stock_boot_payload_sha256": "6a2d66b58102295afb70a717d44e2ae984d36118066b186a3a62daf526293cec",
+  "stock_ramdisk_role": "Verified reference only; AERA compiles and packages its native ramdisk."
 }

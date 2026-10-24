@@ -5,3 +5,8 @@
 proprietary/** -text
 proprietary/manifest.json text eol=lf
 *.patch text eol=lf -whitespace
+
+prebuilt/** -text
+prebuilt/manifest.json text eol=lf
+prebuilt/README.md text eol=lf
+modules/*.ko -text

@@ -156,7 +156,7 @@ def verify_device_configuration(root):
         raise ValueError('Fastboot HAL device manifest must be copied into the recovery ramdisk')
     for name, key in (('proprietary','proprietary_manifest_sha256'),('modules','wlan_manifest_sha256')):
         if hashlib.sha256((root/name/'manifest.json').read_bytes()).hexdigest() != profile[key]:
-            raise ValueError(f'Shared guacamole {name} provenance changed')
+            raise ValueError(f'Pinned Hotdog {name} provenance changed')
     copies = (root/'proprietary-files.mk').read_text()
     manifest = json.loads((root/'proprietary/manifest.json').read_text())
     for name in manifest['files']:

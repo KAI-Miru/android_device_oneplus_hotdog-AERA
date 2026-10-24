@@ -7,7 +7,7 @@ LZMA := $(LOCAL_PATH)/tools/lzma_ramdisk.py
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
 # This standalone prebuilt-kernel tree has no kernel makefile to install DTB.
-# Preserve the complete extracted CI59 payload, including its original padding.
+# Preserve the complete original F.22 payload, including its original padding.
 $(PRODUCT_OUT)/dtb.img: $(TARGET_PREBUILT_DTB)
 	$(hide) mkdir -p $(dir $@)
 	$(hide) cp -f $< $@

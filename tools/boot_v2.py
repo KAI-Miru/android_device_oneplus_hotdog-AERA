@@ -42,7 +42,7 @@ def parse_boot(data):
 def bootloader_layout(kernel, ramdisk_bytes, page, layout):
     """Check Qualcomm's runtime kernel/DTB/ramdisk window, including BSS."""
     if len(kernel) < 64 or kernel[56:60] != b'ARMd':
-        raise ValueError('Expected the CI59 ARM64 Image header')
+        raise ValueError('Expected a valid ARM64 Image header')
     runtime_bytes = struct.unpack_from('<Q', kernel, 16)[0]
     if runtime_bytes < len(kernel):
         raise ValueError('Invalid ARM64 runtime image size')
