@@ -21,7 +21,9 @@ class KernelArchiveTests(unittest.TestCase):
         output = io.BytesIO()
         with zipfile.ZipFile(output,'w') as archive:
             for name, data in entries:
-                archive.writestr(name,data)
+                entry = zipfile.ZipInfo()
+                entry.filename = name  # Preserve unsafe names even on Windows.
+                archive.writestr(entry,data)
         return output.getvalue()
 
     def recovery_container(self, image):
@@ -51,7 +53,7 @@ class KernelArchiveTests(unittest.TestCase):
             with self.subTest(offset=offset, value=value), self.assertRaises(ValueError):
                 select_image(bytes(bad), digest)
         for entries in ([('../AERA-hotdog-ALPHA-recovery.img', recovery)],
-                        [('recovery.img', recovery)],
+                        [('metadata.txt', b'no kernel here')],
                         [('Image', image), ('AERA-hotdog-ALPHA-recovery.img', recovery)],
                         [('AERA-hotdog-ALPHA-recovery.img', recovery)] * 2):
             with self.subTest(names=[n for n, _ in entries]), self.assertRaises(ValueError):
@@ -68,20 +70,70 @@ class KernelArchiveTests(unittest.TestCase):
         image, digest = self.fixture()
         archive = self.archive([('arch/arm64/boot/Image.gz-dtb',gzip.compress(image)+b'DTB'),
                                 ('production-device-trees/dtb.img',b'not selected'),
-                                ('../outside',b'never extracted')])
+                                ('docs/outside',b'never extracted')])
         self.assertEqual(select_image(archive,digest),image)
 
-    def test_github_artifact_wrapper_selects_the_named_flash_archive(self):
+    def test_arbitrary_wrapper_and_kernel_names_are_selected_by_content(self):
         image, digest = self.fixture()
-        flash = self.archive([('arch/arm64/boot/Image.gz-dtb',gzip.compress(image)+b'DTB')])
-        wrapper = self.archive([('ColorOS15-ci59-flash-files.zip',flash),
-                                ('ColorOS15-ci59-flash-files.sha256',b'checksum')])
-        self.assertEqual(select_image(wrapper,digest),image)
-        for payload in (self.archive([('other.zip',flash)]),
-                        self.archive([('../ColorOS15-ci59-flash-files.zip',flash)]),
-                        self.archive([('ColorOS15-ci59-flash-files.zip',wrapper)])):
+        for name in ('ColorOS15-ci59-flash-files.zip', 'ColorOS17-universal-ci14-flash-files.zip',
+                     'future-release.bundle', 'artifacts/renamed-input.bin'):
+            flash = self.archive([('new-layout/kernel.payload', gzip.compress(image)+b'DTB'),
+                                  ('device-tree.img', b'not a kernel')])
+            wrapper = self.archive([(name, flash), ('checksums.txt', b'checksum')])
+            with self.subTest(name=name):
+                self.assertEqual(select_image(wrapper, digest), image)
+        for name in ('AERA-guacamole-ALPHA-boot.img', 'recovery.img', 'custom/build-output.dat'):
+            self.assertEqual(select_image(self.archive([(name, self.recovery_container(image))]), digest), image)
+
+    def test_wrappers_reject_traversal_extra_nesting_and_multiple_inputs(self):
+        image, digest = self.fixture()
+        flash = self.archive([('kernel', image)])
+        wrapper = self.archive([('bundle.zip', flash)])
+        payloads = [self.archive([('../bundle.zip',flash)]),
+                    self.archive([('bundle.zip',wrapper)]),
+                    self.archive([('a.zip',flash),('b.zip',flash)]),
+                    self.archive([('kernel',image),('bundle.zip',flash)]),
+                    self.archive([('/kernel',image)]),
+                    self.archive([('folder\\kernel',image)]),
+                    self.archive([('C:kernel',image)]),
+                    self.archive([('kernel',image),('../notes',b'not extracted')])]
+        for payload in payloads:
             with self.subTest(prefix=payload[:6]), self.assertRaises(ValueError):
                 select_image(payload,digest)
+
+    def test_hash_is_required_after_renamed_wrapper_selection(self):
+        image, digest = self.fixture()
+        wrapper = self.archive([('any-name.zip', self.archive([('anything.img',image)]))])
+        with self.assertRaisesRegex(ValueError, 'SHA256'):
+            select_image(wrapper, '0'*64)
+
+    def test_archive_member_count_and_uncompressed_size_are_bounded(self):
+        from unittest.mock import patch
+        import select_kernel_input as selector
+        image, digest = self.fixture()
+        payload = self.archive([('kernel', image), ('notes', b'notes')])
+        with patch.object(selector, 'MAX_ARCHIVE_MEMBERS', 1), self.assertRaises(ValueError):
+            select_image(payload,digest)
+        # A compressed member must be bounded before archive.read materializes it.
+        output = io.BytesIO()
+        with zipfile.ZipFile(output, 'w', compression=zipfile.ZIP_DEFLATED) as z:
+            z.writestr('kernel', image + bytes(10000))
+        with patch.object(selector, 'MAX_IMAGE_BYTES', 1000), self.assertRaises(ValueError):
+            select_image(output.getvalue(),digest)
+
+    def test_duplicate_and_symlink_archive_members_are_rejected(self):
+        image, digest = self.fixture()
+        duplicate = self.archive([('kernel',image),('kernel',image)])
+        with self.assertRaises(ValueError):
+            select_image(duplicate,digest)
+        output=io.BytesIO()
+        with zipfile.ZipFile(output,'w') as z:
+            entry=zipfile.ZipInfo('kernel')
+            entry.create_system=3
+            entry.external_attr=0o120777 << 16
+            z.writestr(entry,image)
+        with self.assertRaises(ValueError):
+            select_image(output.getvalue(),digest)
 
     def test_missing_or_ambiguous_kernel_and_corrupt_gzip_are_rejected(self):
         image, digest = self.fixture()
