@@ -10,6 +10,29 @@ ROOT = Path(__file__).resolve().parents[1]
 
 @unittest.skipUnless(sys.platform.startswith("linux"), "Linux shell execution")
 class WorkflowPipelineTests(unittest.TestCase):
+    def test_both_upload_paths_require_the_actual_verified_image(self):
+        workflow = (ROOT / '.github/workflows/build-recovery.yml').read_text()
+        blocks = workflow.split('      - name: Check required image artifact\n')[1:]
+        self.assertEqual(len(blocks), 2)  # Cold build and prepared build.
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            scripts = root / 'runner/ci'
+            scripts.mkdir(parents=True)
+            (scripts / 'verify_image_artifact.py').write_bytes((ROOT / 'ci/verify_image_artifact.py').read_bytes())
+            artifacts = root / 'aera-artifacts'
+            artifacts.mkdir()
+            (artifacts / 'SHA256SUMS').write_text('0' * 64 + '  AERA-hotdog-ALPHA-recovery.img\n')
+            for block in blocks:
+                check, upload = block.split('      - name: Upload verified device-test image\n', 1)
+                command = next(line.split('run: ', 1)[1] for line in check.splitlines() if 'run: ' in line)
+                result = subprocess.run(['bash', '-e', '-o', 'pipefail', '-c', command], cwd=root,
+                    env=dict(os.environ, RUNNER_TEMP=str(root)), capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('checksum-only', result.stderr)
+                upload = upload.split('      - name:', 1)[0]
+                self.assertIn('${{ steps.image-artifact.outputs.image_path }}', upload)
+                self.assertNotIn('ALPHA-boot.img', upload)
+
     def test_workflows_require_only_bundled_kernel_inputs(self):
         for name in ('build-recovery.yml', 'prepare-builder.yml'):
             workflow = (ROOT / '.github/workflows' / name).read_text()
