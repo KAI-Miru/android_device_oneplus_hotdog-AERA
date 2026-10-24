@@ -5,7 +5,7 @@ C15_PORT_GUAC_4G@supplied-dump/vendor/bin/cnss-daemon:system/bin/guacamole-cnss-
 C15_PORT_GUAC_4G@supplied-dump/vendor/bin/pd-mapper:system/bin/guacamole-pd-mapper|07212216b955c60ae73bc1952d346e2a8ff49b8fe1f638f68babb39284017676
 C15_PORT_GUAC_4G@supplied-dump/vendor/bin/qrtr-ns:system/bin/guacamole-qrtr-ns|1fe3498020693fa21449da99996d4335f179ea4265812395ff4f28805b4dd45a
 https://github.com/TeamWin/android_device_oneplus_guacamole@abef9b8a105c9feee847a6b4ed0903bda8ffb5f9/system/bin/qseecomd:system/bin/qseecomd|5849792838759e17a70adecc352fd2639a18c9bd7b40650e4a6b215d7c63be8e
-C15_PORT_GUAC_4G@supplied-dump/vendor/bin/rmt_storage:system/bin/rmt_storage|ec79898d700d8657727cfa3b928930edd88b0810e597535f886af2dbb7173574
+7TPro_F22@supplied-dump/vendor/bin/rmt_storage:system/bin/rmt_storage|380528b7f8c8692fbef0dde678ecaec865981c09bbe9ccbe918449229cfa8bf7
 C15_PORT_GUAC_4G@supplied-dump/vendor/bin/tftp_server:system/bin/tftp_server|6ee43ee36de75ffd55f4d3af0a5c82bcca055b5169f038ea93d89b32d0983292
 C15_PORT_GUAC_4G@supplied-dump/vendor/lib64/hw/android.hardware.boot@1.0-impl-1.1-qti.so:system/lib64/hw/android.hardware.boot@1.0-impl-1.1-qti.so|9cb8a4156c066f7336d3e3d46cb9064f92d53f1fc961a05836c681bbe2075197
 https://github.com/TeamWin/android_device_oneplus_guacamole@abef9b8a105c9feee847a6b4ed0903bda8ffb5f9/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so:system/lib64/hw/android.hardware.gatekeeper@1.0-impl-qti.so|73dab5bff45b97cf3e8fe87583adb7135fde715de05d1ea5d8c97e89dbbef087

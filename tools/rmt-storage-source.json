@@ -1,0 +1,9 @@
+{
+  "source_dump": "7TPro_F22",
+  "source": "vendor/bin/rmt_storage",
+  "destination": "system/bin/rmt_storage",
+  "bytes": 43504,
+  "sha256": "380528b7f8c8692fbef0dde678ecaec865981c09bbe9ccbe918449229cfa8bf7",
+  "shared_memory": "rmtfs",
+  "description": "Original F22 ARM64 remote storage; supports the stock legacy OEM layout without the C15 port's oembackup UIO requirement."
+}

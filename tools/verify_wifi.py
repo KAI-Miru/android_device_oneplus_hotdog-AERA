@@ -129,6 +129,8 @@ def verify_module_tree(root):
 
 
 def verify_runtime(entries, module_metadata):
+    from verify_rmt_storage import verify_runtime as verify_rmt_storage_runtime
+    remote_storage = verify_rmt_storage_runtime(entries)
     verify_module_metadata_tool(entries)
     module = 'system/lib/modules/msmnile/qca_cld3_wlan.ko'
     if module not in entries or not stat.S_ISREG(entries[module][0]):
@@ -160,4 +162,4 @@ def verify_runtime(entries, module_metadata):
     startup = verify_startup_configuration(entries)
     return {'module_sha256': module_metadata['files']['qca_cld3_wlan.ko']['sha256'],
             'kernel_release': module_metadata['kernel_release'], 'userspace': list(WLAN_EXECUTABLES),
-            'startup': startup, 'device_wifi_tested': False}
+            'startup': startup, 'remote_storage': remote_storage, 'device_wifi_tested': False}

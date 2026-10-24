@@ -54,6 +54,18 @@ Construction checks do not replace device testing.
 
 ## Bundled inputs and WLAN compatibility
 
+Remote storage is bundled from the original F22 vendor dump. Its binary is
+identical to Guacamole H40's legacy implementation and uses the stock `rmtfs`
+UIO interface. The C15 port implementation additionally requires `oembackup`
+and is rejected by import, tree and image verification. Backend failure guards
+remain in place; runtime operation still requires hardware validation.
+
+When refreshing proprietary inputs, pass `--rmt-storage-dump /path/to/7TPro_F22`
+to `tools/import_vendor.py` alongside its existing dump, official crypto and
+graphics inputs. `tools/rmt-storage-source.json` pins the exact original binary;
+there is no fallback to the general vendor dump. Normal builds use the bundled
+blob and require no external dump.
+
 `python3 tools/kernel_input.py` verifies bundled input hashes, stock payload
 reconstruction, native LZMA support, and the kernel/module release match.
 The archive selector remains a standalone tested tool outside the build path.

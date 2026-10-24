@@ -21,7 +21,7 @@
     "release": "4.14.180-perf+",
     "tracked": true
   },
-  "proprietary_manifest_sha256": "572e27163f10afb20da0111a5bf85f33d805452c32c501c5137f618559950333",
+  "proprietary_manifest_sha256": "e46a335d7d9aa14059aa9255137c3bcc1e383620d07ae2ca7a440ad1a2d2cbe9",
   "wlan_manifest_sha256": "92f529f2be72541927e1e87497057036aae849c44c7ca2c3ffab6acbf4797135",
   "reference_ramdisk_imported": false,
   "hardware_tested": false

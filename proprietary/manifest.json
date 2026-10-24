@@ -23,6 +23,15 @@
       "system/lib64/libllvm-glnext.so"
     ]
   },
+  "rmt_storage_source": {
+    "source_dump": "7TPro_F22",
+    "source": "vendor/bin/rmt_storage",
+    "destination": "system/bin/rmt_storage",
+    "bytes": 43504,
+    "sha256": "380528b7f8c8692fbef0dde678ecaec865981c09bbe9ccbe918449229cfa8bf7",
+    "shared_memory": "rmtfs",
+    "description": "Original F22 ARM64 remote storage; supports the stock legacy OEM layout without the C15 port's oembackup UIO requirement."
+  },
   "platform_libraries": [
     "android.hardware.boot@1.0.so",
     "android.hardware.boot@1.1.so",
@@ -221,8 +230,8 @@
     },
     "system/bin/rmt_storage": {
       "source": "vendor/bin/rmt_storage",
-      "bytes": 1952296,
-      "sha256": "ec79898d700d8657727cfa3b928930edd88b0810e597535f886af2dbb7173574",
+      "bytes": 43504,
+      "sha256": "380528b7f8c8692fbef0dde678ecaec865981c09bbe9ccbe918449229cfa8bf7",
       "elf_class": 64,
       "machine": "EM_AARCH64",
       "needed": [
@@ -238,7 +247,7 @@
         "libm.so",
         "libdl.so"
       ],
-      "source_dump": "C15_PORT_GUAC_4G"
+      "source_dump": "7TPro_F22"
     },
     "system/bin/tftp_server": {
       "source": "vendor/bin/tftp_server",

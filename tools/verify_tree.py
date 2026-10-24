@@ -23,6 +23,8 @@ def verify():
         assert actual == set(manifest['files']) | {'manifest.json'}, f'Untracked binary inputs: {actual - set(manifest["files"])}'
     assert set(prebuilt['files']) == {'boot-header-v2.bin', 'kernel', 'ramdisk-stock.cpio.gz', 'dtb.img', 'recovery-dtbo.img'}
     blobs = json.loads((ROOT/'proprietary/manifest.json').read_text())
+    from verify_rmt_storage import verify_tree as verify_rmt_storage_tree
+    verify_rmt_storage_tree(ROOT)
     graphics = json.loads((ROOT/'tools/gpu-source.json').read_text())
     assert blobs['graphics_source'] == graphics
     for dest in set(graphics['seeds'].values()) | set(graphics['required_libraries']):
