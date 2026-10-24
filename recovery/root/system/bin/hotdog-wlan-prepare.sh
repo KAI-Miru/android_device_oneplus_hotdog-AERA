@@ -3,13 +3,20 @@ set -e
 umask 077
 exec >/tmp/hotdog-wlan-prepare.log 2>&1
 trap 'status=$?; if [ "$status" -ne 0 ]; then setprop sys.hotdog.wlan.prepare failed; fi' EXIT
-expected_kernel=4.14.357-openela-ColorOS15-ci59+
 module=/system/lib/modules/msmnile/qca_cld3_wlan.ko
-[ "$(uname -r)" = "$expected_kernel" ] || {
-    echo 'Hotdog WLAN: refusing a module for a different kernel' >&2
+[ -r "$module" ] || exit 1
+# Derive the release from the actual bundled module, including repacked inputs.
+# A matching release is only a preflight: normal insmod still enforces vermagic
+# flags and symbol CRCs. Never force-load a module or start radio helpers first.
+module_vermagic=$(modinfo -F vermagic "$module") || {
+    echo 'WLAN: cannot read bundled module vermagic' >&2
     exit 1
 }
-[ -r "$module" ] || exit 1
+module_release=${module_vermagic%% *}
+[ -n "$module_release" ] && [ "$(uname -r)" = "$module_release" ] || {
+    echo 'WLAN: bundled module release does not match the running kernel' >&2
+    exit 1
+}
 
 # Native crypto initializes DE storage. Wait outside init's
 # main thread; credential-encrypted user storage is not needed for WLAN.

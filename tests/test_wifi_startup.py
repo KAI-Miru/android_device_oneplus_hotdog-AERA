@@ -24,6 +24,13 @@ with (root / 'events.jsonl').open('a') as events:
     events.write(json.dumps([name, *args]) + '\\n')
 if name == 'uname':
     print(os.environ.get('TASK_WLAN_TEST_KERNEL', '4.14.357-openela-ColorOS15-ci59+'))
+elif name == 'modinfo':
+    if os.environ.get('TASK_WLAN_FAIL_MODINFO') == '1':
+        sys.exit(1)
+    assert args[:2] == ['-F', 'vermagic']
+    print(Path(args[2]).read_text(), end='')
+elif name == 'insmod' and os.environ.get('TASK_WLAN_FAIL_INSMOD') == '1':
+    sys.exit(1)
 elif name == 'mount' and args[-2:] == [str(root / 'firmware'), str(root / 'vendor/firmware_mnt')]:
     shutil.copytree(root / 'firmware', root / 'vendor/firmware_mnt', dirs_exist_ok=True)
 elif name == 'mount':
@@ -65,13 +72,13 @@ class WifiStartupTests(unittest.TestCase):
             (self.root / path).mkdir(parents=True, exist_ok=True)
         (self.root / 'firmware/image/modemuw.jsn').write_text('{"sr_service":[{"provider":"wlan","service":"fw"}]}')
         (self.root / 'vendor/firmware_mnt').symlink_to(self.root / 'firmware', target_is_directory=True)
-        (self.root / 'system/lib/modules/msmnile/qca_cld3_wlan.ko').write_text('module supplied by fixture')
+        (self.root / 'system/lib/modules/msmnile/qca_cld3_wlan.ko').write_text('4.14.357-openela-ColorOS15-ci59+ SMP preempt mod_unload modversions aarch64\n')
         (self.root / 'system/etc/hotdog-wpa_supplicant.conf').write_text('ctrl_interface=DIR=/tmp/recovery/sockets GROUP=wifi\n')
         (self.root / 'proc/mounts').write_text(f'fixture {self.root}/mnt/vendor/persist ext4 ro,seclabel 0 0\n')
         (self.root / 'proc/self/mountinfo').touch()
         (self.root / 'proc/modules').touch()
         (self.root / 'properties.json').write_text('{"sys.hotdog.wlan.prepare":"preparing"}')
-        for name in ('uname', 'mount', 'chown', 'sleep', 'setprop', 'getprop', 'insmod'):
+        for name in ('uname', 'modinfo', 'mount', 'chown', 'sleep', 'setprop', 'getprop', 'insmod'):
             path = self.root / 'bin' / name
             path.write_text(MOCK)
             path.chmod(0o755)
@@ -138,6 +145,37 @@ class WifiStartupTests(unittest.TestCase):
         self.assertNotEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
         self.assertNotIn(['setprop', 'ctl.start', 'hotdog-wlan-firmware'], self.events())
         self.assertFalse(any(event[0] == 'insmod' for event in self.events()))
+
+    def test_replacement_kernel_and_bundled_module_pair_can_start(self):
+        release = '4.14.357-openela-ColorOS17-universal-ci14+'
+        self.env['TASK_WLAN_TEST_KERNEL'] = release
+        (self.root / 'system/lib/modules/msmnile/qca_cld3_wlan.ko').write_text(
+            release + ' SMP preempt mod_unload modversions aarch64\n')
+        self.assertEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
+        self.assertEqual(json.loads((self.root / 'properties.json').read_text())[
+            'sys.hotdog.wlan.prepare'], 'ready')
+        self.assertTrue(any(event[0] == 'insmod' for event in self.events()))
+
+    def test_unreadable_or_empty_module_metadata_fails_before_services(self):
+        for content, failure in [('', '0'), ('4.14.test SMP', '1')]:
+            with self.subTest(content=content, failure=failure):
+                (self.root / 'system/lib/modules/msmnile/qca_cld3_wlan.ko').write_text(content)
+                self.env['TASK_WLAN_FAIL_MODINFO'] = failure
+                self.assertNotEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
+                self.assertFalse(any(event[0] == 'insmod' or event[:2] == ['setprop', 'ctl.start']
+                                     for event in self.events()))
+                self.assertEqual(json.loads((self.root / 'properties.json').read_text())[
+                    'sys.hotdog.wlan.prepare'], 'failed')
+
+    def test_module_load_failure_cannot_report_ready_or_start_cnss(self):
+        self.env['TASK_WLAN_FAIL_INSMOD'] = '1'
+        self.assertNotEqual(self.run_script('hotdog-wlan-prepare.sh').returncode, 0)
+        self.assertEqual(json.loads((self.root / 'properties.json').read_text())[
+            'sys.hotdog.wlan.prepare'], 'failed')
+        events = self.events()
+        self.assertIn(['insmod', str(self.root / 'system/lib/modules/msmnile/qca_cld3_wlan.ko')], events)
+        self.assertNotIn(['setprop', 'ctl.start', 'hotdog-cnss-daemon'], events)
+        self.assertFalse(any(event[0] == 'insmod' and len(event) != 2 for event in events))
 
     def test_wrong_kernel_fails_before_service_changes(self):
         self.env['TASK_WLAN_TEST_KERNEL'] = 'wrong'
@@ -225,6 +263,15 @@ class WifiStartupTests(unittest.TestCase):
                    ('init.recovery.wifi.rc', 'system/bin/hotdog-wlan-domains.sh', 'system/bin/hotdog-wlan-prepare.sh', 'system/bin/hotdog-wpa-supplicant.sh',
                     'system/bin/hotdog-wlan-storage.sh', 'system/etc/hotdog-wpa_supplicant.conf')}
         verify_startup_configuration(entries)
+        prepare_name = 'system/bin/hotdog-wlan-prepare.sh'
+        for old, new in ((b'module_vermagic=$(modinfo -F vermagic "$module")', b'module_vermagic="fixed"'),
+                         (b'module_release=${module_vermagic%% *}', b'module_release=fixed'),
+                         (b'insmod "$module"', b'insmod -f "$module"')):
+            changed = dict(entries)
+            mode, script = entries[prepare_name]
+            changed[prepare_name] = (mode, script.replace(old, new))
+            with self.assertRaises(ValueError):
+                verify_startup_configuration(changed)
         for old, new in ((b'    start hotdog-wlan-prepare', b'    start hotdog-pd-mapper\n    start hotdog-wlan-prepare'),
                          (b'    oneshot\n    seclabel', b'    seclabel')):
             changed = dict(entries)

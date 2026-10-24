@@ -22,6 +22,16 @@ def verify_startup_configuration(entries):
     if '\n    oneshot\n' not in supplicant:
         raise ValueError('Failed WLAN startup must stop instead of automatically restarting')
     prepare = entries['system/bin/hotdog-wlan-prepare.sh'][1].decode()
+    for guard in ('module_vermagic=$(modinfo -F vermagic "$module")',
+                  'module_release=${module_vermagic%% *}',
+                  '[ "$(uname -r)" = "$module_release" ]'):
+        if guard not in prepare or prepare.index(guard) > prepare.index('start_service()'):
+            raise ValueError('WLAN must validate the actual bundled module before services')
+    if 'expected_kernel=' in prepare or 'insmod "$module"' not in prepare:
+        raise ValueError('WLAN must use normal module loading without a fixed kernel release')
+    for line in prepare.splitlines():
+        if line.strip().startswith('insmod ') and line.strip() != 'insmod "$module"':
+            raise ValueError('WLAN must not force-load its module')
     domains = entries['system/bin/hotdog-wlan-domains.sh'][1].decode()
     if '/vendor/firmware_mnt/image/modemuw.jsn' not in domains:
         raise ValueError('WLAN firmware-domain readiness check is missing')
@@ -72,6 +82,27 @@ def verify_startup_configuration(entries):
             'supplicant_private_config_owner': 'wifi'}
 
 
+def verify_module_metadata_tool(entries):
+    name = 'system/bin/modinfo'
+    if name not in entries:
+        raise ValueError('Bundled module metadata reader is missing')
+    mode, data = entries[name]
+    if stat.S_ISLNK(mode):
+        if data not in (b'toybox', b'/system/bin/toybox'):
+            raise ValueError('Unexpected module metadata reader link')
+        name = 'system/bin/toybox'
+        if name not in entries:
+            raise ValueError('Module metadata reader target is missing')
+        mode, data = entries[name]
+    if not stat.S_ISREG(mode) or not mode & 0o111:
+        raise ValueError('Module metadata reader must be executable')
+    elf = ELFFile(io.BytesIO(data))
+    if elf.elfclass != 64 or elf.header['e_machine'] != 'EM_AARCH64':
+        raise ValueError('Module metadata reader must be ARM64')
+    if name.endswith('/toybox') and b'modinfo\0' not in data:
+        raise ValueError('Toybox module metadata applet is missing')
+
+
 def verify_module(data, record):
     if len(data) != record['bytes'] or hashlib.sha256(data).hexdigest() != record['sha256']:
         raise ValueError('WLAN module identity differs from the pinned WLAN artifact')
@@ -98,6 +129,7 @@ def verify_module_tree(root):
 
 
 def verify_runtime(entries, module_metadata):
+    verify_module_metadata_tool(entries)
     module = 'system/lib/modules/msmnile/qca_cld3_wlan.ko'
     if module not in entries or not stat.S_ISREG(entries[module][0]):
         raise ValueError('Matched WLAN module is absent')

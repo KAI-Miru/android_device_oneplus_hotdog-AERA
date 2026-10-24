@@ -52,3 +52,17 @@ exact DTB/DTBO and supplied Image, complete GPU/crypto/WLAN inputs, native
 fastbootd and full strong-symbol dependency closure. The runner also verifies
 AVB. No feature may be removed and no bound relaxed merely to fit an image.
 Construction checks do not replace device testing.
+
+## Kernel containers and WLAN compatibility
+
+Kernel intake identifies ARM64 Image, gzip Image or boot-v2 payloads by content,
+not archive or member names. A ZIP may contain one candidate payload or one
+inner ZIP containing it. Multiple candidates, extra ZIP nesting, unsafe paths,
+symlinks and oversized inputs are rejected. The exact caller-supplied kernel
+SHA256 remains mandatory; ramdisks and device trees in containers are ignored.
+
+WLAN startup reads `modinfo -F vermagic` from the actual bundled module and
+compares its release with the running kernel before starting radio helpers.
+Normal `insmod` retains the kernel's vermagic and symbol-version checks; modules
+are never force-loaded. Rebuilding with a different kernel/module pair also
+requires updating the module manifest and passing the existing image/ABI audits.
