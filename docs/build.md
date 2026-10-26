@@ -43,8 +43,11 @@ bash /tmp/hotdog-build-inputs/ci/build.sh
 
 The product is `twrp_hotdog-bp2a-eng`; its target is `recoveryimage` and its
 output is `AERA-hotdog-ALPHA-recovery.img`. The source lock pins the current
-miru source and its native NAS dependencies. The first build needs a fresh
-source/toolchain plan; recovery source is never rewritten by build-time Python.
+miru recovery and platform `system/security` commits, plus native NAS dependencies.
+Keystore uses the standard executable with `--recovery` to omit only its Android
+boot-completion watcher; its crypto library and boot-completion/GC protection are
+unchanged. The first build needs a fresh source/toolchain plan; recovery source
+is never rewritten by build-time Python.
 
 The final verifier checks the physical partition and strict loader window,
 exact bundled F22 kernel and DTB/DTBO, complete GPU/crypto/WLAN inputs, native

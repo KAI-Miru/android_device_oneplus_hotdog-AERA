@@ -18,7 +18,7 @@
       "remote": "Miru",
       "url": "https://github.com/KAI-Miru/android_bootable_recovery.git",
       "branch": "miru",
-      "commit": "84c719729cb93f6480bba8322ce3b8a533e433a3"
+      "commit": "d25aa4cdb54cf053b3592a7c453b54e342f01c33"
     },
     {
       "path": "build/make",
@@ -311,10 +311,10 @@
     {
       "path": "system/security",
       "name": "android_system_security",
-      "remote": "AERA",
-      "url": "https://github.com/AERA-Recovery/android_system_security.git",
-      "branch": "aera-16.0",
-      "commit": "d614e274b585a67e80d3d3fbc3a6e9f695998f78"
+      "remote": "Miru",
+      "url": "https://github.com/KAI-Miru/android_system_security.git",
+      "branch": "miru",
+      "commit": "c66ca2f4a34379bace20db261f0fd75096e9ffe9"
     },
     {
       "path": "system/sepolicy",

@@ -6,6 +6,7 @@ from boot_v2 import parse_boot, bootloader_layout
 from elftools.elf.elffile import ELFFile
 from verify_wifi import WLAN_EXECUTABLES, verify_runtime as verify_wifi_runtime
 from verify_usb import verify_usb_configuration
+from verify_keystore import verify_keystore_runtime
 
 def unpack_newc(data):
     entries = {}; offset = 0
@@ -328,6 +329,7 @@ def verify(image, report, kernel=None):
     native_init = verify_native_init(entries)
     native_services = verify_native_service_configuration(entries)
     crypto_services = verify_crypto_service_configuration(entries)
+    keystore_runtime = verify_keystore_runtime(entries)
     gpu_runtime = verify_gpu_runtime(entries)
     wifi_runtime = verify_wifi_runtime(entries, json.loads((root/'modules/manifest.json').read_text()))
     inputs = json.loads((root/'proprietary/manifest.json').read_text())
@@ -350,7 +352,7 @@ def verify(image, report, kernel=None):
                 if s.entry.st_shndx != 'SHN_UNDEF': defined.add(s.name)
                 elif s.entry.st_info.bind == 'STB_GLOBAL': undefined.add(s.name)
         return deps, defined, undefined
-    audited = {n for n, record in inputs['files'].items() if 'needed' in record} | set(WLAN_EXECUTABLES) | {'system/bin/fastbootd', HEALTH_BINARY, HEALTH_PROVIDER, FASTBOOT_HAL_PROVIDER}
+    audited = {n for n, record in inputs['files'].items() if 'needed' in record} | set(WLAN_EXECUTABLES) | {'system/bin/keystore2', 'system/bin/fastbootd', HEALTH_BINARY, HEALTH_PROVIDER, FASTBOOT_HAL_PROVIDER}
     for n in sorted(audited):
         deps, defined, undefined = dynamic(entries[n][1]); seen = set(); todo = list(deps)
         while todo:
@@ -370,6 +372,7 @@ def verify(image, report, kernel=None):
               'native_init_script':native_init,'native_init_target':'/system/bin/init',
               'native_service_configuration':native_services,
               'official_crypto_services':crypto_services,
+              'keystore_runtime':keystore_runtime,
               'gatekeeper_startup':verify_gatekeeper_spu_configuration(entries),
               'ui_power_handoff':{'graphics_thread_kept_alive':True,'terminal_action_retained':True,'device_reboot_tested':False},
               'fastbootd_enabled':True, 'fastbootd_runtime':fastboot_runtime,

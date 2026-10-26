@@ -113,6 +113,8 @@ def verify():
     verify_crypto_service_configuration(service_entries)
     ET.parse(ROOT/'manifest.xml')
     lock = json.loads((ROOT/'sources.lock.json').read_text())
+    from verify_recovery_source import keystore_source_pin
+    keystore_source_pin(lock, ROOT)
     assert len({p['path'] for p in lock['projects']}) == len(lock['projects'])
     assert all(re.fullmatch('[0-9a-f]{40}',p['commit']) for p in lock['projects'])
     recovery = next(p for p in lock['projects'] if p['path'] == 'bootable/recovery')
