@@ -28,6 +28,20 @@ class OfficialCryptoTests(unittest.TestCase):
                 b'    start qseecomd\n    start gatekeeper-1-0-qti\n'),
         }
 
+    def test_persist_is_writable_before_crypto_startup(self):
+        root = Path(__file__).resolve().parents[1]
+        lines = (root / 'recovery/root/init.recovery.qcom.rc').read_text().splitlines()
+        action = None
+        mounts = []
+        for line in lines:
+            if line and not line[0].isspace() and not line.startswith('#'):
+                action = line
+            fields = line.split()
+            if fields[:1] == ['mount'] and '/mnt/vendor/persist' in fields:
+                mounts.append((action, fields))
+        self.assertEqual(mounts, [('on fs', ['mount', 'ext4',
+            '/dev/block/bootdevice/by-name/persist', '/mnt/vendor/persist', 'rw'])])
+
     def test_standard_services_keep_official_providers_when_vendor_is_mounted(self):
         self.assertEqual(len(verify_crypto_service_configuration(self.services())), 3)
 

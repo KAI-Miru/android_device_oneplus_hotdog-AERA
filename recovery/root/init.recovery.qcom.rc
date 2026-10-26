@@ -24,7 +24,7 @@ on fs
     mount vfat /dev/block/bootdevice/by-name/modem${ro.boot.slot_suffix} /firmware ro
     symlink /firmware /vendor/firmware_mnt
     mkdir /mnt/vendor/persist 0755 root root
-    mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist ro
+    mount ext4 /dev/block/bootdevice/by-name/persist /mnt/vendor/persist rw
 
 on boot
     # Fastbootd waits for Health before publishing its USB descriptors.
