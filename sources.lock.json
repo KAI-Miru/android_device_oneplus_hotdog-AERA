@@ -18,7 +18,7 @@
       "remote": "Miru",
       "url": "https://github.com/KAI-Miru/android_bootable_recovery.git",
       "branch": "miru",
-      "commit": "e7246d45382c4b421160019ab6f2af142fd1689b"
+      "commit": "6fa0605351d67276a27189b2f486dda74e0a60a5"
     },
     {
       "path": "build/make",
