@@ -65,6 +65,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/init.recovery.usb.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.recovery.usb.rc \
     $(LOCAL_PATH)/recovery/root/ueventd.qcom.rc:$(TARGET_COPY_OUT_RECOVERY)/root/ueventd.qcom.rc \
     $(LOCAL_PATH)/recovery/root/system/etc/twrp.flags:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/twrp.flags \
+    $(LOCAL_PATH)/recovery/root/system/bin/oneplus-model.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/oneplus-model.sh \
     $(LOCAL_PATH)/recovery/root/system/bin/runatboot.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/runatboot.sh \
     $(LOCAL_PATH)/recovery/root/system/bin/postscreenunblank.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/postscreenunblank.sh \
     $(LOCAL_PATH)/recovery/root/system/bin/hotdog-wlan-firmware.sh:$(TARGET_COPY_OUT_RECOVERY)/root/system/bin/hotdog-wlan-firmware.sh \
