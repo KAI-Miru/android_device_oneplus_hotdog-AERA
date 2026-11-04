@@ -70,7 +70,7 @@ class HapticDurationTests(unittest.TestCase):
             record = manifest['files'][name]
             self.assertEqual(record['source_dump'], self.source['source_dump'])
             self.assertEqual(record['sha256'], identity['sha256'])
-            self.assertIn(f'$(LOCAL_PATH)/proprietary/{name}:$(TARGET_COPY_OUT_RECOVERY)/root/{name}', copies)
+            self.assertIn(f'$(LOCAL_PATH)/proprietary/{name}:$(TARGET_COPY_OUT_RECOVERY)/root/system/etc/firmware/{Path(name).name}', copies)
 
 
 class SystemMountTests(unittest.TestCase):

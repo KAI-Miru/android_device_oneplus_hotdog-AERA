@@ -30,10 +30,11 @@ def haptic_inputs(dump, source):
     return result
 
 
-def verify_haptic_runtime(entries):
+def verify_haptic_runtime(entries, directory='vendor/firmware'):
     source = json.loads(Path(__file__).with_name('haptic-source.json').read_text())
     verify_haptic_source(source)
     for name, identity in source['files'].items():
+        name = directory + '/' + Path(name).name
         if name not in entries or not stat.S_ISREG(entries[name][0]):
             raise ValueError(f'Missing regular haptic firmware: {name}')
         data = entries[name][1]

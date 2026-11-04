@@ -306,7 +306,7 @@ def verify(image, report, kernel=None):
     from verify_mount_options import verify_system_mount_options
     system_mount_options = verify_system_mount_options(entries['system/etc/recovery.fstab'][1].decode())
     from verify_haptics import verify_haptic_runtime
-    haptic_runtime = verify_haptic_runtime(entries)
+    haptic_runtime = verify_haptic_runtime(entries, 'system/etc/firmware')
     from verify_busybox import verify_runtime as verify_busybox_runtime
     busybox_runtime = verify_busybox_runtime(entries)
     from verify_hotdog import verify_fastboot_runtime, HEALTH_BINARY, HEALTH_PROVIDER, FASTBOOT_HAL_PROVIDER
@@ -334,6 +334,7 @@ def verify(image, report, kernel=None):
     wifi_runtime = verify_wifi_runtime(entries, json.loads((root/'modules/manifest.json').read_text()))
     inputs = json.loads((root/'proprietary/manifest.json').read_text())
     for n, record in inputs['files'].items():
+        n = 'system/etc/firmware/' + Path(n).name if record.get('runtime') == 'haptics' else n
         if n not in entries or hashlib.sha256(entries[n][1]).hexdigest() != record['sha256']:
             raise ValueError(f'Packaged vendor input differs or is absent: {n}')
     # Check the compiled provider closure, not just dependency names in the tree.
